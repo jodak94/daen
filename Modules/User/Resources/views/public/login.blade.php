@@ -6,6 +6,7 @@
 
 @section('content')
     <div class="login-logo">
+        <img width="100%" src="{{asset('img/logo.png')}}">
         <a href="{{ url('/') }}">{{ setting('core::site-name') }}</a>
     </div>
     <!-- /.login-logo -->
