@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Analisis extends Model
 {
+    use Translatable;
 
     protected $table = 'analisis__analises';
     public $translatedAttributes = [];

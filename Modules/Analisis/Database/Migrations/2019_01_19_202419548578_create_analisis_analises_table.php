@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAnalisisPlantillasTable extends Migration
+class CreateAnalisisAnalisesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,10 @@ class CreateAnalisisPlantillasTable extends Migration
      */
     public function up()
     {
-        Schema::create('analisis__plantillas', function (Blueprint $table) {
+        Schema::create('analisis__analises', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             // Your fields
-            $table->string('titulo');
-            $table->integer('subplantilla_id')->unsigned()->nullable();
-            $table->foreign('subplantilla_id')->references('id')->on('analisis__plantillas');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateAnalisisPlantillasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('analisis__plantillas');
+        Schema::dropIfExists('analisis__analises');
     }
 }

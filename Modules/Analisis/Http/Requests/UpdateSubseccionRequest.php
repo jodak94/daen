@@ -4,7 +4,7 @@ namespace Modules\Analisis\Http\Requests;
 
 use Modules\Core\Internationalisation\BaseFormRequest;
 
-class CreatePlantillaRequest extends BaseFormRequest
+class UpdateSubseccionRequest extends BaseFormRequest
 {
     public function rules()
     {

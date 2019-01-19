@@ -5,10 +5,11 @@ namespace Modules\Analisis\Entities;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Plantilla extends Model
+class Subseccion extends Model
 {
+    use Translatable;
 
-    protected $table = 'analisis__plantillas';
+    protected $table = 'analisis__subseccions';
     public $translatedAttributes = [];
     protected $fillable = [];
 }

@@ -31,11 +31,10 @@ class AnalisisServiceProvider extends ServiceProvider
         $this->app['events']->listen(LoadingBackendTranslations::class, function (LoadingBackendTranslations $event) {
             $event->load('analises', array_dot(trans('analisis::analises')));
             $event->load('seccions', array_dot(trans('analisis::seccions')));
-            $event->load('resultados', array_dot(trans('analisis::resultados')));
+            $event->load('subseccions', array_dot(trans('analisis::subseccions')));
             $event->load('determinacions', array_dot(trans('analisis::determinacions')));
-            $event->load('plantillas', array_dot(trans('analisis::plantillas')));
+            $event->load('resultados', array_dot(trans('analisis::resultados')));
             // append translations
-
 
 
 
@@ -88,15 +87,15 @@ class AnalisisServiceProvider extends ServiceProvider
             }
         );
         $this->app->bind(
-            'Modules\Analisis\Repositories\ResultadoRepository',
+            'Modules\Analisis\Repositories\SubseccionRepository',
             function () {
-                $repository = new \Modules\Analisis\Repositories\Eloquent\EloquentResultadoRepository(new \Modules\Analisis\Entities\Resultado());
+                $repository = new \Modules\Analisis\Repositories\Eloquent\EloquentSubseccionRepository(new \Modules\Analisis\Entities\Subseccion());
 
                 if (! config('app.cache')) {
                     return $repository;
                 }
 
-                return new \Modules\Analisis\Repositories\Cache\CacheResultadoDecorator($repository);
+                return new \Modules\Analisis\Repositories\Cache\CacheSubseccionDecorator($repository);
             }
         );
         $this->app->bind(
@@ -112,19 +111,18 @@ class AnalisisServiceProvider extends ServiceProvider
             }
         );
         $this->app->bind(
-            'Modules\Analisis\Repositories\PlantillaRepository',
+            'Modules\Analisis\Repositories\ResultadoRepository',
             function () {
-                $repository = new \Modules\Analisis\Repositories\Eloquent\EloquentPlantillaRepository(new \Modules\Analisis\Entities\Plantilla());
+                $repository = new \Modules\Analisis\Repositories\Eloquent\EloquentResultadoRepository(new \Modules\Analisis\Entities\Resultado());
 
                 if (! config('app.cache')) {
                     return $repository;
                 }
 
-                return new \Modules\Analisis\Repositories\Cache\CachePlantillaDecorator($repository);
+                return new \Modules\Analisis\Repositories\Cache\CacheResultadoDecorator($repository);
             }
         );
 // add bindings
-
 
 
 

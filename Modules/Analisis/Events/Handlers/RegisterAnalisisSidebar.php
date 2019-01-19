@@ -61,13 +61,13 @@ class RegisterAnalisisSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                         $this->auth->hasAccess('analisis.seccions.index')
                     );
                 });
-                $item->item(trans('analisis::resultados.title.resultados'), function (Item $item) {
+                $item->item(trans('analisis::subseccions.title.subseccions'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
-                    $item->append('admin.analisis.resultado.create');
-                    $item->route('admin.analisis.resultado.index');
+                    $item->append('admin.analisis.subseccion.create');
+                    $item->route('admin.analisis.subseccion.index');
                     $item->authorize(
-                        $this->auth->hasAccess('analisis.resultados.index')
+                        $this->auth->hasAccess('analisis.subseccions.index')
                     );
                 });
                 $item->item(trans('analisis::determinacions.title.determinacions'), function (Item $item) {
@@ -79,17 +79,16 @@ class RegisterAnalisisSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                         $this->auth->hasAccess('analisis.determinacions.index')
                     );
                 });
-                $item->item(trans('analisis::plantillas.title.plantillas'), function (Item $item) {
+                $item->item(trans('analisis::resultados.title.resultados'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
-                    $item->append('admin.analisis.plantilla.create');
-                    $item->route('admin.analisis.plantilla.index');
+                    $item->append('admin.analisis.resultado.create');
+                    $item->route('admin.analisis.resultado.index');
                     $item->authorize(
-                        $this->auth->hasAccess('analisis.plantillas.index')
+                        $this->auth->hasAccess('analisis.resultados.index')
                     );
                 });
 // append
-
 
 
 

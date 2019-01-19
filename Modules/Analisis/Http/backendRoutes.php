@@ -70,38 +70,38 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'uses' => 'SeccionController@destroy',
         'middleware' => 'can:analisis.seccions.destroy'
     ]);
-    $router->bind('resultado', function ($id) {
-        return app('Modules\Analisis\Repositories\ResultadoRepository')->find($id);
+    $router->bind('subseccion', function ($id) {
+        return app('Modules\Analisis\Repositories\SubseccionRepository')->find($id);
     });
-    $router->get('resultados', [
-        'as' => 'admin.analisis.resultado.index',
-        'uses' => 'ResultadoController@index',
-        'middleware' => 'can:analisis.resultados.index'
+    $router->get('subseccions', [
+        'as' => 'admin.analisis.subseccion.index',
+        'uses' => 'SubseccionController@index',
+        'middleware' => 'can:analisis.subseccions.index'
     ]);
-    $router->get('resultados/create', [
-        'as' => 'admin.analisis.resultado.create',
-        'uses' => 'ResultadoController@create',
-        'middleware' => 'can:analisis.resultados.create'
+    $router->get('subseccions/create', [
+        'as' => 'admin.analisis.subseccion.create',
+        'uses' => 'SubseccionController@create',
+        'middleware' => 'can:analisis.subseccions.create'
     ]);
-    $router->post('resultados', [
-        'as' => 'admin.analisis.resultado.store',
-        'uses' => 'ResultadoController@store',
-        'middleware' => 'can:analisis.resultados.create'
+    $router->post('subseccions', [
+        'as' => 'admin.analisis.subseccion.store',
+        'uses' => 'SubseccionController@store',
+        'middleware' => 'can:analisis.subseccions.create'
     ]);
-    $router->get('resultados/{resultado}/edit', [
-        'as' => 'admin.analisis.resultado.edit',
-        'uses' => 'ResultadoController@edit',
-        'middleware' => 'can:analisis.resultados.edit'
+    $router->get('subseccions/{subseccion}/edit', [
+        'as' => 'admin.analisis.subseccion.edit',
+        'uses' => 'SubseccionController@edit',
+        'middleware' => 'can:analisis.subseccions.edit'
     ]);
-    $router->put('resultados/{resultado}', [
-        'as' => 'admin.analisis.resultado.update',
-        'uses' => 'ResultadoController@update',
-        'middleware' => 'can:analisis.resultados.edit'
+    $router->put('subseccions/{subseccion}', [
+        'as' => 'admin.analisis.subseccion.update',
+        'uses' => 'SubseccionController@update',
+        'middleware' => 'can:analisis.subseccions.edit'
     ]);
-    $router->delete('resultados/{resultado}', [
-        'as' => 'admin.analisis.resultado.destroy',
-        'uses' => 'ResultadoController@destroy',
-        'middleware' => 'can:analisis.resultados.destroy'
+    $router->delete('subseccions/{subseccion}', [
+        'as' => 'admin.analisis.subseccion.destroy',
+        'uses' => 'SubseccionController@destroy',
+        'middleware' => 'can:analisis.subseccions.destroy'
     ]);
     $router->bind('determinacion', function ($id) {
         return app('Modules\Analisis\Repositories\DeterminacionRepository')->find($id);
@@ -136,42 +136,40 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'uses' => 'DeterminacionController@destroy',
         'middleware' => 'can:analisis.determinacions.destroy'
     ]);
-    $router->bind('plantilla', function ($id) {
-        return app('Modules\Analisis\Repositories\PlantillaRepository')->find($id);
+    $router->bind('resultado', function ($id) {
+        return app('Modules\Analisis\Repositories\ResultadoRepository')->find($id);
     });
-    $router->get('plantillas', [
-        'as' => 'admin.analisis.plantilla.index',
-        'uses' => 'PlantillaController@index',
-        'middleware' => 'can:analisis.plantillas.index'
+    $router->get('resultados', [
+        'as' => 'admin.analisis.resultado.index',
+        'uses' => 'ResultadoController@index',
+        'middleware' => 'can:analisis.resultados.index'
     ]);
-    $router->get('plantillas/create', [
-        'as' => 'admin.analisis.plantilla.create',
-        'uses' => 'PlantillaController@create',
-        'middleware' => 'can:analisis.plantillas.create'
+    $router->get('resultados/create', [
+        'as' => 'admin.analisis.resultado.create',
+        'uses' => 'ResultadoController@create',
+        'middleware' => 'can:analisis.resultados.create'
     ]);
-    $router->post('plantillas', [
-        'as' => 'admin.analisis.plantilla.store',
-        'uses' => 'PlantillaController@store',
-        'middleware' => 'can:analisis.plantillas.create'
+    $router->post('resultados', [
+        'as' => 'admin.analisis.resultado.store',
+        'uses' => 'ResultadoController@store',
+        'middleware' => 'can:analisis.resultados.create'
     ]);
-    $router->get('plantillas/{plantilla}/edit', [
-        'as' => 'admin.analisis.plantilla.edit',
-        'uses' => 'PlantillaController@edit',
-        'middleware' => 'can:analisis.plantillas.edit'
+    $router->get('resultados/{resultado}/edit', [
+        'as' => 'admin.analisis.resultado.edit',
+        'uses' => 'ResultadoController@edit',
+        'middleware' => 'can:analisis.resultados.edit'
     ]);
-    $router->put('plantillas/{plantilla}', [
-        'as' => 'admin.analisis.plantilla.update',
-        'uses' => 'PlantillaController@update',
-        'middleware' => 'can:analisis.plantillas.edit'
+    $router->put('resultados/{resultado}', [
+        'as' => 'admin.analisis.resultado.update',
+        'uses' => 'ResultadoController@update',
+        'middleware' => 'can:analisis.resultados.edit'
     ]);
-    $router->delete('plantillas/{plantilla}', [
-        'as' => 'admin.analisis.plantilla.destroy',
-        'uses' => 'PlantillaController@destroy',
-        'middleware' => 'can:analisis.plantillas.destroy'
+    $router->delete('resultados/{resultado}', [
+        'as' => 'admin.analisis.resultado.destroy',
+        'uses' => 'ResultadoController@destroy',
+        'middleware' => 'can:analisis.resultados.destroy'
     ]);
-    
 // append
-
 
 
 

@@ -2,11 +2,11 @@
 
 @section('content-header')
     <h1>
-        {{ trans('analisis::plantillas.title.plantillas') }}
+        {{ trans('analisis::subseccions.title.subseccions') }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
-        <li class="active">{{ trans('analisis::plantillas.title.plantillas') }}</li>
+        <li class="active">{{ trans('analisis::subseccions.title.subseccions') }}</li>
     </ol>
 @stop
 
@@ -15,8 +15,8 @@
         <div class="col-xs-12">
             <div class="row">
                 <div class="btn-group pull-right" style="margin: 0 15px 15px 0;">
-                    <a href="{{ route('admin.analisis.plantilla.create') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px;">
-                        <i class="fa fa-pencil"></i> {{ trans('analisis::plantillas.button.create plantilla') }}
+                    <a href="{{ route('admin.analisis.subseccion.create') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px;">
+                        <i class="fa fa-pencil"></i> {{ trans('analisis::subseccions.button.create subseccion') }}
                     </a>
                 </div>
             </div>
@@ -34,18 +34,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php if (isset($plantillas)): ?>
-                            <?php foreach ($plantillas as $plantilla): ?>
+                            <?php if (isset($subseccions)): ?>
+                            <?php foreach ($subseccions as $subseccion): ?>
                             <tr>
                                 <td>
-                                    <a href="{{ route('admin.analisis.plantilla.edit', [$plantilla->id]) }}">
-                                        {{ $plantilla->created_at }}
+                                    <a href="{{ route('admin.analisis.subseccion.edit', [$subseccion->id]) }}">
+                                        {{ $subseccion->created_at }}
                                     </a>
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('admin.analisis.plantilla.edit', [$plantilla->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
-                                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.analisis.plantilla.destroy', [$plantilla->id]) }}"><i class="fa fa-trash"></i></button>
+                                        <a href="{{ route('admin.analisis.subseccion.edit', [$subseccion->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+                                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.analisis.subseccion.destroy', [$subseccion->id]) }}"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -75,7 +75,7 @@
 @section('shortcuts')
     <dl class="dl-horizontal">
         <dt><code>c</code></dt>
-        <dd>{{ trans('analisis::plantillas.title.create plantilla') }}</dd>
+        <dd>{{ trans('analisis::subseccions.title.create subseccion') }}</dd>
     </dl>
 @stop
 
@@ -84,7 +84,7 @@
         $( document ).ready(function() {
             $(document).keypressAction({
                 actions: [
-                    { key: 'c', route: "<?= route('admin.analisis.plantilla.create') ?>" }
+                    { key: 'c', route: "<?= route('admin.analisis.subseccion.create') ?>" }
                 ]
             });
         });

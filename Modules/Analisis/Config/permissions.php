@@ -13,11 +13,11 @@ return [
         'edit' => 'analisis::seccions.edit resource',
         'destroy' => 'analisis::seccions.destroy resource',
     ],
-    'analisis.resultados' => [
-        'index' => 'analisis::resultados.list resource',
-        'create' => 'analisis::resultados.create resource',
-        'edit' => 'analisis::resultados.edit resource',
-        'destroy' => 'analisis::resultados.destroy resource',
+    'analisis.subseccions' => [
+        'index' => 'analisis::subseccions.list resource',
+        'create' => 'analisis::subseccions.create resource',
+        'edit' => 'analisis::subseccions.edit resource',
+        'destroy' => 'analisis::subseccions.destroy resource',
     ],
     'analisis.determinacions' => [
         'index' => 'analisis::determinacions.list resource',
@@ -25,12 +25,13 @@ return [
         'edit' => 'analisis::determinacions.edit resource',
         'destroy' => 'analisis::determinacions.destroy resource',
     ],
-    'analisis.plantillas' => [
-        'index' => 'analisis::plantillas.list resource',
-        'create' => 'analisis::plantillas.create resource',
-        'edit' => 'analisis::plantillas.edit resource',
-        'destroy' => 'analisis::plantillas.destroy resource',
+    'analisis.resultados' => [
+        'index' => 'analisis::resultados.list resource',
+        'create' => 'analisis::resultados.create resource',
+        'edit' => 'analisis::resultados.edit resource',
+        'destroy' => 'analisis::resultados.destroy resource',
     ],
+// append
 
 
 
