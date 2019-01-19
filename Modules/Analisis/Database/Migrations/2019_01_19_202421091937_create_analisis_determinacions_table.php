@@ -16,6 +16,9 @@ class CreateAnalisisDeterminacionsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             // Your fields
+            $table->string('titulo');
+            $table->string('rangoRefrencia');
+            $table->string('unidadMedida');
             $table->timestamps();
         });
     }
