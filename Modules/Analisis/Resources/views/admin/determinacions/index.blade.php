@@ -29,7 +29,10 @@
                         <table class="data-table table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>{{ trans('core::core.table.created at') }}</th>
+                                <th>Título</th>
+                                <th>Unidad de medida</th>
+                                <th>Rango de referencia</th>
+                                <th>Subsección</th>
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                             </tr>
                             </thead>
@@ -39,7 +42,22 @@
                             <tr>
                                 <td>
                                     <a href="{{ route('admin.analisis.determinacion.edit', [$determinacion->id]) }}">
-                                        {{ $determinacion->created_at }}
+                                        {{ $determinacion->titulo }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.analisis.determinacion.edit', [$determinacion->id]) }}">
+                                      {{ $determinacion->unidad_medida }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.analisis.determinacion.edit', [$determinacion->id]) }}">
+                                        {{ $determinacion->rango_referencia_format }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.analisis.determinacion.edit', [$determinacion->id]) }}">
+                                        {{ $determinacion->subseccion->titulo }}
                                     </a>
                                 </td>
                                 <td>
@@ -54,7 +72,10 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>{{ trans('core::core.table.created at') }}</th>
+                                <th>Título</th>
+                                <th>Unidad de medida</th>
+                                <th>Rango de referencia</th>
+                                <th>Subsección</th>
                                 <th>{{ trans('core::core.table.actions') }}</th>
                             </tr>
                             </tfoot>

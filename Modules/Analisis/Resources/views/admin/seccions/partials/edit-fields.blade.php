@@ -1,5 +1,7 @@
 <div class="box-body">
-    <p>
-        Your fields //
-    </p>
+  <div class="row">
+    <div class="col-md-6">
+      {!! Form::normalInput('titulo', 'Título', $errors, $seccion) !!}
+    </div>
+  </div>
 </div>

@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subseccion extends Model
 {
-    use Translatable;
-
     protected $table = 'analisis__subseccions';
     public $translatedAttributes = [];
-    protected $fillable = [];
+    protected $fillable = ['titulo', 'seccion_id'];
+
+    public function seccion(){
+      return $this->belongsTo('Modules\Analisis\Entities\Seccion');
+    }
+
+    public function determinacion(){
+      return $this->hasMany('Modules\Analisis\Entities\Determinacion');
+    }
 }

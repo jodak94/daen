@@ -1,16 +1,26 @@
 @extends('layouts.master')
 
 @section('content-header')
-    <h1>
-        {{ trans('analisis::analises.title.create analisis') }}
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
-        <li><a href="{{ route('admin.analisis.analisis.index') }}">{{ trans('analisis::analises.title.analises') }}</a></li>
-        <li class="active">{{ trans('analisis::analises.title.create analisis') }}</li>
-    </ol>
-@stop
 
+@stop
+@push('css-stack')
+  <link rel="stylesheet" href="{{ asset('themes/adminlte/css/vendor/jQueryUI/jquery-ui-1.10.3.custom.min.css') }}">
+  <style>
+    .input-error{
+      background-color: #d73925;
+      color: #fff;
+    }
+    .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td{
+      border: 1px solid #ddd
+    }
+    .center{
+      text-align: center;
+    }
+    .tr-titulo{
+      background-color: #efefef;
+    }
+  </style>
+@endpush
 @section('content')
     {!! Form::open(['route' => ['admin.analisis.analisis.store'], 'method' => 'post']) !!}
     <div class="row">
@@ -22,6 +32,11 @@
                     @foreach (LaravelLocalization::getSupportedLocales() as $locale => $language)
                         <?php $i++; ?>
                         <div class="tab-pane {{ locale() == $locale ? 'active' : '' }}" id="tab_{{ $i }}">
+                            <div class="box-header" style="border-bottom: 1px solid #f4f4f4">
+                              <h3 style="margin:0">
+                                  {{ trans('analisis::analises.title.create analisis') }}
+                              </h3>
+                            </div>
                             @include('analisis::admin.analises.partials.create-fields', ['lang' => $locale])
                         </div>
                     @endforeach
@@ -36,7 +51,7 @@
     </div>
     {!! Form::close() !!}
 @stop
-
+@include('pacientes::admin.pacientes.partials.modal-add-paciente')
 @section('footer')
     <a data-toggle="modal" data-target="#keyboardShortcutsModal"><i class="fa fa-keyboard-o"></i></a> &nbsp;
 @stop
@@ -48,6 +63,8 @@
 @stop
 
 @push('js-stack')
+  <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
+  @include('analisis::admin.analises.partials.script')
     <script type="text/javascript">
         $( document ).ready(function() {
             $(document).keypressAction({

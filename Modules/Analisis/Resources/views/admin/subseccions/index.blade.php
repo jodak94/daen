@@ -29,7 +29,8 @@
                         <table class="data-table table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>{{ trans('core::core.table.created at') }}</th>
+                                <th>Título</th>
+                                <th>Sección</th>
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                             </tr>
                             </thead>
@@ -39,7 +40,12 @@
                             <tr>
                                 <td>
                                     <a href="{{ route('admin.analisis.subseccion.edit', [$subseccion->id]) }}">
-                                        {{ $subseccion->created_at }}
+                                        {{ $subseccion->titulo }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.analisis.subseccion.edit', [$subseccion->id]) }}">
+                                        {{ $subseccion->seccion->titulo }}
                                     </a>
                                 </td>
                                 <td>
@@ -54,7 +60,8 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>{{ trans('core::core.table.created at') }}</th>
+                                <th>Título</th>
+                                <th>Sección</th>
                                 <th>{{ trans('core::core.table.actions') }}</th>
                             </tr>
                             </tfoot>

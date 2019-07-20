@@ -31,9 +31,9 @@ class SeccionController extends AdminBaseController
      */
     public function index()
     {
-        //$seccions = $this->seccion->all();
+        $seccions = $this->seccion->all();
 
-        return view('analisis::admin.seccions.index', compact(''));
+        return view('analisis::admin.seccions.index', compact('seccions'));
     }
 
     /**

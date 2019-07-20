@@ -16,8 +16,6 @@ class CreateAnalisisSeccionsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             // Your fields
-            $table->integer('analisis_id')->unsigned();
-            $table->foreign('analisis_id')->references('id')->on('analisis__analises')->onDelete('cascade');
             $table->string('titulo');
             $table->timestamps();
         });

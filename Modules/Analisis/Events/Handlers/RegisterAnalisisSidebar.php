@@ -37,21 +37,24 @@ class RegisterAnalisisSidebar implements \Maatwebsite\Sidebar\SidebarExtender
     public function extendWith(Menu $menu)
     {
         $menu->group(trans('core::sidebar.content'), function (Group $group) {
-            $group->item(trans('analisis::analises.title.analises'), function (Item $item) {
-                $item->icon('fa fa-copy');
+          $group->item(trans('Resultados'), function (Item $item) {
+              $item->icon('fa fa-flask');
+              $item->weight(1);
+              $item->append('admin.analisis.analisis.create');
+              $item->route('admin.analisis.analisis.index');
+              $item->authorize(
+                   /* append */
+              );
+          });
+        });
+
+        $menu->group(trans('core::sidebar.content'), function (Group $group) {
+            $group->item(trans('Configuraciones'), function (Item $item) {
+                $item->icon('fa fa-cog');
                 $item->weight(10);
                 $item->authorize(
                      /* append */
                 );
-                $item->item(trans('analisis::analises.title.analises'), function (Item $item) {
-                    $item->icon('fa fa-copy');
-                    $item->weight(0);
-                    $item->append('admin.analisis.analisis.create');
-                    $item->route('admin.analisis.analisis.index');
-                    $item->authorize(
-                        $this->auth->hasAccess('analisis.analises.index')
-                    );
-                });
                 $item->item(trans('analisis::seccions.title.seccions'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
@@ -70,7 +73,7 @@ class RegisterAnalisisSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                         $this->auth->hasAccess('analisis.subseccions.index')
                     );
                 });
-                $item->item(trans('analisis::determinacions.title.determinacions'), function (Item $item) {
+                $item->item(trans('Determinaciones'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
                     $item->append('admin.analisis.determinacion.create');
@@ -79,21 +82,6 @@ class RegisterAnalisisSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                         $this->auth->hasAccess('analisis.determinacions.index')
                     );
                 });
-                $item->item(trans('analisis::resultados.title.resultados'), function (Item $item) {
-                    $item->icon('fa fa-copy');
-                    $item->weight(0);
-                    $item->append('admin.analisis.resultado.create');
-                    $item->route('admin.analisis.resultado.index');
-                    $item->authorize(
-                        $this->auth->hasAccess('analisis.resultados.index')
-                    );
-                });
-// append
-
-
-
-
-
             });
         });
 

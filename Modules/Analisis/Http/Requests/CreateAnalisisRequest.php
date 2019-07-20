@@ -8,7 +8,7 @@ class CreateAnalisisRequest extends BaseFormRequest
 {
     public function rules()
     {
-        return [];
+        return ['paciente_id' => 'required'];
     }
 
     public function translationRules()
@@ -23,7 +23,7 @@ class CreateAnalisisRequest extends BaseFormRequest
 
     public function messages()
     {
-        return [];
+        return ['paciente_id.required' => 'El campo Paciente es requerido'];
     }
 
     public function translationMessages()

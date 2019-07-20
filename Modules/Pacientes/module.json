@@ -1,0 +1,18 @@
+{
+    "name": "Pacientes",
+    "alias": "pacientes",
+    "description": "",
+    "keywords": [],
+    "version": "1.0.0",
+	"active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Pacientes\\Providers\\PacientesServiceProvider",
+        "Modules\\Pacientes\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        
+    ],
+    "requires": []
+}

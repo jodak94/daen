@@ -15,16 +15,16 @@ class RegisterPageSidebar extends AbstractAdminSidebar
      */
     public function extendWith(Menu $menu)
     {
-        $menu->group(trans('core::sidebar.content'), function (Group $group) {
-            $group->item(trans('page::pages.pages'), function (Item $item) {
-                $item->icon('fa fa-file');
-                $item->weight(10);
-                $item->route('admin.page.page.index');
-                $item->authorize(
-                    $this->auth->hasAccess('page.pages.index')
-                );
-            });
-        });
+        // $menu->group(trans('core::sidebar.content'), function (Group $group) {
+        //     $group->item(trans('page::pages.pages'), function (Item $item) {
+        //         $item->icon('fa fa-file');
+        //         $item->weight(10);
+        //         $item->route('admin.page.page.index');
+        //         $item->authorize(
+        //             $this->auth->hasAccess('page.pages.index')
+        //         );
+        //     });
+        // });
 
         return $menu;
     }

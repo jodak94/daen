@@ -53,7 +53,7 @@ class AnalisisController extends AdminBaseController
      * @return Response
      */
     public function store(CreateAnalisisRequest $request)
-    {
+    {   dd($request->all());
         $this->analisis->create($request->all());
 
         return redirect()->route('admin.analisis.analisis.index')

@@ -5,6 +5,7 @@ namespace Modules\Analisis\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Analisis\Entities\Determinacion;
+use Modules\Analisis\Entities\Subseccion;
 use Modules\Analisis\Http\Requests\CreateDeterminacionRequest;
 use Modules\Analisis\Http\Requests\UpdateDeterminacionRequest;
 use Modules\Analisis\Repositories\DeterminacionRepository;
@@ -31,9 +32,9 @@ class DeterminacionController extends AdminBaseController
      */
     public function index()
     {
-        //$determinacions = $this->determinacion->all();
+        $determinacions = $this->determinacion->all();
 
-        return view('analisis::admin.determinacions.index', compact(''));
+        return view('analisis::admin.determinacions.index', compact('determinacions'));
     }
 
     /**
@@ -43,7 +44,9 @@ class DeterminacionController extends AdminBaseController
      */
     public function create()
     {
-        return view('analisis::admin.determinacions.create');
+        $subsecciones = Subseccion::all()->pluck('titulo', 'id')->toArray();
+
+        return view('analisis::admin.determinacions.create', compact('subsecciones'));
     }
 
     /**
@@ -68,7 +71,9 @@ class DeterminacionController extends AdminBaseController
      */
     public function edit(Determinacion $determinacion)
     {
-        return view('analisis::admin.determinacions.edit', compact('determinacion'));
+        $subsecciones = Subseccion::all()->pluck('titulo', 'id')->toArray();
+
+        return view('analisis::admin.determinacions.edit', compact('determinacion', 'subsecciones'));
     }
 
     /**

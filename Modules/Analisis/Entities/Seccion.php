@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seccion extends Model
 {
-    use Translatable;
-
     protected $table = 'analisis__seccions';
     public $translatedAttributes = [];
-    protected $fillable = [];
+    protected $fillable = ['titulo'];
 }

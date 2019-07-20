@@ -4,10 +4,10 @@
     <h1>
         {{ trans('analisis::seccions.title.seccions') }}
     </h1>
-    <ol class="breadcrumb">
+    {{-- <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
         <li class="active">{{ trans('analisis::seccions.title.seccions') }}</li>
-    </ol>
+    </ol> --}}
 @stop
 
 @section('content')
@@ -29,7 +29,7 @@
                         <table class="data-table table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>{{ trans('core::core.table.created at') }}</th>
+                                <th>Título</th>
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                             </tr>
                             </thead>
@@ -39,7 +39,7 @@
                             <tr>
                                 <td>
                                     <a href="{{ route('admin.analisis.seccion.edit', [$seccion->id]) }}">
-                                        {{ $seccion->created_at }}
+                                        {{ $seccion->titulo }}
                                     </a>
                                 </td>
                                 <td>
@@ -54,8 +54,8 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>{{ trans('core::core.table.created at') }}</th>
-                                <th>{{ trans('core::core.table.actions') }}</th>
+                                <th>Título</th>
+                                {{-- <th>{{ trans('core::core.table.actions') }}</th> --}}
                             </tr>
                             </tfoot>
                         </table>

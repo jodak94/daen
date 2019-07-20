@@ -19,6 +19,16 @@
     <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     {!! Theme::script('vendor/jquery/jquery.min.js') !!}
     @include('partials.asgard-globals')
+    @php
+     $x = rand(1,5);
+    @endphp
+    <style>
+      .content-wrapper {
+        background-image: url('/img/back{{$x}}.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    </style>
     @section('styles')
     @show
     @stack('css-stack')

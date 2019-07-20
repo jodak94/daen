@@ -17,14 +17,14 @@ class RegisterTagSidebar extends AbstractAdminSidebar
     public function extendWith(Menu $menu)
     {
         $menu->group(trans('core::sidebar.content'), function (Group $group) {
-            $group->item(trans('tag::tags.tags'), function (Item $item) {
-                $item->icon('fa fa-tag');
-                $item->weight(50);
-                $item->route('admin.tag.tag.index');
-                $item->authorize(
-                    $this->auth->hasAccess('tag.tags.index')
-                );
-            });
+            // $group->item(trans('tag::tags.tags'), function (Item $item) {
+            //     $item->icon('fa fa-tag');
+            //     $item->weight(50);
+            //     $item->route('admin.tag.tag.index');
+            //     $item->authorize(
+            //         $this->auth->hasAccess('tag.tags.index')
+            //     );
+            // });
         });
 
         return $menu;

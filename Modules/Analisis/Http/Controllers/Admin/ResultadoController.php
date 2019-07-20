@@ -32,7 +32,7 @@ class ResultadoController extends AdminBaseController
     public function index()
     {
         //$resultados = $this->resultado->all();
-
+        
         return view('analisis::admin.resultados.index', compact(''));
     }
 
@@ -43,6 +43,9 @@ class ResultadoController extends AdminBaseController
      */
     public function create()
     {
+        foreach ($variable as $key => $value) {
+          // code...
+        }
         return view('analisis::admin.resultados.create');
     }
 

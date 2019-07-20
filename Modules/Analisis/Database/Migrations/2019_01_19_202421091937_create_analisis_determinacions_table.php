@@ -17,8 +17,10 @@ class CreateAnalisisDeterminacionsTable extends Migration
             $table->increments('id');
             // Your fields
             $table->string('titulo');
-            $table->string('rangoRefrencia');
-            $table->string('unidadMedida');
+            $table->string('rango_referencia')->nullable();
+            $table->string('unidad_medida')->nullable();
+            $table->integer('subseccion_id')->unsigned();
+            $table->foreign('subseccion_id')->references('id')->on('analisis__subseccions')->onDelete('cascade');
             $table->timestamps();
         });
     }

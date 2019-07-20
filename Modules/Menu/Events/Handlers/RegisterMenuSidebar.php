@@ -16,17 +16,17 @@ class RegisterMenuSidebar extends AbstractAdminSidebar
      */
     public function extendWith(Menu $menu)
     {
-        $menu->group(trans('core::sidebar.content'), function (Group $group) {
-            $group->weight(90);
-            $group->item(trans('menu::menu.title'), function (Item $item) {
-                $item->weight(30);
-                $item->icon('fa fa-bars');
-                $item->route('admin.menu.menu.index');
-                $item->authorize(
-                    $this->auth->hasAccess('menu.menus.index')
-                );
-            });
-        });
+        // $menu->group(trans('core::sidebar.content'), function (Group $group) {
+        //     $group->weight(90);
+        //     $group->item(trans('menu::menu.title'), function (Item $item) {
+        //         $item->weight(30);
+        //         $item->icon('fa fa-bars');
+        //         $item->route('admin.menu.menu.index');
+        //         $item->authorize(
+        //             $this->auth->hasAccess('menu.menus.index')
+        //         );
+        //     });
+        // });
 
         return $menu;
     }

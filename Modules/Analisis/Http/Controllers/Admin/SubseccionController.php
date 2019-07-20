@@ -5,11 +5,13 @@ namespace Modules\Analisis\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Analisis\Entities\Subseccion;
+use Modules\Analisis\Entities\Seccion;
 use Modules\Analisis\Http\Requests\CreateSubseccionRequest;
 use Modules\Analisis\Http\Requests\UpdateSubseccionRequest;
 use Modules\Analisis\Repositories\SubseccionRepository;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
-
+use Modules\Analisis\Entities\Determinacion;
+use DB;
 class SubseccionController extends AdminBaseController
 {
     /**
@@ -31,9 +33,8 @@ class SubseccionController extends AdminBaseController
      */
     public function index()
     {
-        //$subseccions = $this->subseccion->all();
-
-        return view('analisis::admin.subseccions.index', compact(''));
+        $subseccions = $this->subseccion->all();
+        return view('analisis::admin.subseccions.index', compact('subseccions'));
     }
 
     /**
@@ -68,7 +69,8 @@ class SubseccionController extends AdminBaseController
      */
     public function edit(Subseccion $subseccion)
     {
-        return view('analisis::admin.subseccions.edit', compact('subseccion'));
+        $secciones = Seccion::all()->pluck('titulo', 'id')->toArray();
+        return view('analisis::admin.subseccions.edit', compact('subseccion', 'secciones'));
     }
 
     /**
@@ -98,5 +100,13 @@ class SubseccionController extends AdminBaseController
 
         return redirect()->route('admin.analisis.subseccion.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('analisis::subseccions.title.subseccions')]));
+    }
+
+    public function search_ajax(Request $request){
+      $sub = Subseccion::select('*', 'titulo as value')
+        ->with(['determinacion'])
+        ->where('titulo', 'like', '%'.$request->term.'%')->take(5)->get()->toArray();
+
+      return response()->json($sub);
     }
 }

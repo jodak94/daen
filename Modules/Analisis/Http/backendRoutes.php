@@ -78,6 +78,7 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'uses' => 'SubseccionController@index',
         'middleware' => 'can:analisis.subseccions.index'
     ]);
+
     $router->get('subseccions/create', [
         'as' => 'admin.analisis.subseccion.create',
         'uses' => 'SubseccionController@create',
@@ -102,6 +103,10 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'as' => 'admin.analisis.subseccion.destroy',
         'uses' => 'SubseccionController@destroy',
         'middleware' => 'can:analisis.subseccions.destroy'
+    ]);
+    $router->get('subseccions/search_ajax', [
+        'as' => 'admin.analisis.subseccion.search_ajax',
+        'uses' => 'SubseccionController@search_ajax',
     ]);
     $router->bind('determinacion', function ($id) {
         return app('Modules\Analisis\Repositories\DeterminacionRepository')->find($id);
