@@ -18,6 +18,7 @@
     @endforeach
     <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     {!! Theme::script('vendor/jquery/jquery.min.js') !!}
+    {!! Theme::style('vendor/jquery-confirm/jquery-confirm.min.css') !!}
     @include('partials.asgard-globals')
     @php
      $x = rand(1,5);
@@ -28,7 +29,21 @@
         background-size: cover;
         background-repeat: no-repeat;
       }
+      .jconfirm .jconfirm-box {
+        padding: 0;
+      }
+      .jconfirm-content-pane{
+        padding: 15px;
+      }
+      .jconfirm-title-c{
+        padding: 15px;
+        border-bottom: 2px solid rgba(60,141,188, 1);
+      }
+      .jconfirm-buttons{
+        padding: 15px;
+      }
     </style>
+    {!! Theme::style('vendor/jquery-toast/jquery.toast.min.css') !!}
     @section('styles')
     @show
     @stack('css-stack')
@@ -121,6 +136,8 @@
         });
     </script>
 <?php endif; ?>
+{!! Theme::script('vendor/jquery-confirm/jquery-confirm.min.js') !!}
+{!! Theme::script('vendor/jquery-toast/jquery.toast.min.js') !!}
 @section('scripts')
 @show
 @stack('js-stack')

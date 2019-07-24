@@ -174,6 +174,29 @@
       console.log($(this).val())
     })
 
+    $("#analisis-form").submit(function(e) {
+      console.log( $("#analisis-form").serialize())
+      e.preventDefault();
+      $.ajax({
+        type: 'post',
+        url: $("#analisis-form").attr("action"),
+        data: $("#analisis-form").serialize(),
+        success: function(response) {
+            if(!response.error){
+              window.open('{{route("admin.analisis.analisis.exportar")}}?analisis_id='+response.analisis_id,"_blank");
+              location.href = '{{route('admin.analisis.analisis.index')}}';
+            }else
+            $.toast({
+              heading: 'Error',
+              text: response.message,
+              showHideTransition: 'slide',
+              icon:'error',
+              position: 'top-right'
+            })
+         },
+       });
+    });
+
   })
   function trTitulo(titulo, id){
     var html

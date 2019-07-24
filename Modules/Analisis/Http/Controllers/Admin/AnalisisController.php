@@ -14,6 +14,7 @@ use Auth;
 use DB;
 use Yajra\DataTables\Facades\DataTables;
 use Log;
+use Barryvdh\DomPDF\Facade as PDF;
 class AnalisisController extends AdminBaseController
 {
     /**
@@ -40,7 +41,6 @@ class AnalisisController extends AdminBaseController
 
     public function index_ajax(Request $re){
       $query = $this->query_index_ajax($re);
-      $ventas = $query->get();
       $object = Datatables::of($query)
           ->addColumn('acciones', function( $analisis ){
             $edit_route = route('admin.analisis.analisis.edit', $analisis->id);
@@ -96,6 +96,12 @@ class AnalisisController extends AdminBaseController
      */
     public function store(CreateAnalisisRequest $request)
     {
+        if(!isset($request->paciente_id))
+          return response()->json(['error' => true, 'message'=> 'No se encontró el paciente']);
+
+        if(!isset($request->determinacion))
+          return response()->json(['error' => true, 'message'=> 'No se encontraron determinaciones']);
+
         $fuera_rango = [];
         if(isset($request->fuera_rango))
           $fuera_rango = array_keys($request->fuera_rango);
@@ -120,13 +126,22 @@ class AnalisisController extends AdminBaseController
         } catch (\Exception $e) {
           Log::info('Error al crear el análisis');
           Log::info($e->getMessage());
-          return redirect()->back()->withError('Ocurrió un error en el servidor, avisar al administrador.');
+          return response()->json(['error' => true, 'message'=> 'Ocurrió un error en el servidor, avisar al administrador.']);
         }
         DB::commit();
-
-        return redirect()->route('admin.analisis.analisis.index')
-            ->withSuccess(trans('core::core.messages.resource created', ['name' => trans('analisis::analises.title.analises')]));
+        \Session::put('success', 'Análisis guardado exitosamente');
+        return response()->json(['error' => false, 'analisis_id'=> $analisis->id]);
     }
+
+    public function export_to_pdf(Request $request) {
+       $boxes = json_decode(json_encode([
+            'fecha' => ['x' => 3.5, 'y' => 2.6, 'width' => 100],
+        ]));
+
+      $analisis = Analisis::find($request->analisis_id);
+      $pdf = PDF::loadView('analisis::pdf.analisis',compact('analisis','boxes'));
+      return $pdf->stream('Analisis-'.$analisis->paciente->cedula.'.pdf');
+  }
 
     /**
      * Show the form for editing the specified resource.

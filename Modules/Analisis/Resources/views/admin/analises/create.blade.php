@@ -22,7 +22,7 @@
   </style>
 @endpush
 @section('content')
-    {!! Form::open(['route' => ['admin.analisis.analisis.store'], 'method' => 'post']) !!}
+    {!! Form::open(['route' => ['admin.analisis.analisis.store'], 'method' => 'post', 'id' => 'analisis-form']) !!}
     <div class="row">
         <div class="col-md-12">
             <div class="nav-tabs-custom">

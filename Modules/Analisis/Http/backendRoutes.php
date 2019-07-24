@@ -17,6 +17,10 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'uses' => 'AnalisisController@index_ajax',
         'middleware' => 'can:analisis.analises.index'
     ]);
+    $router->get('analises/exportar', [
+        'as' => 'admin.analisis.analisis.exportar',
+        'uses' => 'AnalisisController@export_to_pdf',
+    ]);
     $router->get('analises/create', [
         'as' => 'admin.analisis.analisis.create',
         'uses' => 'AnalisisController@create',

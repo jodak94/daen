@@ -24,7 +24,7 @@
         headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
       },
       columns:[
-        { data: 'paciente', name: 'paciente' },
+        { data: 'paciente_nombre', name: 'paciente_nombre' },
         { data: 'created_at_format', name: 'created_at_format' },
         { data: 'creado_por', name: 'creado_por' },
         { data: 'acciones', name: 'acciones' },
