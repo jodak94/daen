@@ -37,7 +37,9 @@
                                   {{ trans('analisis::analises.title.create analisis') }}
                               </h3>
                             </div>
-                            @include('analisis::admin.analises.partials.create-fields', ['lang' => $locale])
+                            <div class="box-body">
+                              @include('analisis::admin.analises.partials.create-fields', ['lang' => $locale])
+                            </div>
                         </div>
                     @endforeach
 

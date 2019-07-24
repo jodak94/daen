@@ -34,6 +34,7 @@
             )
             paciente = data.paciente
             $("#addPaciente").modal('hide');
+            $("#buscar-subseccion").prop("disabled", false)
           }
           $("#spin").hide();
         },
@@ -64,7 +65,7 @@
           switch (det.tipo_referencia) {
             case 'booleano':
               html += "<td>"
-                   +  " <select class='form-control determinacion-select' name=determinacion["+det.titulo+"]>"
+                   +  " <select class='form-control determinacion-select' name=determinacion["+det.id+"]>"
                    +  "   <option value='Negativo'>Negativo</option>"
                    +  "   <option value='Positivo'>Positivo</option>"
                    +  " </select>"
@@ -72,23 +73,23 @@
               break;
             case 'reactiva':
               html += "<td>"
-                    +  " <select class='form-control' name=determinacion["+det.titulo+"]>"
+                    +  " <select class='form-control' name=determinacion["+det.id+"]>"
                     +  "   <option value='No Reactiva'>No Reactiva</option>"
                     +  "   <option value='Reactiva'>Reactiva</option>"
                     +  " </select>"
                     +  "</td>"
               break;
             case 'rango':
-              html += "<td><input required type='number' class='form-control determinacion-rango' name=determinacion["+det.titulo+"]></td>"
+              html += "<td><input type='number' class='form-control determinacion-rango' name=determinacion["+det.id+"]></td>"
               break;
             case 'rango_edad':
-              html += "<td><input required type='number' class='form-control determinacion-rango-edad' name=determinacion["+det.titulo+"]></td>"
+              html += "<td><input type='number' class='form-control determinacion-rango-edad' name=determinacion["+det.id+"]></td>"
               break;
             case 'rango_sexo':
-              html += "<td><input required type='number' class='form-control determinacion-rango-sexo' name=determinacion["+det.titulo+"]></td>"
+              html += "<td><input type='number' class='form-control determinacion-rango-sexo' name=determinacion["+det.id+"]></td>"
               break;
             default:
-              html += "<td><input required type='number' class='form-control' name=determinacion["+det.titulo+"]></td>"
+              html += "<td><input type='number' class='form-control' name=determinacion["+det.id+"]></td>"
 
           }
           html
@@ -97,7 +98,7 @@
               +"    <input type='hidden' class='rango-referencia' value='"+det.rango_referencia+"'>"
               +"  </td>"
               +"  <td class='center'>"
-              +"    <input type='checkbox' class='rango-check flat-blue' id='check-"+det.id+"'>"
+              +"    <input type='checkbox' class='rango-check flat-blue' id='check-"+det.id+"' name=fuera_rango["+det.id+"]>"
               +"  </td>"
               +"  <td>"
               +"    <button subId="+ui.item.id+" type='button' class='btn btn-danger btn-flat delete-det'>"

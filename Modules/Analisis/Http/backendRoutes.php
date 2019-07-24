@@ -12,6 +12,11 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'uses' => 'AnalisisController@index',
         'middleware' => 'can:analisis.analises.index'
     ]);
+    $router->get('analises/index-ajax', [
+        'as' => 'admin.analisis.analisis.index_ajax',
+        'uses' => 'AnalisisController@index_ajax',
+        'middleware' => 'can:analisis.analises.index'
+    ]);
     $router->get('analises/create', [
         'as' => 'admin.analisis.analisis.create',
         'uses' => 'AnalisisController@create',
