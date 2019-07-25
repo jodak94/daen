@@ -10,4 +10,8 @@ class Resultado extends Model
     protected $table = 'analisis__resultados';
     public $translatedAttributes = [];
     protected $fillable = [];
+
+    public function determinacion(){
+      return $this->belongsTo('Modules\Analisis\Entities\Determinacion');
+    }
 }

@@ -183,7 +183,7 @@
         data: $("#analisis-form").serialize(),
         success: function(response) {
             if(!response.error){
-              window.open('{{route("admin.analisis.analisis.exportar")}}?analisis_id='+response.analisis_id,"_blank");
+              window.open('{{route("admin.analisis.analisis.exportar")}}?action=print&analisis_id='+response.analisis_id,"_blank");
               location.href = '{{route('admin.analisis.analisis.index')}}';
             }else
             $.toast({

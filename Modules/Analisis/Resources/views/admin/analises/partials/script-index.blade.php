@@ -57,5 +57,24 @@
     $("#nombre").keyup(function(){
         table.ajax.reload();
     });
+
+    $('.data-table').on('click','.preview',function() {
+         var analisis_id = $(this).attr("id").replace("analisis_","");
+         $.confirm({
+            title: 'Vista Previa',
+            boxWidth: '80%',
+            useBootstrap: false,
+            closeIcon: true,
+            escapeKey: true,
+            backgroundDismiss: true,
+            draggable: false,
+            content: 'url:{{route("admin.analisis.analisis.exportar")}}?action=preview&analisis_id='+analisis_id,
+            buttons: {
+                descargar: function() {
+                    location.href = '{{route("admin.analisis.analisis.exportar")}}?action=download&analisis_id='+analisis_id
+                }
+            }
+        });
+     });
   })
 </script>

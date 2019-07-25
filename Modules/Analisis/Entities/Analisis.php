@@ -17,6 +17,10 @@ class Analisis extends Model
       return $this->belongsTo('Modules\Pacientes\Entities\Paciente');
     }
 
+    public function resultados(){
+      return $this->hasMany('Modules\Analisis\Entities\Resultado');
+    }
+
     public function user(){
       return $this->belongsTo('Modules\User\Entities\Sentinel\User', 'created_by');
     }
@@ -31,6 +35,6 @@ class Analisis extends Model
 
     public function getCreatedAtFormatAttribute(){
       $date = Carbon::parse($this->created_at);
-      return $date->format('d/m/y H:i:s');
+      return $date->format('d/m/y H:i');
     }
 }

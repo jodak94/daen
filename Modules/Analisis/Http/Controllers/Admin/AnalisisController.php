@@ -15,6 +15,7 @@ use DB;
 use Yajra\DataTables\Facades\DataTables;
 use Log;
 use Barryvdh\DomPDF\Facade as PDF;
+use View;
 class AnalisisController extends AdminBaseController
 {
     /**
@@ -45,18 +46,25 @@ class AnalisisController extends AdminBaseController
           ->addColumn('acciones', function( $analisis ){
             $edit_route = route('admin.analisis.analisis.edit', $analisis->id);
             $delete_route = route('admin.analisis.analisis.destroy', $analisis->id);
-            $print_route = route('admin.analisis.analisis.edit', $analisis->id);
+            $print_route = route("admin.analisis.analisis.exportar") . "?action=print&analisis_id=" . $analisis->id;
+            $download_route = route("admin.analisis.analisis.exportar") . "?action=download&analisis_id=" . $analisis->id;
             $html = '
               <div class="btn-group">
-                <a href="'.$print_route.'" class="btn btn-default btn-flat">
+                <a id="analisis_'.$analisis->id.'" href="javascript:void(0)" class="preview btn btn-default btn-flat" title="Vista Previa">
+                  <i class="fa fa-search"></i>
+                </a>
+                <a  href="'.$download_route.'" class="preview btn btn-default btn-flat" title="Descargar">
+                  <i class="fa fa-download"></i>
+                </a>
+                <a href="'.$print_route.'" class="btn btn-default btn-flat" title="Imprimir" target="_blank">
                   <i class="fa fa-print"></i>
                 </a>';
             if(Auth::user()->hasRoleSlug('administrador') || Auth::user()->hasRoleSlug('admin'))
               $html .= '
-              <a href="'.$edit_route.'" class="btn btn-default btn-flat">
+              <a href="'.$edit_route.'" class="btn btn-default btn-flat" title="Editar">
                 <i class="fa fa-pencil"></i>
               </a>
-              <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="'.$delete_route.'">
+              <button class="btn btn-danger btn-flat" title="Eliminar" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="'.$delete_route.'">
                 <i class="fa fa-trash"></i>
               </button>';
 
@@ -134,14 +142,40 @@ class AnalisisController extends AdminBaseController
     }
 
     public function export_to_pdf(Request $request) {
-       $boxes = json_decode(json_encode([
-            'fecha' => ['x' => 3.5, 'y' => 2.6, 'width' => 100],
-        ]));
+        $analisis = Analisis::find($request->analisis_id);
+        $action = $request->action;
+        $boxes = $this->obtener_boxes($action);
+        if($action == 'download') {
+            $pdf = PDF::loadView('analisis::pdf.analisis',compact('analisis','boxes','action'));
+            $pdf->setPaper('A4', 'portrait');
+            return $pdf->download('Analisis-'.$analisis->paciente->cedula.'.pdf');
+        }else {
+            if($action == 'print') {
+                $pdf = PDF::loadView('analisis::pdf.analisis',compact('analisis','boxes','action'));
+                $pdf->setPaper('A4', 'portrait');
+                return $pdf->stream('Analisis-'.$analisis->paciente->cedula.'.pdf');
+            }else {
+                $view = View::make('analisis::pdf.analisis',compact('analisis','boxes','action'));
+                return $view->render();
+            }
+        }
+    }
+    public function obtener_boxes($action){
+      if($action == 'preview')
+        $boxes = json_decode(json_encode([
+           'cedula_paciente' => ['x' => 2.3, 'y' => 1.8],
+           'nombre_paciente' => ['x' => 2.3, 'y' => 2.4],
+           'edad_paciente' => ['x' => 2.3, 'y' => 3],
+           'sexo_paciente' => ['x' => 2.3, 'y' => 3.6],
+           'fecha' => ['x' => 2.3, 'y' => 4.2],
+           'titulo_resultado' => ['x' => 2.3, 'y' => 8],
+           'resultado' => ['x' => 15.5, 'y' => 8],
+           'fuera_rango' => ['x' => 19.8, 'y' => 8],
+           'rango_referencia' => ['x' => 27, 'y' => 8],
+         ]));
 
-      $analisis = Analisis::find($request->analisis_id);
-      $pdf = PDF::loadView('analisis::pdf.analisis',compact('analisis','boxes'));
-      return $pdf->stream('Analisis-'.$analisis->paciente->cedula.'.pdf');
-  }
+       return $boxes;
+    }
 
     /**
      * Show the form for editing the specified resource.
