@@ -1,5 +1,16 @@
 <script type="text/javascript">
   $( document ).ready(function(){
+    $('.fecha').pickadate({
+      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+      today: 'Hoy',
+      clear: 'Limpiar',
+      close: 'Cerrar',
+      selectMonths: true,
+      selectYears: 100,
+      format:'dd/mm/yyyy'
+    });
+
     var table  = $('.data-table').DataTable({
       dom: "<'row'<'col-xs-12'<'col-xs-6'l><'col-xs-6'p>>r>"+
         "<'row'<'col-xs-12't>>"+
@@ -20,6 +31,8 @@
         type: "GET",
         data: function (d){
             d.paciente = $("#paciente").val();
+            d.fecha_desde = $("#fecha_desde").val();
+            d.fecha_hasta = $("#fecha_hasta").val();
         },
         headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
       },
@@ -54,7 +67,7 @@
     $("#paciente").keyup(function(){
         table.ajax.reload();
     });
-    $("#nombre").keyup(function(){
+    $(".fecha").change(function(){
         table.ajax.reload();
     });
 

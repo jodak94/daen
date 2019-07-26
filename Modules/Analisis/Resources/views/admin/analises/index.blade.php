@@ -9,7 +9,19 @@
         <li class="active">{{ trans('analisis::analises.title.analises') }}</li>
     </ol>
 @stop
-
+@push('css-stack')
+    {!! Theme::style('vendor/pickadate/css/classic.css') !!}
+    {!! Theme::style('vendor/pickadate/css/classic.date.css') !!}
+    {!! Theme::style('vendor/pickadate/css/classic.time.css') !!}
+    <style>
+      .picker__select--year{
+        padding: 1px;
+      }
+      .picker__select--month{
+        padding: 1px;
+      }
+    </style>
+@endpush
 @section('content')
     <div class="row">
         <div class="col-xs-12">
@@ -25,6 +37,12 @@
                   <div class="row">
                     <div class="col-md-3">
                       {!! Form::normalInput('paciente', 'Paciente', $errors) !!}
+                    </div>
+                    <div class="col-md-3">
+                        {!! Form::normalInput('fecha_desde', 'Fecha desde', $errors,(object)['fecha_desde'=>$from],['class'=>'form-control fecha','id'=>'fecha_desde']) !!}
+                    </div>
+                    <div class="col-md-3">
+                        {!! Form::normalInput('fecha_hasta', 'Fecha hasta', $errors,(object)['fecha_hasta'=>$to],['class'=>'form-control fecha','id'=>'fecha_hasta']) !!}
                     </div>
                 </div>
                 </div>
@@ -71,6 +89,10 @@
 @stop
 
 @push('js-stack')
+    <script src="{{ asset('js/jquery.number.min.js') }}"></script>
+    {!! Theme::script('vendor/pickadate/js/picker.js') !!}
+    {!! Theme::script('vendor/pickadate/js/picker.date.js') !!}
+    {!! Theme::script('vendor/pickadate/js/picker.time.js') !!}
     @include('analisis::admin.analises.partials.script-index')
     <script type="text/javascript">
         $( document ).ready(function() {

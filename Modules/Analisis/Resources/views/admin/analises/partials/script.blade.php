@@ -34,6 +34,7 @@
             )
             paciente = data.paciente
             $("#addPaciente").modal('hide');
+            $("#paciente_id").val(data.paciente.id)
             $("#buscar-subseccion").prop("disabled", false)
           }
           $("#spin").hide();
@@ -65,7 +66,7 @@
           switch (det.tipo_referencia) {
             case 'booleano':
               html += "<td>"
-                   +  " <select class='form-control determinacion-select' name=determinacion["+det.id+"]>"
+                   +  " <select class='form-control determinacion-select valor' name=determinacion["+det.id+"]>"
                    +  "   <option value='Negativo'>Negativo</option>"
                    +  "   <option value='Positivo'>Positivo</option>"
                    +  " </select>"
@@ -73,23 +74,23 @@
               break;
             case 'reactiva':
               html += "<td>"
-                    +  " <select class='form-control' name=determinacion["+det.id+"]>"
+                    +  " <select class='form-control valor' name=determinacion["+det.id+"]>"
                     +  "   <option value='No Reactiva'>No Reactiva</option>"
                     +  "   <option value='Reactiva'>Reactiva</option>"
                     +  " </select>"
                     +  "</td>"
               break;
             case 'rango':
-              html += "<td><input type='number' class='form-control determinacion-rango' name=determinacion["+det.id+"]></td>"
+              html += "<td><input class='form-control determinacion-rango valor' name=determinacion["+det.id+"]></td>"
               break;
             case 'rango_edad':
-              html += "<td><input type='number' class='form-control determinacion-rango-edad' name=determinacion["+det.id+"]></td>"
+              html += "<td><input class='form-control determinacion-rango-edad valor' name=determinacion["+det.id+"]></td>"
               break;
             case 'rango_sexo':
-              html += "<td><input type='number' class='form-control determinacion-rango-sexo' name=determinacion["+det.id+"]></td>"
+              html += "<td><input class='form-control determinacion-rango-sexo valor' name=determinacion["+det.id+"]></td>"
               break;
             default:
-              html += "<td><input type='number' class='form-control' name=determinacion["+det.id+"]></td>"
+              html += "<td><input class='form-control valor' name=determinacion["+det.id+"]></td>"
 
           }
           html
@@ -127,9 +128,20 @@
       $(this).closest('tr').remove()
     })
 
+    $(".table").on('keydown', '.determinacion-rango', function(event){
+      if(event.keyCode == 9 || event.keyCode == 13){
+        event.preventDefault();
+        if(!$(this).closest("tr").is(":last-child"))
+          $(this).closest('tr').next('tr').find('.valor').focus()
+      }
+      if(event.keyCode == 13 && $(this).closest("tr").is(":last-child"))
+        $("#analisis-form").submit()
+    })
+
     $(".table").on('keyup', '.determinacion-rango', function(event){
       let val = $(this).val()
       let rango = $(this).parent().parent().find('.rango-referencia').val();
+
       rango = rango.split('-')
       let dom = $(this).parent().parent().find('.rango-check')[0];
       if(val == ''){
@@ -175,7 +187,6 @@
     })
 
     $("#analisis-form").submit(function(e) {
-      console.log( $("#analisis-form").serialize())
       e.preventDefault();
       $.ajax({
         type: 'post',

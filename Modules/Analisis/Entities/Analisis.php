@@ -26,7 +26,7 @@ class Analisis extends Model
     }
 
     public function getPacienteNombreAttribute(){
-      return $this->paciente()->first()->nombre . ' ' . $this->paciente()->first()->apellido;
+      return $this->paciente()->first()->nombre . ' ' . $this->paciente()->first()->apellido . ' - ' . $this->paciente()->first()->cedula_format;
     }
 
     public function getCreadoPorAttribute(){

@@ -11,7 +11,7 @@ class Paciente extends Model
     protected $table = 'pacientes__pacientes';
     public $translatedAttributes = [];
     protected $fillable = ['nombre', 'apellido', 'sexo', 'fecha_nacimiento', 'cedula'];
-    protected $appends = ['edad'];
+    protected $appends = ['edad', 'cedula_format'];
     public static $sexos = [
       'femenino' => 'Femenino',
       'masculino' => 'Masculino'
@@ -22,6 +22,10 @@ class Paciente extends Model
 
     public function getEdadAttribute(){
       return Carbon::parse($this['fecha_nacimiento'])->age;
+    }
+
+    public function getCedulaFormatAttribute(){
+      return number_format($this['cedula'], 0, ',', '.');
     }
 
 }

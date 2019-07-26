@@ -16,6 +16,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Log;
 use Barryvdh\DomPDF\Facade as PDF;
 use View;
+use Carbon\Carbon;
 class AnalisisController extends AdminBaseController
 {
     /**
@@ -37,7 +38,9 @@ class AnalisisController extends AdminBaseController
      */
     public function index()
     {
-        return view('analisis::admin.analises.index');
+        $from = Carbon::now()->startOfMonth()->format('d/m/Y');
+        $to =  Carbon::now()->format('d/m/Y');
+        return view('analisis::admin.analises.index', compact('from', 'to'));
     }
 
     public function index_ajax(Request $re){
@@ -81,9 +84,21 @@ class AnalisisController extends AdminBaseController
        $query = Analisis::select();
        if(isset($re->paciente) && trim($re->paciente) != '')
          $query->whereHas('paciente', function($q) use ($re){
-           $q->where(DB::raw("CONCAT(nombre, ' ', apellido)"), 'like',  '%' . $re->paciente . '%');
+           $q->where(DB::raw("CONCAT(nombre, ' ', apellido)"), 'like',  '%' . $re->paciente . '%')
+              ->orWhere('cedula', 'like', '%' . $re->paciente . '%');
          });
-       return $query;
+
+      if (isset($re->fecha_desde) && trim($re->fecha_desde) != '')
+         $query->whereDate('created_at', '>=', $this->fechaFormat($re->fecha_desde) );
+
+      if (isset($re->fecha_hasta) && trim($re->fecha_hasta) != '')
+         $query->whereDate('created_at', '<=', $this->fechaFormat($re->fecha_hasta) );
+
+       return $query->orderBy('created_at', 'desc');
+   }
+
+   private function fechaFormat($date){
+       return date("Y-m-d", strtotime( str_replace('/', '-', $date)));
    }
 
     /**
@@ -121,6 +136,8 @@ class AnalisisController extends AdminBaseController
           $analisis->created_by = Auth::user()->id;
           $analisis->save();
           foreach ($request->determinacion as $det_id => $valor) {
+            if(!isset($valor))
+              continue;
             $resultado = new Resultado();
             $resultado->determinacion_id = $det_id;
             $resultado->analisis_id = $analisis->id;
@@ -168,11 +185,23 @@ class AnalisisController extends AdminBaseController
            'edad_paciente' => ['x' => 2.3, 'y' => 3],
            'sexo_paciente' => ['x' => 2.3, 'y' => 3.6],
            'fecha' => ['x' => 2.3, 'y' => 4.2],
-           'titulo_resultado' => ['x' => 2.3, 'y' => 8],
-           'resultado' => ['x' => 15.5, 'y' => 8],
-           'fuera_rango' => ['x' => 19.8, 'y' => 8],
-           'rango_referencia' => ['x' => 27, 'y' => 8],
+           'titulo_resultado' => ['x' => 2.3, 'y' => 7.5],
+           'resultado' => ['x' => 15.5, 'y' => 7.5],
+           'fuera_rango' => ['x' => 19.7, 'y' => 7.5],
+           'rango_referencia' => ['x' => 22.5, 'y' => 7.5],
          ]));
+         if($action == 'download' || $action == 'print')
+           $boxes = json_decode(json_encode([
+              'cedula_paciente' => ['x' => 1.2, 'y' => 1],
+              'nombre_paciente' => ['x' => 1.2, 'y' => 1.4],
+              'edad_paciente' => ['x' => 1.2, 'y' => 1.8],
+              'sexo_paciente' => ['x' => 1.2, 'y' => 2.2],
+              'fecha' => ['x' => 1.2, 'y' => 2.6],
+              'titulo_resultado' => ['x' => 1.2, 'y' => 4.5],
+              'resultado' => ['x' => 9.7, 'y' => 4.5],
+              'fuera_rango' => ['x' => 12.5, 'y' => 4.5],
+              'rango_referencia' => ['x' => 14.5, 'y' => 4.5],
+            ]));
 
        return $boxes;
     }
