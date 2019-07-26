@@ -28,4 +28,8 @@ class Paciente extends Model
       return number_format($this['cedula'], 0, ',', '.');
     }
 
+    public function getSexoFormatAttribute(){
+      return ucfirst($this['sexo']);
+    }
+
 }

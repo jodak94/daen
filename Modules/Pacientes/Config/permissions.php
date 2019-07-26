@@ -6,6 +6,7 @@ return [
         'create' => 'pacientes::pacientes.create resource',
         'edit' => 'pacientes::pacientes.edit resource',
         'destroy' => 'pacientes::pacientes.destroy resource',
+        'historial' => 'pacientes::pacientes.historial resource'
     ],
 // append
 

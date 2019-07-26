@@ -145,4 +145,9 @@ class PacienteController extends AdminBaseController
         return redirect()->route('admin.pacientes.paciente.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('pacientes::pacientes.title.pacientes')]));
     }
+
+    public function historial(Paciente $paciente){
+
+        return view('pacientes::admin.pacientes.historial', compact('paciente'));
+    }
 }

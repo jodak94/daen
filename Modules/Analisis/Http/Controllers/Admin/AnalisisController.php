@@ -177,6 +177,9 @@ class AnalisisController extends AdminBaseController
             }
         }
     }
+
+    
+
     public function obtener_boxes($action){
       if($action == 'preview')
         $boxes = json_decode(json_encode([

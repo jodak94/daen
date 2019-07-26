@@ -56,8 +56,9 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('admin.pacientes.paciente.edit', [$paciente->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
-                                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.pacientes.paciente.destroy', [$paciente->id]) }}"><i class="fa fa-trash"></i></button>
+                                        <a title="Historial" href="{{ route('admin.pacientes.paciente.historial', [$paciente->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-file-text-o"></i></a>
+                                        <a title="Editar" href="{{ route('admin.pacientes.paciente.edit', [$paciente->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+                                        <button title="Eliminar" class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.pacientes.paciente.destroy', [$paciente->id]) }}"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>
