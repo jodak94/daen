@@ -75,7 +75,7 @@
          var analisis_id = $(this).attr("id").replace("analisis_","");
          $.confirm({
             title: 'Vista Previa',
-            boxWidth: '80%',
+            boxWidth: '60%',
             useBootstrap: false,
             closeIcon: true,
             escapeKey: true,

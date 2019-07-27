@@ -20,7 +20,7 @@
   function mostrar_resultado(analisis_id){
     $.confirm({
        title: 'Análisis',
-       boxWidth: '80%',
+       boxWidth: '60%',
        useBootstrap: false,
        closeIcon: true,
        escapeKey: true,
