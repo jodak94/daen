@@ -27,10 +27,9 @@ $router->group(['prefix' =>'/pacientes'], function (Router $router) {
         'uses' => 'PacienteController@edit',
         'middleware' => 'can:pacientes.pacientes.edit'
     ]);
-    $router->get('pacientes/{paciente}/historial', [
-        'as' => 'admin.pacientes.paciente.historial',
-        'uses' => 'PacienteController@historial',
-        'middleware' => 'can:pacientes.pacientes.historial'
+    $router->get('pacientes/get-analisis-id', [
+        'as' => 'admin.pacientes.paciente.get_analisis_id',
+        'uses' => 'PacienteController@get_analisis_id',
     ]);
     $router->post('pacientes/store_ajax', [
         'as' => 'admin.pacientes.paciente.store_ajax',

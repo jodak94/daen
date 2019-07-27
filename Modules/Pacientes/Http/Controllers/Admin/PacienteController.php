@@ -146,8 +146,13 @@ class PacienteController extends AdminBaseController
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('pacientes::pacientes.title.pacientes')]));
     }
 
-    public function historial(Paciente $paciente){
+    public function get_analisis_id(Request $request){
+      $paciente = Paciente::find($request->paciente_id);
+      if(!isset($paciente))
+        return response()->json(['error' => true]);
 
-        return view('pacientes::admin.pacientes.historial', compact('paciente'));
+      $resultados = $paciente->analisis()->get()->pluck('id');
+
+      return response()->json(['error' => false, 'resultados' => $resultados]);
     }
 }

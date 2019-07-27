@@ -56,7 +56,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a title="Historial" href="{{ route('admin.pacientes.paciente.historial', [$paciente->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-file-text-o"></i></a>
+                                        <button title="Historial" paciente="{{$paciente->id}}"  class="btn btn-default btn-flat historial"><i class="fa fa-file-text-o"></i></button>
                                         <a title="Editar" href="{{ route('admin.pacientes.paciente.edit', [$paciente->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
                                         <button title="Eliminar" class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.pacientes.paciente.destroy', [$paciente->id]) }}"><i class="fa fa-trash"></i></button>
                                     </div>
@@ -95,6 +95,7 @@
 @stop
 
 @push('js-stack')
+    @include('pacientes::admin.pacientes.partials.script-index')
     <script type="text/javascript">
         $( document ).ready(function() {
             $(document).keypressAction({
