@@ -45,8 +45,8 @@ class DeterminacionController extends AdminBaseController
     public function create()
     {
         $subsecciones = Subseccion::all()->pluck('titulo', 'id')->toArray();
-
-        return view('analisis::admin.determinacions.create', compact('subsecciones'));
+        $tipos_refs = Determinacion::$tipos_refs;
+        return view('analisis::admin.determinacions.create', compact('subsecciones', 'tipos_refs'));
     }
 
     /**

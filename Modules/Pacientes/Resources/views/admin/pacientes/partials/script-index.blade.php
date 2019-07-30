@@ -19,7 +19,7 @@
 
   function mostrar_resultado(analisis_id){
     $.confirm({
-       title: 'Análisis',
+       title: 'Historial - ' + (actual+1) + ' de ' + resultados.length,
        boxWidth: '60%',
        useBootstrap: false,
        closeIcon: true,

@@ -12,6 +12,14 @@ class Determinacion extends Model
     public $translatedAttributes = [];
     protected $fillable = ['tipo_referencia', 'titulo', 'rango_referencia', 'unidad_medida', 'subseccion_id'];
     protected $appends = ['rango_referencia_format'];
+
+    public static $tipos_refs = [
+      'rango' => 'Rango',
+      'rango_edad' => 'Rango considerando edad (Adultos / Niños)',
+      'rango_sexo' => 'Rango considerando sexo',
+      'booleano' => 'Positivo / Negativo',
+      'reactiva' => 'Reactivo / No Reactivo'
+    ];
     public function subseccion(){
       return $this->belongsTo('Modules\Analisis\Entities\Subseccion');
     }
