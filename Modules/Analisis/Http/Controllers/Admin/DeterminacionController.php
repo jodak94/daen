@@ -44,7 +44,7 @@ class DeterminacionController extends AdminBaseController
             $delete_route = route('admin.analisis.determinacion.destroy', $det->id);
             $html = '
               <div class="btn-group">
-                <a href="javascript:void(0)" class="preview btn btn-default btn-flat" title="Editar">
+                <a href="'.$edit_route.'" class="btn btn-default btn-flat" title="Editar">
                   <i class="fa fa-pencil"></i>
                 </a>
                 <button class="btn btn-danger btn-flat" title="Eliminar" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="'.$delete_route.'">
@@ -65,7 +65,6 @@ class DeterminacionController extends AdminBaseController
 
     public function query_index_ajax($re){
       $query = Determinacion::select();
-      Log::info($re->titulo);
       if (isset($re->titulo) && trim($re->titulo) != '')
          $query->where('titulo', 'like', '%'.$re->titulo.'%' );
 

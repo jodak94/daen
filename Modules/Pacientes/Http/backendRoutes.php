@@ -12,6 +12,11 @@ $router->group(['prefix' =>'/pacientes'], function (Router $router) {
         'uses' => 'PacienteController@index',
         'middleware' => 'can:pacientes.pacientes.index'
     ]);
+    $router->get('pacientes/index-ajax', [
+        'as' => 'admin.pacientes.paciente.index_ajax',
+        'uses' => 'PacienteController@index_ajax',
+        'middleware' => 'can:pacientes.pacientes.index'
+    ]);
     $router->get('pacientes/create', [
         'as' => 'admin.pacientes.paciente.create',
         'uses' => 'PacienteController@create',

@@ -21,56 +21,34 @@
                 </div>
             </div>
             <div class="box box-primary">
-                <div class="box-header">
+              <div class="box-header">
+                <div class="row">
+                  <div class="col-md-3">
+                    {!! Form::normalInput('paciente', 'Paciente', $errors) !!}
+                  </div>
                 </div>
+              </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="table-responsive">
                         <table class="data-table table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Cédula</th>
-                                <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
+                              <th>Nombre</th>
+                              <th>Apellido</th>
+                              <th>Cédula</th>
+                              <th>Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php if (isset($pacientes)): ?>
-                            <?php foreach ($pacientes as $paciente): ?>
-                            <tr>
-                                <td>
-                                    <a href="{{ route('admin.pacientes.paciente.edit', [$paciente->id]) }}">
-                                        {{ $paciente->nombre }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.pacientes.paciente.edit', [$paciente->id]) }}">
-                                        {{ $paciente->apellido }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.pacientes.paciente.edit', [$paciente->id]) }}">
-                                        {{ $paciente->cedula }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button title="Historial" paciente="{{$paciente->id}}"  class="btn btn-default btn-flat historial"><i class="fa fa-file-text-o"></i></button>
-                                        <a title="Editar" href="{{ route('admin.pacientes.paciente.edit', [$paciente->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
-                                        <button title="Eliminar" class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.pacientes.paciente.destroy', [$paciente->id]) }}"><i class="fa fa-trash"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                            <?php endif; ?>
+
                             </tbody>
                             <tfoot>
                             <tr>
                               <th>Nombre</th>
                               <th>Apellido</th>
                               <th>Cédula</th>
-                              <th>{{ trans('core::core.table.actions') }}</th>
+                              <th>Acciones</th>
                             </tr>
                             </tfoot>
                         </table>
@@ -102,23 +80,6 @@
                 actions: [
                     { key: 'c', route: "<?= route('admin.pacientes.paciente.create') ?>" }
                 ]
-            });
-        });
-    </script>
-    <?php $locale = locale(); ?>
-    <script type="text/javascript">
-        $(function () {
-            $('.data-table').dataTable({
-                "paginate": true,
-                "lengthChange": true,
-                "filter": true,
-                "sort": true,
-                "info": true,
-                "autoWidth": true,
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "url": '<?php echo Module::asset("core:js/vendor/datatables/{$locale}.json") ?>'
-                }
             });
         });
     </script>

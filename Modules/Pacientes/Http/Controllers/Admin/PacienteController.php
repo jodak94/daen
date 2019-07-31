@@ -9,8 +9,9 @@ use Modules\Pacientes\Http\Requests\CreatePacienteRequest;
 use Modules\Pacientes\Http\Requests\UpdatePacienteRequest;
 use Modules\Pacientes\Repositories\PacienteRepository;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
+use Yajra\DataTables\Facades\DataTables;
 use Log;
-
+use DB;
 class PacienteController extends AdminBaseController
 {
     /**
@@ -32,10 +33,43 @@ class PacienteController extends AdminBaseController
      */
     public function index()
     {
-        $pacientes = $this->paciente->all();
 
-        return view('pacientes::admin.pacientes.index', compact('pacientes'));
+        return view('pacientes::admin.pacientes.index');
     }
+
+    public function index_ajax(Request $re){
+      $query = $this->query_index_ajax($re);
+      $object = Datatables::of($query)
+          ->addColumn('acciones', function( $paciente ){
+            $edit_route = route('admin.pacientes.paciente.edit', $paciente->id);
+            $delete_route = route('admin.pacientes.paciente.destroy', $paciente->id);
+            $html = '
+              <div class="btn-group">
+                <button title="Historial" paciente="'.$paciente->id.'"  class="btn btn-default btn-flat historial"><i class="fa fa-file-text-o"></i></button>
+                <a href="'.$edit_route.'" class="preview btn btn-default btn-flat" title="Editar">
+                  <i class="fa fa-pencil"></i>
+                </a>
+                <button class="btn btn-danger btn-flat" title="Eliminar" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="'.$delete_route.'">
+                  <i class="fa fa-trash"></i>
+                  </button>
+              </div>';
+
+            return $html;
+          })
+          ->rawColumns(['acciones'])
+          ->make(true);
+      $data = $object->getData(true);
+      return response()->json( $data );
+    }
+
+    public function query_index_ajax($re){
+      $query = Paciente::select();
+      if (isset($re->paciente) && trim($re->paciente) != '')
+        $query->where(DB::raw("CONCAT(nombre, ' ', apellido)"), 'like',  '%' . $re->paciente . '%')
+         ->orWhere('cedula', 'like', '%' . $re->paciente . '%');
+
+       return $query;
+   }
 
     /**
      * Show the form for creating a new resource.
