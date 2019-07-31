@@ -20,6 +20,7 @@ class Determinacion extends Model
       'booleano' => 'Positivo / Negativo',
       'reactiva' => 'Reactivo / No Reactivo'
     ];
+
     public function subseccion(){
       return $this->belongsTo('Modules\Analisis\Entities\Subseccion');
     }
@@ -32,7 +33,12 @@ class Determinacion extends Model
         $rango[0] = 'Inferior a';
         return 'Inferior a ' . $rango[1];
       }
+      if($this['tipo_referencia'] == 'reactiva' || $this['tipo_referencia'] == 'booleano'){
+        return ucfirst(str_replace('_', ' ', $this['rango_referencia']));
+      }
       return $this['rango_referencia'];
     }
+
+
 
 }

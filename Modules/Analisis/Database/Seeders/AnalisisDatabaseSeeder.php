@@ -59,7 +59,7 @@ class AnalisisDatabaseSeeder extends Seeder
               ],
               'Acido Urico' => [
                 'mg/dl',
-                'Masc. 3.0 - 7.2 | Fem. 2.5 - 6.8',
+                'Fem. 2.5 - 6.8 | Masc. 3.0 - 7.2',
                 'rango_sexo'
               ],
             ],
@@ -100,12 +100,12 @@ class AnalisisDatabaseSeeder extends Seeder
             'Inmunologia' => [
               'VDRL' => [
                 null,
-                'No reactiva',
+                'no_reactiva',
                 'reactiva'
               ],
               'Chagas IgG' => [
                 null,
-                'Negativo',
+                'negativo',
                 'booleano'
                 ],
               ],

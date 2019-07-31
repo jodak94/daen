@@ -57,6 +57,20 @@ class DeterminacionController extends AdminBaseController
      */
     public function store(CreateDeterminacionRequest $request)
     {
+        switch ($request->tipo_referencia) {
+          case 'rango_edad':
+            $request['rango_referencia'] = 'Niños ' .  $request->rango_referencia_ninhos_inferior . '-' . $request->rango_referencia_ninhos_superior . ' | Adultos ' .  $request->rango_referencia_adultos_inferior . '-' . $request->rango_referencia_adultos_superior;
+            break;
+          case 'rango_sexo':
+            $request['rango_referencia'] = 'Fem. ' .  $request->rango_referencia_femenino_inferior . '-' . $request->rango_referencia_femenino_superior . ' | Masc. ' .  $request->rango_referencia_masculino_inferior . '-' . $request->rango_referencia_masculino_superior;
+            break;
+          case 'rango':
+            $request['rango_referencia'] = $request->rango_referencia_inferior . '-' . $request->rango_referencia_superior;
+            break;
+          default:
+            $request['rango_referencia'] = strtolower(str_replace(' ', '_', $request->rango_referencia));
+            break;
+        }
         $this->determinacion->create($request->all());
 
         return redirect()->route('admin.analisis.determinacion.index')
