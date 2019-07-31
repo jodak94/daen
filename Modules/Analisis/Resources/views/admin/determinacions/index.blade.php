@@ -22,66 +22,38 @@
             </div>
             <div class="box box-primary">
                 <div class="box-header">
+                  <div class="row">
+                    <div class="col-md-3">
+                      {!! Form::normalInput('titulo', 'Título', $errors) !!}
+                    </div>
+                  </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div class="table-responsive">
-                        <table class="data-table table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>Título</th>
-                                <th>Unidad de medida</th>
-                                <th>Rango de referencia</th>
-                                <th>Subsección</th>
-                                <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php if (isset($determinacions)): ?>
-                            <?php foreach ($determinacions as $determinacion): ?>
-                            <tr>
-                                <td>
-                                    <a href="{{ route('admin.analisis.determinacion.edit', [$determinacion->id]) }}">
-                                        {{ $determinacion->titulo }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.analisis.determinacion.edit', [$determinacion->id]) }}">
-                                      {{ $determinacion->unidad_medida }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.analisis.determinacion.edit', [$determinacion->id]) }}">
-                                        {{ $determinacion->rango_referencia_format }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.analisis.determinacion.edit', [$determinacion->id]) }}">
-                                        {{ $determinacion->subseccion->titulo }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="{{ route('admin.analisis.determinacion.edit', [$determinacion->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
-                                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.analisis.determinacion.destroy', [$determinacion->id]) }}"><i class="fa fa-trash"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                            <?php endif; ?>
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <th>Título</th>
-                                <th>Unidad de medida</th>
-                                <th>Rango de referencia</th>
-                                <th>Subsección</th>
-                                <th>{{ trans('core::core.table.actions') }}</th>
-                            </tr>
-                            </tfoot>
-                        </table>
-                        <!-- /.box-body -->
-                    </div>
+                  <div class="table-responsive">
+                    <table class="data-table table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Unidad de medida</th>
+                            <th>Rango de Referencia</th>
+                            <th>Subsección</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                        <tfoot>
+                            <th>Título</th>
+                            <th>Unidad de medida</th>
+                            <th>Rango de Referencia</th>
+                            <th>Subsección</th>
+                            <th>Acciones</th>
+                        </tfoot>
+                    </table>
+                      <!-- /.box-body -->
+                  </div>
                 </div>
                 <!-- /.box -->
             </div>
@@ -101,29 +73,13 @@
 @stop
 
 @push('js-stack')
+    @include('analisis::admin.determinacions.partials.script-index')
     <script type="text/javascript">
         $( document ).ready(function() {
             $(document).keypressAction({
                 actions: [
                     { key: 'c', route: "<?= route('admin.analisis.determinacion.create') ?>" }
                 ]
-            });
-        });
-    </script>
-    <?php $locale = locale(); ?>
-    <script type="text/javascript">
-        $(function () {
-            $('.data-table').dataTable({
-                "paginate": true,
-                "lengthChange": true,
-                "filter": true,
-                "sort": true,
-                "info": true,
-                "autoWidth": true,
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "url": '<?php echo Module::asset("core:js/vendor/datatables/{$locale}.json") ?>'
-                }
             });
         });
     </script>

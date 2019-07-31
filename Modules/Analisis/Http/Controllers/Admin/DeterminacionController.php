@@ -10,7 +10,8 @@ use Modules\Analisis\Http\Requests\CreateDeterminacionRequest;
 use Modules\Analisis\Http\Requests\UpdateDeterminacionRequest;
 use Modules\Analisis\Repositories\DeterminacionRepository;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
-
+use Yajra\DataTables\Facades\DataTables;
+use Log;
 class DeterminacionController extends AdminBaseController
 {
     /**
@@ -32,10 +33,44 @@ class DeterminacionController extends AdminBaseController
      */
     public function index()
     {
-        $determinacions = $this->determinacion->all();
-
-        return view('analisis::admin.determinacions.index', compact('determinacions'));
+        return view('analisis::admin.determinacions.index');
     }
+
+    public function index_ajax(Request $re){
+      $query = $this->query_index_ajax($re);
+      $object = Datatables::of($query)
+          ->addColumn('acciones', function( $det ){
+            $edit_route = route('admin.analisis.determinacion.edit', $det->id);
+            $delete_route = route('admin.analisis.determinacion.destroy', $det->id);
+            $html = '
+              <div class="btn-group">
+                <a href="javascript:void(0)" class="preview btn btn-default btn-flat" title="Editar">
+                  <i class="fa fa-pencil"></i>
+                </a>
+                <button class="btn btn-danger btn-flat" title="Eliminar" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="'.$delete_route.'">
+                  <i class="fa fa-trash"></i>
+                  </button>
+              </div>';
+
+            return $html;
+          })
+          ->editColumn('subseccion_titulo', function($det){
+            return $det->subseccion->titulo;
+          })
+          ->rawColumns(['acciones'])
+          ->make(true);
+      $data = $object->getData(true);
+      return response()->json( $data );
+    }
+
+    public function query_index_ajax($re){
+      $query = Determinacion::select();
+      Log::info($re->titulo);
+      if (isset($re->titulo) && trim($re->titulo) != '')
+         $query->where('titulo', 'like', '%'.$re->titulo.'%' );
+
+       return $query;
+   }
 
     /**
      * Show the form for creating a new resource.

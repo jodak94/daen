@@ -125,6 +125,11 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'uses' => 'DeterminacionController@index',
         'middleware' => 'can:analisis.determinacions.index'
     ]);
+    $router->get('determinacions/index-ajax', [
+        'as' => 'admin.analisis.determinacion.index_ajax',
+        'uses' => 'DeterminacionController@index_ajax',
+        'middleware' => 'can:analisis.determinacions.index'
+    ]);
     $router->get('determinacions/create', [
         'as' => 'admin.analisis.determinacion.create',
         'uses' => 'DeterminacionController@create',

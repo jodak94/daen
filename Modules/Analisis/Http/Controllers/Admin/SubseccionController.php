@@ -44,7 +44,8 @@ class SubseccionController extends AdminBaseController
      */
     public function create()
     {
-        return view('analisis::admin.subseccions.create');
+        $secciones = Seccion::all()->pluck('titulo', 'id')->toArray();
+        return view('analisis::admin.subseccions.create', compact('secciones'));
     }
 
     /**
