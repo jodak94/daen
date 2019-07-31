@@ -96,7 +96,7 @@ class DeterminacionController extends AdminBaseController
             $request['rango_referencia'] = 'Niños ' .  $request->rango_referencia_ninhos_inferior . '-' . $request->rango_referencia_ninhos_superior . ' | Adultos ' .  $request->rango_referencia_adultos_inferior . '-' . $request->rango_referencia_adultos_superior;
             break;
           case 'rango_sexo':
-            $request['rango_referencia'] = 'Fem. ' .  $request->rango_referencia_femenino_inferior . '-' . $request->rango_referencia_femenino_superior . ' | Masc. ' .  $request->rango_referencia_masculino_inferior . '-' . $request->rango_referencia_masculino_superior;
+            $request['rango_referencia'] = 'Fem ' .  $request->rango_referencia_femenino_inferior . '-' . $request->rango_referencia_femenino_superior . ' | Masc ' .  $request->rango_referencia_masculino_inferior . '-' . $request->rango_referencia_masculino_superior;
             break;
           case 'rango':
             $request['rango_referencia'] = $request->rango_referencia_inferior . '-' . $request->rango_referencia_superior;
@@ -121,6 +121,28 @@ class DeterminacionController extends AdminBaseController
     {
         $subsecciones = Subseccion::all()->pluck('titulo', 'id')->toArray();
 
+
+        switch ($determinacion->tipo_referencia) {
+          case 'rango':
+            $rango = explode('-', $determinacion->rango_referencia);
+            $determinacion['rango_referencia_inferior'] = $rango[0];
+            $determinacion['rango_referencia_superior'] = $rango[1];
+            break;
+          case 'rango_sexo':
+            $rango =  explode('-', str_replace('|', '-', preg_replace('/[^0-9\-|.]/', '', $determinacion->rango_referencia)));
+            $determinacion->rango_referencia_femenino_inferior = $rango[0];
+            $determinacion->rango_referencia_femenino_superior = $rango[1];
+            $determinacion->rango_referencia_masculino_inferior = $rango[2];
+            $determinacion->rango_referencia_masculino_superior = $rango[3];
+            break;
+          case 'rango_edad':
+            $rango =  explode('-', str_replace('|', '-', preg_replace('/[^0-9\-|.]/', '', $determinacion->rango_referencia)));
+            $determinacion->rango_referencia_ninhos_inferior = $rango[0];
+            $determinacion->rango_referencia_ninhos_superior = $rango[1];
+            $determinacion->rango_referencia_adultos_inferior = $rango[2];
+            $determinacion->rango_referencia_adultos_superior = $rango[3];
+            break;
+        }
         return view('analisis::admin.determinacions.edit', compact('determinacion', 'subsecciones'));
     }
 

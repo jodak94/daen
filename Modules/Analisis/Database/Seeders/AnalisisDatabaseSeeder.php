@@ -59,7 +59,7 @@ class AnalisisDatabaseSeeder extends Seeder
               ],
               'Acido Urico' => [
                 'mg/dl',
-                'Fem. 2.5 - 6.8 | Masc. 3.0 - 7.2',
+                'Fem 2.5 - 6.8 | Masc 3.0 - 7.2',
                 'rango_sexo'
               ],
             ],
