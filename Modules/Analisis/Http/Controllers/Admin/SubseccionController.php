@@ -114,9 +114,7 @@ class SubseccionController extends AdminBaseController
 
     public function ordenar(Request $request){
       $c = 0;
-      Log::info("ordenar");
       foreach ($request->subsecciones as $id) {
-        Log::info($id);
         DB::table('analisis__subseccions')->where('id', $id)->update(['orden' => $c]);
         $c++;
       }
