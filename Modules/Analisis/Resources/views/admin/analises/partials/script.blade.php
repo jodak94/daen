@@ -98,9 +98,12 @@
               +     det.rango_referencia_format
               +"    <input type='hidden' class='rango-referencia' value='"+det.rango_referencia+"'>"
               +"  </td>"
-              +"  <td class='center'>"
-              +"    <input type='checkbox' class='rango-check flat-blue' id='check-"+det.id+"' name=fuera_rango["+det.id+"]>"
-              +"  </td>"
+              +"  <td class='center'>";
+          if(det.tipo_referencia != 'sin_referencia')
+          html
+             +="    <input type='checkbox' class='rango-check flat-blue' id='check-"+det.id+"' name=fuera_rango["+det.id+"]>";
+          html
+             +="  </td>"
               +"  <td>"
               +"    <button subId="+ui.item.id+" type='button' class='btn btn-danger btn-flat delete-det'>"
               +"      <i class='fa fa-trash'></i>"

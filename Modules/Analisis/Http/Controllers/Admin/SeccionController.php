@@ -9,7 +9,8 @@ use Modules\Analisis\Http\Requests\CreateSeccionRequest;
 use Modules\Analisis\Http\Requests\UpdateSeccionRequest;
 use Modules\Analisis\Repositories\SeccionRepository;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
-
+use DB;
+use Log;
 class SeccionController extends AdminBaseController
 {
     /**
@@ -31,7 +32,7 @@ class SeccionController extends AdminBaseController
      */
     public function index()
     {
-        $seccions = $this->seccion->all();
+        $seccions = Seccion::orderBy('orden', 'asc')->get();
 
         return view('analisis::admin.seccions.index', compact('seccions'));
     }
@@ -98,5 +99,23 @@ class SeccionController extends AdminBaseController
 
         return redirect()->route('admin.analisis.seccion.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('analisis::seccions.title.seccions')]));
+    }
+
+    public function ordenar(Request $request){
+      $c = 0;
+      foreach ($request->seccion as $id) {
+        DB::table('analisis__seccions')->where('id', $id)->update(['orden' => $c]);
+        $c++;
+      }
+      return redirect()->route('admin.analisis.seccion.index')
+          ->withSuccess("Orden establecido correctamente");
+    }
+
+    public function subseccion(Request $request){
+      $seccion = Seccion::find($request->id);
+      if(isset($seccion))
+        return response()->json(['error' => false, 'subsecciones' => $seccion->subsecciones()->orderBy('orden', 'asc')->get()]);
+
+      return response()->json(['error' => true]);
     }
 }

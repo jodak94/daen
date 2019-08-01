@@ -12,12 +12,14 @@ return [
         'create' => 'analisis::seccions.create resource',
         'edit' => 'analisis::seccions.edit resource',
         'destroy' => 'analisis::seccions.destroy resource',
+        'ordenar' => 'analisis::seccions.ordenar resource'
     ],
     'analisis.subseccions' => [
         'index' => 'analisis::subseccions.list resource',
         'create' => 'analisis::subseccions.create resource',
         'edit' => 'analisis::subseccions.edit resource',
         'destroy' => 'analisis::subseccions.destroy resource',
+        'ordenar' => 'analisis::seccions.ordenar resource'
     ],
     'analisis.determinacions' => [
         'index' => 'analisis::determinacions.list resource',

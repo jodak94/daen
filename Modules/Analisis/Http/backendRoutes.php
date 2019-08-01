@@ -64,6 +64,11 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'uses' => 'SeccionController@store',
         'middleware' => 'can:analisis.seccions.create'
     ]);
+    $router->post('seccions/ordenar', [
+        'as' => 'admin.analisis.seccion.ordenar',
+        'uses' => 'SeccionController@ordenar',
+        'middleware' => 'can:analisis.seccions.ordenar'
+    ]);
     $router->get('seccions/{seccion}/edit', [
         'as' => 'admin.analisis.seccion.edit',
         'uses' => 'SeccionController@edit',
@@ -78,6 +83,10 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'as' => 'admin.analisis.seccion.destroy',
         'uses' => 'SeccionController@destroy',
         'middleware' => 'can:analisis.seccions.destroy'
+    ]);
+    $router->get('secciones/subseccion', [
+      'as' => 'admin.analisis.seccion.subseccion',
+      'uses' => 'SeccionController@subseccion',
     ]);
     $router->bind('subseccion', function ($id) {
         return app('Modules\Analisis\Repositories\SubseccionRepository')->find($id);
@@ -97,6 +106,11 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'as' => 'admin.analisis.subseccion.store',
         'uses' => 'SubseccionController@store',
         'middleware' => 'can:analisis.subseccions.create'
+    ]);
+    $router->post('subseccions/ordenar', [
+        'as' => 'admin.analisis.subseccion.ordenar',
+        'uses' => 'SubseccionController@ordenar',
+        'middleware' => 'can:analisis.subseccions.ordenar'
     ]);
     $router->get('subseccions/{subseccion}/edit', [
         'as' => 'admin.analisis.subseccion.edit',

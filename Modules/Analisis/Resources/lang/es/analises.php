@@ -8,7 +8,7 @@ return [
     'title' => [
         'analises' => 'Resultados',
         'create analisis' => 'Cargar Resultado',
-        'edit analisis' => 'Edit a analisis',
+        'edit analisis' => 'Editar Resultado',
     ],
     'button' => [
         'create analisis' => 'Cargar Resultado',

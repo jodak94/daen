@@ -12,6 +12,7 @@ use Modules\Analisis\Repositories\SubseccionRepository;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 use Modules\Analisis\Entities\Determinacion;
 use DB;
+use Log;
 class SubseccionController extends AdminBaseController
 {
     /**
@@ -109,5 +110,16 @@ class SubseccionController extends AdminBaseController
         ->where('titulo', 'like', '%'.$request->term.'%')->take(5)->get()->toArray();
 
       return response()->json($sub);
+    }
+
+    public function ordenar(Request $request){
+      $c = 0;
+      Log::info("ordenar");
+      foreach ($request->subsecciones as $id) {
+        Log::info($id);
+        DB::table('analisis__subseccions')->where('id', $id)->update(['orden' => $c]);
+        $c++;
+      }
+      return response()->json(['error' => false, 'message' => 'Orden establecido correctamente']);
     }
 }
