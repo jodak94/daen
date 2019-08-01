@@ -115,12 +115,12 @@ class AnalisisDatabaseSeeder extends Seeder
               'Grupo Sanguineo' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Factor RH' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
             ],
           ],
@@ -129,86 +129,86 @@ class AnalisisDatabaseSeeder extends Seeder
               'Aspecto' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Color' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Ph' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Densidad' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
             ],
             'Sedimiento' => [
               'Leucocitos' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Hematies' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Células Epiteliales Planas' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Mucus y Fibras Hialina' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Bacterias' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
             ],
             'Exámen Químico Cualitativo' => [
               'Glucosa' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Proteína' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Cetona' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Urobilinogeno' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Bilirrubina' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Sangre' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
               'Nitrito' => [
                 null,
                 null,
-                null,
+                'sin_referencia',
               ],
             ]
           ]

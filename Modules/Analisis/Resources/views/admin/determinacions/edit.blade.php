@@ -48,6 +48,7 @@
 @stop
 
 @push('js-stack')
+    @include('analisis::admin.determinacions.partials.script-edit')
     <script type="text/javascript">
         $( document ).ready(function() {
             $(document).keypressAction({

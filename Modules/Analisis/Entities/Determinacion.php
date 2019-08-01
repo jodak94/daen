@@ -18,7 +18,8 @@ class Determinacion extends Model
       'rango_edad' => 'Rango considerando edad (Adultos / Niños)',
       'rango_sexo' => 'Rango considerando sexo',
       'booleano' => 'Positivo / Negativo',
-      'reactiva' => 'Reactivo / No Reactivo'
+      'reactiva' => 'Reactivo / No Reactivo',
+      'sin_referencia' => '--'
     ];
 
     public function subseccion(){

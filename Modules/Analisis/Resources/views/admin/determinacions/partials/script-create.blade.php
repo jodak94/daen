@@ -26,6 +26,7 @@
                 +'    <input placeholder="Unidad de Medida" name="unidad_medida" type="text" id="unidad_medida" class="form-control">'
                 +'  </div>'
                 +'</div>'
+                $("#rango-titulo-container").show();
               break;
             case 'rango_sexo':
               html
@@ -63,6 +64,7 @@
                 +'    <input placeholder="Unidad de Medida" name="unidad_medida" type="text" id="unidad_medida" class="form-control">'
                 +'  </div>'
                 +'</div>'
+                $("#rango-titulo-container").show();
                 break;
             case 'rango_edad':
               html
@@ -100,6 +102,7 @@
                 +'    <input placeholder="Unidad de Medida" name="unidad_medida" type="text" id="unidad_medida" class="form-control">'
                 +'  </div>'
                 +'</div>'
+                $("#rango-titulo-container").show();
               break;
             case 'booleano':
               html
@@ -109,6 +112,7 @@
                 +'    <input placeholder="Rango de referencia" name="rango_referencia" type="text" value="Negativo" class="form-control" readonly>'
                 +'  </div>'
                 +'</div>'
+                $("#rango-titulo-container").show();
               break;
             case 'reactiva':
               html
@@ -118,6 +122,10 @@
                 +'    <input placeholder="Rango de referencia" name="rango_referencia" type="text" value="No Reactiva" class="form-control" readonly>'
                 +'  </div>'
                 +'</div>'
+                $("#rango-titulo-container").show();
+              break;
+            case 'sin_referencia':
+              $("#rango-titulo-container").hide();
               break;
           }
           $("#rango-container").html(html);

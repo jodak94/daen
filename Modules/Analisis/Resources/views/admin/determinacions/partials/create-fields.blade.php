@@ -10,7 +10,7 @@
       {!! Form:: normalSelect('tipo_referencia', 'Tipo de Rango de referencia', $errors, $tipos_refs) !!}
     </div>
   </div>
-  <div class="row">
+  <div class="row" id="rango-titulo-container">
     <div class="col-md-9">
       <h3>Rango de Referencia</h3>
     </div>
