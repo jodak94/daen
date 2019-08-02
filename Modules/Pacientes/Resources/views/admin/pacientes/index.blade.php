@@ -18,6 +18,9 @@
                     <a href="{{ route('admin.pacientes.paciente.create') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px;">
                         <i class="fa fa-pencil"></i> {{ trans('pacientes::pacientes.button.create paciente') }}
                     </a>
+                    <a href="{{ route('admin.pacientes.paciente.get_importar') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px; margin-left: 20px">
+                      <i class="fa fa-file-excel-o"></i> Cargar desde Excel
+                    </a>
                 </div>
             </div>
             <div class="box box-primary">

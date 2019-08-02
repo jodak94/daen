@@ -49,7 +49,7 @@
     </dl>
 @stop
 @push('js-stack')
-    <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
   <script type="text/javascript">
         $( document ).ready(function() {
             $(document).keypressAction({

@@ -55,6 +55,22 @@ $router->group(['prefix' =>'/pacientes'], function (Router $router) {
         'as' => 'admin.pacientes.paciente.search_ajax',
         'uses' => 'PacienteController@search_ajax',
     ]);
+    $router->get('pacientes/importar', [
+        'as' => 'admin.pacientes.paciente.get_importar',
+        'uses' => 'PacienteController@get_importar',
+    ]);
+    $router->post('pacientes/importar', [
+        'as' => 'admin.pacientes.paciente.post_importar',
+        'uses' => 'PacienteController@post_importar',
+    ]);
+    $router->post('pacientes/validation', [
+        'as' => 'admin.pacientes.paciente.validation',
+        'uses' => 'PacienteController@validation',
+    ]);
+    // $router->post('pacientes/store_ajax', [
+    //     'as' => 'admin.pacientes.paciente.validation',
+    //     'uses' => 'PacienteController@validation',
+    // ]);
 // append
 
 });

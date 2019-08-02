@@ -12,6 +12,8 @@ use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 use Yajra\DataTables\Facades\DataTables;
 use Log;
 use DB;
+use \Excel;
+use App\Imports\PacientesImport;
 class PacienteController extends AdminBaseController
 {
     /**
@@ -189,5 +191,77 @@ class PacienteController extends AdminBaseController
       $resultados = $paciente->analisis()->get()->pluck('id');
 
       return response()->json(['error' => false, 'resultados' => $resultados]);
+    }
+
+    public function get_importar(){
+      return view('pacientes::admin.pacientes.import');
+    }
+
+    public function post_importar(Request $request){
+      $result = array($request->file('excel')->getClientOriginalExtension());
+        if(in_array($result[0],$extensions)){
+          DB::beginTransaction();
+          try{
+            $rows = Excel::toArray(new PacientesImport, request()->file('excel'));
+            $errors = [];
+            $productos_error = [];
+            $productos_cargados = 0;
+            $c = 0;
+            foreach($rows as $row) {
+                foreach($row as $producto) {
+                    $c++;
+                    $error = $this->cell_validation($producto, $this->rules);
+                        if (!empty($error)) {
+                            $errors[] = $error;
+                            $productos_error[] = $producto;
+                        }else {
+                            $nuevo_producto = new Producto();
+                            if($producto["codigo"])
+                              $nuevo_producto->codigo = $producto["codigo"];
+                            else
+                              $nuevo_producto->codigo = $this->obtener_codigo($producto["nombre"]);
+                            $nuevo_producto->nombre = $producto["nombre"];
+                            $nuevo_producto->stock = $producto["stock"];
+                            $nuevo_producto->stock_critico = $producto["stock_critico"];
+                            $nuevo_producto->precio = $producto["precio"];
+                            $nuevo_producto->costo = $producto["costo"];
+                            $nuevo_producto->descripcion = $producto["descripcion"];
+                            if($producto["descuento"]) {
+                                $descuento = strval(1-$producto["descuento"]/100);
+                                $confDescuento = Configuracion::where('slug', 'descuentos')->first();
+                                $descuentos = json_decode($confDescuento->value);
+
+                                if(!array_key_exists($descuento,$descuentos)){
+                                    $descuentos->$descuento = $producto["descuento"]."%";
+                                    $confDescuento->value = json_encode($descuentos);
+                                    $confDescuento->save();
+                                }
+                                $nuevo_producto->descuento = $descuento;
+                            }else{
+                                $nuevo_producto->descuento = 1;
+                            }
+
+                            $nuevo_producto->save();
+                            $productos_cargados++;
+                        }
+                }
+            }
+            DB::commit();
+            return response()->json([
+                "cargados" => $productos_cargados,
+                "productos" => $productos_error,
+                "errores" => $errors
+            ]);
+          } catch (\Exception $e) {
+              Log::info($e);
+              return response()->json([
+                "error" => "error en tipo de archivo",
+              ],400);
+          }
+        }else{
+            return response()->json([
+                "error" => "error en tipo de archivo",
+            ],400);
+        }
     }
 }
