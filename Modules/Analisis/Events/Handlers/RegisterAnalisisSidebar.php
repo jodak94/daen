@@ -51,7 +51,7 @@ class RegisterAnalisisSidebar implements \Maatwebsite\Sidebar\SidebarExtender
         $menu->group(trans('core::sidebar.content'), function (Group $group) {
             $group->item(trans('Configuraciones'), function (Item $item) {
                 $item->icon('fa fa-cog');
-                $item->weight(10);
+                $item->weight(15);
                 $item->authorize(
                      /* append */
                 );

@@ -104,6 +104,7 @@ class PacienteController extends AdminBaseController
       $paciente->fecha_nacimiento = $request->fecha_nacimiento;
       $paciente->sexo = $request->sexo;
       $paciente->cedula = $request->cedula;
+      $paciente->empresa_id = $request->empresa_id;
       $paciente->save();
       return response()->json(['error' => false, 'paciente' => $paciente]);
     }

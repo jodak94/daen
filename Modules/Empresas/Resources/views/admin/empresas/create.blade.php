@@ -2,19 +2,17 @@
 
 @section('content-header')
     <h1>
-        {{ trans('pacientes::pacientes.title.create paciente') }}
+        {{ trans('empresas::empresas.title.create empresa') }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
-        <li><a href="{{ route('admin.pacientes.paciente.index') }}">{{ trans('pacientes::pacientes.title.pacientes') }}</a></li>
-        <li class="active">{{ trans('pacientes::pacientes.title.create paciente') }}</li>
+        <li><a href="{{ route('admin.empresas.empresa.index') }}">{{ trans('empresas::empresas.title.empresas') }}</a></li>
+        <li class="active">{{ trans('empresas::empresas.title.create empresa') }}</li>
     </ol>
 @stop
-@push('css-stack')
-  <link rel="stylesheet" href="{{ asset('themes/adminlte/css/vendor/jQueryUI/jquery-ui-1.10.3.custom.min.css') }}">
-@endpush
+
 @section('content')
-    {!! Form::open(['route' => ['admin.pacientes.paciente.store'], 'method' => 'post']) !!}
+    {!! Form::open(['route' => ['admin.empresas.empresa.store'], 'method' => 'post']) !!}
     <div class="row">
         <div class="col-md-12">
             <div class="nav-tabs-custom">
@@ -24,13 +22,13 @@
                     @foreach (LaravelLocalization::getSupportedLocales() as $locale => $language)
                         <?php $i++; ?>
                         <div class="tab-pane {{ locale() == $locale ? 'active' : '' }}" id="tab_{{ $i }}">
-                            @include('pacientes::admin.pacientes.partials.create-fields', ['lang' => $locale])
+                            @include('empresas::admin.empresas.partials.create-fields', ['lang' => $locale])
                         </div>
                     @endforeach
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary btn-flat">{{ trans('core::core.button.create') }}</button>
-                        <a class="btn btn-danger pull-right btn-flat" href="{{ route('admin.pacientes.paciente.index')}}"><i class="fa fa-times"></i> {{ trans('core::core.button.cancel') }}</a>
+                        <a class="btn btn-danger pull-right btn-flat" href="{{ route('admin.empresas.empresa.index')}}"><i class="fa fa-times"></i> {{ trans('core::core.button.cancel') }}</a>
                     </div>
                 </div>
             </div> {{-- end nav-tabs-custom --}}
@@ -48,32 +46,23 @@
         <dd>{{ trans('core::core.back to index') }}</dd>
     </dl>
 @stop
+
 @push('js-stack')
-    <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
-  <script type="text/javascript">
+    <script type="text/javascript">
         $( document ).ready(function() {
             $(document).keypressAction({
                 actions: [
-                    { key: 'b', route: "<?= route('admin.pacientes.paciente.index') ?>" }
+                    { key: 'b', route: "<?= route('admin.empresas.empresa.index') ?>" }
                 ]
             });
         });
     </script>
     <script>
-      $("#buscar-empresa").autocomplete({
-        appendTo: '.modal-add-paciente',
-        source: '{{route('admin.empresas.empresa.search_ajax')}}',
-        select: function( event, ui){
-          $("#empresa_id").val(ui.item.id)
-          $("#box-empresa").show();
-          $("#nombre-empresa").html(ui.item.value)
-        }
-      })
-
-      $("#eliminar-empresa").on('click', function(){
-        $("#box-empresa").fadeOut();
-        $("#empresa_id").val('');
-        $("#buscar-empresa").val('');
-      })
+        $( document ).ready(function() {
+            $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({
+                checkboxClass: 'icheckbox_flat-blue',
+                radioClass: 'iradio_flat-blue'
+            });
+        });
     </script>
 @endpush

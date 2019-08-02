@@ -27,6 +27,7 @@
         { data: 'nombre', name: 'nombre' },
         { data: 'apellido', name: 'apellido' },
         { data: 'cedula', name: 'cedula' },
+        { data: 'empresa_format', name: 'empresa_format' },
         { data: 'acciones', name: 'acciones' },
       ],
       columnDefs: [

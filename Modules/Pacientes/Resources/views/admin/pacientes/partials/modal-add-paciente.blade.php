@@ -1,4 +1,4 @@
-<div class="modal fade" id="addPaciente" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade modal-add-paciente" id="addPaciente" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -17,8 +17,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button id="add_paciente_button" type="button" class="btn btn-primary" style="float:left"><i class="fa fa-spinner fa-spin" aria-hidden="true" style="display:none"></i> Guardar</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <button id="add_paciente_button" type="button" class="btn btn-flat btn-primary" style="float:left"><i class="fa fa-spinner fa-spin" aria-hidden="true" style="display:none"></i> Guardar</button>
+        <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>

@@ -3,13 +3,19 @@
     var paciente;
     $("#add_paciente_button").on('click', function(){
       $("#error").hide();
-      var nombre = $("#nombre").val();
-      var apellido = $("#apellido").val();
-      var fecha_nacimiento = $("#fecha_nacimiento").val();
-      var cedula = $("#cedula").val();
+      let nombre = $("#nombre").val();
+      let apellido = $("#apellido").val();
+      let fecha_nacimiento = $("#fecha_nacimiento").val();
+      let cedula = $("#cedula").val();
+      let empresa_id = $("#empresa_id").val()
       if(nombre == '' || apellido == '' || fecha_nacimiento == '' || cedula == '' ){
-        $("#error").show();
-        $("#error_message").html('Faltan completar campos');
+        $.toast({
+          heading: 'Error',
+          text: 'Faltan completar campos',
+          showHideTransition: 'slide',
+          icon:'error',
+          position: 'top-right'
+        })
         return;
       }
       $("#spin").show();
@@ -22,6 +28,7 @@
           'fecha_nacimiento': fecha_nacimiento,
           'cedula': cedula,
           'sexo': $('select[name=sexo]').val(),
+          'empresa_id': empresa_id,
           "_token": "{{ csrf_token() }}",
         },
         success: function(data){
@@ -41,7 +48,13 @@
         },
         error: function(error){
           $("#spin").hide();
-          $("#error_message").html("Ocurrio un error en el servidor");
+          $.toast({
+            heading: 'Error',
+            text: 'Ocurrio un error en el servidor',
+            showHideTransition: 'slide',
+            icon:'error',
+            position: 'top-right'
+          })
         }
       })
     })
@@ -53,6 +66,23 @@
         $("#buscar-subseccion").prop("disabled", false)
       }
     })
+
+    $("#buscar-empresa").autocomplete({
+      appendTo: '.modal-add-paciente',
+      source: '{{route('admin.empresas.empresa.search_ajax')}}',
+      select: function( event, ui){
+        $("#empresa_id").val(ui.item.id)
+        $("#box-empresa").show();
+        $("#nombre-empresa").html(ui.item.value)
+      }
+    })
+
+    $("#eliminar-empresa").on('click', function(){
+      $("#box-empresa").fadeOut();
+      $("#empresa_id").val('');
+      $("#buscar-empresa").val('');
+    })
+
     $("#buscar-subseccion").autocomplete({
       source: '{{route('admin.analisis.subseccion.search_ajax')}}',
       select: function( event, ui){

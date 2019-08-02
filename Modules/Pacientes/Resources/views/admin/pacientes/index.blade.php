@@ -37,6 +37,7 @@
                               <th>Nombre</th>
                               <th>Apellido</th>
                               <th>Cédula</th>
+                              <th>Empresa</th>
                               <th>Acciones</th>
                             </tr>
                             </thead>
@@ -48,6 +49,7 @@
                               <th>Nombre</th>
                               <th>Apellido</th>
                               <th>Cédula</th>
+                              <th>Empresa</th>
                               <th>Acciones</th>
                             </tr>
                             </tfoot>
