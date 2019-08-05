@@ -10,7 +10,27 @@
         <li class="active">{{ trans('analisis::analises.title.edit analisis') }}</li>
     </ol>
 @stop
-
+@push('css-stack')
+  <link rel="stylesheet" href="{{ asset('themes/adminlte/css/vendor/jQueryUI/jquery-ui-1.10.3.custom.min.css') }}">
+  <style>
+    .input-error{
+      background-color: #d73925;
+      color: #fff;
+    }
+    .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td{
+      border: 1px solid #ddd
+    }
+    .center{
+      text-align: center;
+    }
+    .tr-titulo{
+      background-color: #efefef;
+    }
+    .table{
+      font-size: 16px;
+    }
+  </style>
+@endpush
 @section('content')
     {!! Form::open(['route' => ['admin.analisis.analisis.update', $analisis->id], 'method' => 'put']) !!}
     <div class="row">
@@ -48,6 +68,7 @@
 @stop
 
 @push('js-stack')
+    <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
     <script type="text/javascript">
         $( document ).ready(function() {
             $(document).keypressAction({
