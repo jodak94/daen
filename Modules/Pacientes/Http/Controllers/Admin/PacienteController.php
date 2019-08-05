@@ -242,7 +242,7 @@ class PacienteController extends AdminBaseController
                 $nuevo_paciente->nombre = $paciente["nombre"];
                 $nuevo_paciente->apellido = $paciente["apellido"];
                 $nuevo_paciente->sexo = $paciente["sexo"];
-                $nuevo_paciente->fecha_nacimiento = $paciente["fecha_nacimiento"];
+                $nuevo_paciente->fecha_nacimiento = Carbon::createFromFormat('d/m/Y', $paciente['fecha_nacimiento']);
                 $nuevo_paciente->cedula = $paciente["cedula"];
                 $nuevo_paciente->empresa_id = $request->empresa_id;
                 $nuevo_paciente->save();
@@ -303,7 +303,7 @@ class PacienteController extends AdminBaseController
           $paciente->nombre = $req["nombre"];
           $paciente->apellido = $req["apellido"];
           $paciente->cedula = $req["cedula"];
-          $paciente->fecha_nacimiento = $req["fecha_nacimiento"];
+          $paciente->fecha_nacimiento = Carbon::createFromFormat('d/m/Y', $req['fecha_nacimiento']);
           $paciente->sexo = $req["sexo"];
           $paciente->empresa_id = $request->empresa_id;
           $paciente->save();

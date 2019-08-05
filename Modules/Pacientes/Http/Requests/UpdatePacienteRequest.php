@@ -8,7 +8,12 @@ class UpdatePacienteRequest extends BaseFormRequest
 {
     public function rules()
     {
-        return [];
+        return [
+          'nombre'  => 'required',
+          'apellido' => 'required',
+          'cedula' => 'numeric|required|unique:pacientes__pacientes',
+          'sexo'     => 'required|in:masculino,femenino',
+      ];
     }
 
     public function translationRules()
@@ -23,7 +28,10 @@ class UpdatePacienteRequest extends BaseFormRequest
 
     public function messages()
     {
-        return [];
+        return [
+          'required'    => 'El campo :attribute no puede quedar vacio.',
+          'unique' => 'El campo :attribute debe ser único. Ya existe ese valor.',
+        ];
     }
 
     public function translationMessages()
