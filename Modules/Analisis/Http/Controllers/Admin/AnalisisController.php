@@ -135,14 +135,19 @@ class AnalisisController extends AdminBaseController
           $analisis->paciente_id = $request->paciente_id;
           $analisis->created_by = Auth::user()->id;
           $analisis->save();
-          foreach ($request->determinacion as $det_id => $valor) {
-            if(!isset($valor))
+          $orden = DB::select('
+            select d.id from analisis__seccions s
+            join analisis__subseccions ss on ss.seccion_id = s.id join analisis__determinacions d on d.subseccion_id = ss.id
+            where d.id in ('.implode(', ', array_keys($request['determinacion'])).')
+            order by s.orden, ss.orden;');
+          foreach ($orden as $det_id) {
+            if(!isset($request->determinacion[$det_id->id]))//valor
               continue;
             $resultado = new Resultado();
-            $resultado->determinacion_id = $det_id;
+            $resultado->determinacion_id = $det_id->id;
             $resultado->analisis_id = $analisis->id;
-            $resultado->valor = $valor;
-            if(in_array($det_id, $fuera_rango))
+            $resultado->valor = $request->determinacion[$det_id->id];
+            if(in_array($det_id->id, $fuera_rango))
               $resultado->fuera_rango = true;
             else
               $resultado->fuera_rango = false;
@@ -150,7 +155,7 @@ class AnalisisController extends AdminBaseController
           }
         } catch (\Exception $e) {
           Log::info('Error al crear el análisis');
-          Log::info($e->getMessage());
+          Log::info($e);
           return response()->json(['error' => true, 'message'=> 'Ocurrió un error en el servidor, avisar al administrador.']);
         }
         DB::commit();
