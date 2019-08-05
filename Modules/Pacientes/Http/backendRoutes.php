@@ -67,10 +67,10 @@ $router->group(['prefix' =>'/pacientes'], function (Router $router) {
         'as' => 'admin.pacientes.paciente.validation',
         'uses' => 'PacienteController@validation',
     ]);
-    // $router->post('pacientes/store_ajax', [
-    //     'as' => 'admin.pacientes.paciente.validation',
-    //     'uses' => 'PacienteController@validation',
-    // ]);
+    $router->post('pacientes/store-massive-ajax', [
+        'as' => 'admin.pacientes.paciente.store_massive_ajax',
+        'uses' => 'PacienteController@store_massive_ajax',
+    ]);
 // append
 
 });

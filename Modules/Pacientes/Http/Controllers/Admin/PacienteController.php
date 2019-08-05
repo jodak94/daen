@@ -14,18 +14,33 @@ use Log;
 use DB;
 use \Excel;
 use App\Imports\PacientesImport;
+use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 class PacienteController extends AdminBaseController
 {
     /**
      * @var PacienteRepository
      */
     private $paciente;
+    private $rules;
+    private $messages;
 
     public function __construct(PacienteRepository $paciente)
     {
         parent::__construct();
 
         $this->paciente = $paciente;
+
+        $this->rules = [
+            'nombre'  => 'required',
+            'apellido' => 'required',
+            'cedula' => 'numeric|required|unique:pacientes__pacientes',
+            'sexo'     => 'required|in:masculino,femenino',
+        ];
+        $this->messages = [
+            'required'    => 'El campo :attribute no puede quedar vacio.',
+            'unique' => 'El campo :attribute debe ser único. Ya existe ese valor.',
+        ];
     }
 
     /**
@@ -180,7 +195,7 @@ class PacienteController extends AdminBaseController
         $this->paciente->destroy($paciente);
 
         return redirect()->route('admin.pacientes.paciente.index')
-            ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('pacientes::pacientes.title.pacientes')]));
+            ->withSuccess('Paciente eliminado exitosamente');
     }
 
     public function get_analisis_id(Request $request){
@@ -199,69 +214,104 @@ class PacienteController extends AdminBaseController
 
     public function post_importar(Request $request){
       $result = array($request->file('excel')->getClientOriginalExtension());
-        if(in_array($result[0],$extensions)){
-          DB::beginTransaction();
-          try{
-            $rows = Excel::toArray(new PacientesImport, request()->file('excel'));
-            $errors = [];
-            $productos_error = [];
-            $productos_cargados = 0;
-            $c = 0;
-            foreach($rows as $row) {
-                foreach($row as $producto) {
-                    $c++;
-                    $error = $this->cell_validation($producto, $this->rules);
-                        if (!empty($error)) {
-                            $errors[] = $error;
-                            $productos_error[] = $producto;
-                        }else {
-                            $nuevo_producto = new Producto();
-                            if($producto["codigo"])
-                              $nuevo_producto->codigo = $producto["codigo"];
-                            else
-                              $nuevo_producto->codigo = $this->obtener_codigo($producto["nombre"]);
-                            $nuevo_producto->nombre = $producto["nombre"];
-                            $nuevo_producto->stock = $producto["stock"];
-                            $nuevo_producto->stock_critico = $producto["stock_critico"];
-                            $nuevo_producto->precio = $producto["precio"];
-                            $nuevo_producto->costo = $producto["costo"];
-                            $nuevo_producto->descripcion = $producto["descripcion"];
-                            if($producto["descuento"]) {
-                                $descuento = strval(1-$producto["descuento"]/100);
-                                $confDescuento = Configuracion::where('slug', 'descuentos')->first();
-                                $descuentos = json_decode($confDescuento->value);
-
-                                if(!array_key_exists($descuento,$descuentos)){
-                                    $descuentos->$descuento = $producto["descuento"]."%";
-                                    $confDescuento->value = json_encode($descuentos);
-                                    $confDescuento->save();
-                                }
-                                $nuevo_producto->descuento = $descuento;
-                            }else{
-                                $nuevo_producto->descuento = 1;
-                            }
-
-                            $nuevo_producto->save();
-                            $productos_cargados++;
-                        }
-                }
+      $extensions = array("xls","xlsx");
+      if(in_array($result[0],$extensions)){
+        DB::beginTransaction();
+        try{
+          $rows = Excel::toArray(new PacientesImport, request()->file('excel'));
+          $errors = [];
+          $pacientes_error = [];
+          $pacientes_cargados = 0;
+          $c = 0;
+          foreach($rows as $row) {
+            foreach($row as $paciente) {
+              $c++;
+              if($paciente["sexo"] == 'm' || $paciente["sexo"] == 'masc')
+                $paciente["sexo"] = 'masculino';
+              elseif ($paciente["sexo"] == 'f' || $paciente["sexo"] == 'fem')
+                $paciente["sexo"] = 'femenino';
+              else
+                $paciente["sexo"] == strtolower($paciente["sexo"]);
+              $error = $this->cell_validation($paciente, $this->rules);
+              if (!empty($error)) {
+                $errors[] = $error;
+                $pacientes_error[] = $paciente;
+              }else {
+                Log::info($paciente["sexo"]);
+                $nuevo_paciente = new Paciente();
+                $nuevo_paciente->nombre = $paciente["nombre"];
+                $nuevo_paciente->apellido = $paciente["apellido"];
+                $nuevo_paciente->sexo = $paciente["sexo"];
+                $nuevo_paciente->fecha_nacimiento = $paciente["fecha_nacimiento"];
+                $nuevo_paciente->cedula = $paciente["cedula"];
+                $nuevo_paciente->empresa_id = $request->empresa_id;
+                $nuevo_paciente->save();
+                $pacientes_cargados++;
+              }
             }
-            DB::commit();
-            return response()->json([
-                "cargados" => $productos_cargados,
-                "productos" => $productos_error,
-                "errores" => $errors
-            ]);
-          } catch (\Exception $e) {
-              Log::info($e);
-              return response()->json([
-                "error" => "error en tipo de archivo",
-              ],400);
           }
-        }else{
+          DB::commit();
+          return response()->json([
+              "cargados" => $pacientes_cargados,
+              "pacientes" => $pacientes_error,
+              "errores" => $errors
+          ]);
+        } catch (\Exception $e) {
+            Log::info($e);
             return response()->json([
-                "error" => "error en tipo de archivo",
+              "error" => $e,
             ],400);
         }
+      }else{
+          return response()->json([
+              "error" => "error en tipo de archivo",
+          ],400);
+      }
+    }
+
+    public function validation(Request $request) {
+      $error = $this->cell_validation($request->paciente, $this->rules);
+      if (!empty($error))
+          return response()->json(['status' => false, 'error' => $error[0]] ,400);
+      return response()->json(['status' => true]);
+    }
+
+    private function cell_validation(array $data, array $rules){
+        $validator = \Validator::make($data, $this->rules,$this->messages);
+        $errors = [];
+        if ($validator->fails()) {
+            $errorMessages = $validator->errors()->messages();
+            foreach ($errorMessages as $key => $value) {
+                $error[$key] = $value[0];
+            }
+            $errors[] = $error;
+        }
+        try {
+          Carbon::createFromFormat('d/m/Y', $data['fecha_nacimiento']);
+        } catch (\Exception $e) {
+          $errors[0]['fecha_nacimiento'] = 'Fecha de nacimiento invalida';
+        }
+
+        return $errors;
+    }
+
+    public function store_massive_ajax(Request $request){
+      $pacientes_cargados = 0;
+      foreach($request->pacientes as $req) {
+        if($req != null){
+          $paciente = new Paciente();
+          $paciente->nombre = $req["nombre"];
+          $paciente->apellido = $req["apellido"];
+          $paciente->cedula = $req["cedula"];
+          $paciente->fecha_nacimiento = $req["fecha_nacimiento"];
+          $paciente->sexo = $req["sexo"];
+          $paciente->empresa_id = $request->empresa_id;
+          $paciente->save();
+          $pacientes_cargados++;
+        }
+      }
+      $request->session()->flash('message', 'Nuevos Pacientes agregados.');
+      $request->session()->flash('message-type', 'success');
+      return response()->json(['cargados'=>$pacientes_cargados]);
     }
 }
