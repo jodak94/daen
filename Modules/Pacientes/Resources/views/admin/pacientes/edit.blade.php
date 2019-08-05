@@ -10,7 +10,9 @@
         <li class="active">{{ trans('pacientes::pacientes.title.edit paciente') }}</li>
     </ol>
 @stop
-
+@push('css-stack')
+  <link rel="stylesheet" href="{{ asset('themes/adminlte/css/vendor/jQueryUI/jquery-ui-1.10.3.custom.min.css') }}">
+@endpush
 @section('content')
     {!! Form::open(['route' => ['admin.pacientes.paciente.update', $paciente->id], 'method' => 'put']) !!}
     <div class="row">
@@ -48,6 +50,7 @@
 @stop
 
 @push('js-stack')
+    <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
     <script type="text/javascript">
         $( document ).ready(function() {
             $(document).keypressAction({
@@ -64,5 +67,22 @@
                 radioClass: 'iradio_flat-blue'
             });
         });
+    </script>
+    <script>
+      $("#buscar-empresa").autocomplete({
+        appendTo: '.modal-add-paciente',
+        source: '{{route('admin.empresas.empresa.search_ajax')}}',
+        select: function( event, ui){
+          $("#empresa_id").val(ui.item.id)
+          $("#box-empresa").show();
+          $("#nombre-empresa").html(ui.item.value)
+        }
+      })
+
+      $("#eliminar-empresa").on('click', function(){
+        $("#box-empresa").fadeOut();
+        $("#empresa_id").val('');
+        $("#buscar-empresa").val('');
+      })
     </script>
 @endpush
