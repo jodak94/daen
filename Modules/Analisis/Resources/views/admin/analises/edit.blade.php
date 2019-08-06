@@ -32,7 +32,7 @@
   </style>
 @endpush
 @section('content')
-    {!! Form::open(['route' => ['admin.analisis.analisis.update', $analisis->id], 'method' => 'put']) !!}
+    {!! Form::open(['route' => ['admin.analisis.analisis.store', $analisis->id], 'method' => 'post', 'id' => 'analisis-form']) !!}
     <div class="row">
         <div class="col-md-12">
             <div class="nav-tabs-custom">
@@ -43,6 +43,7 @@
                         <?php $i++; ?>
                         <div class="tab-pane {{ locale() == $locale ? 'active' : '' }}" id="tab_{{ $i }}">
                             @include('analisis::admin.analises.partials.edit-fields', ['lang' => $locale])
+                            <input type="hidden" value="{{$analisis->id}}" name="analisis_id">
                         </div>
                     @endforeach
 
@@ -69,6 +70,7 @@
 
 @push('js-stack')
     <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
+    @include('analisis::admin.analises.partials.script')
     <script type="text/javascript">
         $( document ).ready(function() {
             $(document).keypressAction({

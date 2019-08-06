@@ -153,6 +153,17 @@ class AnalisisController extends AdminBaseController
               $resultado->fuera_rango = false;
             $resultado->save();
           }
+          if($request->has('analisis_id') && trim($request->analisis_id) != ''){
+            $analisis_to_remove = Analisis::find($request->analisis_id);
+            $analisis->created_by = $analisis_to_remove->created_by;
+            $analisis->modified_by = Auth::user()->id;
+            $analisis->created_at = $analisis_to_remove->created_at;
+            $analisis->updated_at = $analisis_to_remove->updated_at;
+            $analisis_to_remove->delete();
+          }else{
+            $analisis->created_by = Auth::user()->id;
+          }
+          $analisis->save();
         } catch (\Exception $e) {
           Log::info('Error al crear el análisis');
           Log::info($e);
@@ -222,7 +233,8 @@ class AnalisisController extends AdminBaseController
      */
     public function edit(Analisis $analisis)
     {
-        return view('analisis::admin.analises.edit', compact('analisis'));
+        $edit = true;
+        return view('analisis::admin.analises.edit', compact('analisis', 'edit'));
     }
 
     /**

@@ -59,7 +59,7 @@
                    @switch ($resultado->determinacion->tipo_referencia)
                      @case ("booleano")
                        <td>
-                          <select class='form-control determinacion-select valor' name=determinacion["{{$resultado->determinacion->id}}"]>
+                          <select class='form-control determinacion-select valor' name=determinacion[{{$resultado->determinacion->id}}]>
                             <option @if($resultado->valor == 'Negativo') selected @endif value='Negativo'>Negativo</option>
                             <option @if($resultado->valor == 'Positivo') selected @endif value='Positivo'>Positivo</option>
                           </select>
@@ -67,23 +67,23 @@
                        @break
                      @case ('reactiva')
                         <td>
-                          <select class='form-control valor' name=determinacion["{{$resultado->determinacion->id}}"]>
+                          <select class='form-control valor' name=determinacion[{{$resultado->determinacion->id}}]>
                               <option @if($resultado->valor == 'No Reactiva') selected @endif value='No Reactiva'>No Reactiva</option>
                               <option @if($resultado->valor == 'Reactiva') selected @endif value='Reactiva'>Reactiva</option>
                           </select>
                         </td>
                        @break;
                      @case ('rango')
-                       <td><input class='form-control determinacion-rango valor' value="{{$resultado->valor}}" name=determinacion["{{$resultado->determinacion->id}}"]></td>
+                       <td><input class='form-control determinacion-rango valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                        @break
                      @case ('rango_edad')
-                       <td><input class='form-control determinacion-rango-edad valor' value="{{$resultado->valor}}" name=determinacion["{{$resultado->determinacion->id}}"]></td>
+                       <td><input class='form-control determinacion-rango-edad valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                        @break
                      @case ('rango_sexo')
-                       <td><input class='form-control determinacion-rango-sexo valor' value="{{$resultado->valor}}" name=determinacion["{{$resultado->determinacion->id}}"]></td>
+                       <td><input class='form-control determinacion-rango-sexo valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                        @break
                      @default
-                       <td><input class='form-control valor' value="{{$resultado->valor}}" name=determinacion["{{$resultado->determinacion->id}}"]></td>
+                       <td><input class='form-control valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                   @endswitch
                   <td>
                      {{$resultado->determinacion->rango_referencia_format}}
@@ -91,7 +91,7 @@
                   </td>
                   <td class='center'>
                     @if($resultado->determinacion->tipo_referencia != 'sin_referencia')
-                      <input type='checkbox' class='rango-check flat-blue' id='check-{{$resultado->determinacion->id}}' name=fuera_rango[ {{$resultado->determinacion->id}} ] @if($resultado->fuera_rango) checked @endif>
+                      <input type='checkbox' class='rango-check flat-blue' id='check-{{$resultado->determinacion->id}}' name=fuera_rango[{{$resultado->determinacion->id}}] @if($resultado->fuera_rango) checked @endif>
                     @endif
                   </td>
                   <td>
