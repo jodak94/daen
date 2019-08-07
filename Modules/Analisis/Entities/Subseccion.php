@@ -9,7 +9,7 @@ class Subseccion extends Model
 {
     protected $table = 'analisis__subseccions';
     public $translatedAttributes = [];
-    protected $fillable = ['titulo', 'seccion_id'];
+    protected $fillable = ['titulo', 'seccion_id', 'orden'];
 
     public function seccion(){
       return $this->belongsTo('Modules\Analisis\Entities\Seccion');

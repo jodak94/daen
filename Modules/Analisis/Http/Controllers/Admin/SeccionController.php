@@ -55,6 +55,7 @@ class SeccionController extends AdminBaseController
      */
     public function store(CreateSeccionRequest $request)
     {
+        $request['orden'] = count(Seccion::get());
         $this->seccion->create($request->all());
 
         return redirect()->route('admin.analisis.seccion.index')
@@ -95,6 +96,13 @@ class SeccionController extends AdminBaseController
      */
     public function destroy(Seccion $seccion)
     {
+        $orden = $seccion->orden;
+        $secciones = Seccion::where('orden', '>', 'from')->get();
+        foreach ($secciones as $key => $s) {
+          $s->orden = $orden;
+          $s->save();
+          $orden++;
+        }
         $this->seccion->destroy($seccion);
 
         return redirect()->route('admin.analisis.seccion.index')

@@ -57,6 +57,7 @@ class SubseccionController extends AdminBaseController
      */
     public function store(CreateSubseccionRequest $request)
     {
+        $request['orden'] = count(Subseccion::where('seccion_id', $request->seccion_id)->get());
         $this->subseccion->create($request->all());
 
         return redirect()->route('admin.analisis.subseccion.index')
@@ -98,6 +99,13 @@ class SubseccionController extends AdminBaseController
      */
     public function destroy(Subseccion $subseccion)
     {
+        $orden = $subseccion->orden;
+        $subsecciones = Subseccion::where('seccion_id', $subseccion->seccion_id)->where('orden', '>', 'from')->get();
+        foreach ($subsecciones as $key => $sub) {
+          $sub->orden = $orden;
+          $sub->save();
+          $orden++;
+        }
         $this->subseccion->destroy($subseccion);
 
         return redirect()->route('admin.analisis.subseccion.index')
