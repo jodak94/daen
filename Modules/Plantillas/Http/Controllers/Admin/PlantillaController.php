@@ -146,4 +146,13 @@ class PlantillaController extends AdminBaseController
         return redirect()->route('admin.plantillas.plantilla.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('plantillas::plantillas.title.plantillas')]));
     }
+
+    public function search_ajax(Request $request){
+      Log::info($request->term);
+      $sub = Plantilla::select('*', 'nombre as value')
+        ->where('nombre', 'like', '%'.$request->term.'%')->take(5)->get()->toArray();
+
+      Log::info($sub);
+      return response()->json($sub);
+    }
 }

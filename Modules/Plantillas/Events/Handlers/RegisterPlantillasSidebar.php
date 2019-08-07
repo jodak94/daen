@@ -38,7 +38,7 @@ class RegisterPlantillasSidebar implements \Maatwebsite\Sidebar\SidebarExtender
     {
         $menu->group(trans('core::sidebar.content'), function (Group $group) {
             $group->item(trans('plantillas::plantillas.title.plantillas'), function (Item $item) {
-                $item->icon('fa fa-copy');
+                $item->icon('fa fa-file-text-o');
                 $item->weight(10);
                 $item->append('admin.plantillas.plantilla.create');
                 $item->route('admin.plantillas.plantilla.index');

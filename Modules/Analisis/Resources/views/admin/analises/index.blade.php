@@ -10,6 +10,7 @@
     </ol>
 @stop
 @push('css-stack')
+    <link rel="stylesheet" href="{{ asset('themes/adminlte/css/vendor/jQueryUI/jquery-ui-1.10.3.custom.min.css') }}">
     {!! Theme::style('vendor/pickadate/css/classic.css') !!}
     {!! Theme::style('vendor/pickadate/css/classic.date.css') !!}
     {!! Theme::style('vendor/pickadate/css/classic.time.css') !!}
@@ -27,9 +28,12 @@
         <div class="col-xs-12">
             <div class="row">
                 <div class="btn-group pull-right" style="margin: 0 15px 15px 0;">
-                    <a href="{{ route('admin.analisis.analisis.create') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px;">
-                        <i class="fa fa-pencil"></i> {{ trans('analisis::analises.button.create analisis') }}
+                    <a href="{{ route('admin.analisis.analisis.create') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px; margin-right: 15px;">
+                      <i class="fa fa-pencil"></i> {{ trans('analisis::analises.button.create analisis') }}
                     </a>
+                    <button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#addPlantilla" style="padding: 4px 10px;">
+                      <i class="fa fa-pencil"></i> Cargar desde Plantilla
+                    </button>
                 </div>
             </div>
             <div class="box box-primary">
@@ -77,7 +81,7 @@
     </div>
     @include('core::partials.delete-modal')
 @stop
-
+@include('analisis::admin.analises.partials.modal-plantilla')
 @section('footer')
     <a data-toggle="modal" data-target="#keyboardShortcutsModal"><i class="fa fa-keyboard-o"></i></a> &nbsp;
 @stop
@@ -89,6 +93,7 @@
 @stop
 
 @push('js-stack')
+    <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
     <script src="{{ asset('js/jquery.number.min.js') }}"></script>
     {!! Theme::script('vendor/pickadate/js/picker.js') !!}
     {!! Theme::script('vendor/pickadate/js/picker.date.js') !!}

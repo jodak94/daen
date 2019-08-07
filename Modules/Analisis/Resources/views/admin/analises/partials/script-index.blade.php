@@ -90,4 +90,16 @@
         });
      });
   })
+
+  var create_url = '{{ route('admin.analisis.analisis.create') }}';
+
+  $("#buscar-plantilla").autocomplete({
+    appendTo: '#addPlantilla',
+    source: '{{route('admin.plantillas.plantilla.search_ajax')}}',
+    select: function( event, ui){
+      let url = create_url + '?plantilla=' + ui.item.id;
+      $("#add_plantilla_url").attr("href", url);
+      console.log($("#add_plantilla_url").attr('href'));
+    }
+  })
 </script>

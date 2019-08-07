@@ -17,6 +17,10 @@ $router->group(['prefix' =>'/plantillas'], function (Router $router) {
         'uses' => 'PlantillaController@create',
         'middleware' => 'can:plantillas.plantillas.create'
     ]);
+    $router->get('plantillas/search-ajax', [
+        'as' => 'admin.plantillas.plantilla.search_ajax',
+        'uses' => 'PlantillaController@search_ajax',
+    ]);
     $router->post('plantillas', [
         'as' => 'admin.plantillas.plantilla.store',
         'uses' => 'PlantillaController@store',

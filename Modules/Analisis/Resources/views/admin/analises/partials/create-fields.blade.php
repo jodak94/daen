@@ -21,13 +21,17 @@
       <div class="box-body">
         <div class="row">
           <div class="col-md-4">
-            {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null, ['disabled' => true]) !!}
+            @if(isset($plantilla))
+              {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null) !!}
+            @else
+              {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null, ['disabled' => true]) !!}
+            @endif
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <table style="display:none" class="data-table table table-bordered table-hover" id="analisisTable">
+          <table @if(!isset($plantilla)) style="display:none" @endif class="data-table table table-bordered table-hover" id="analisisTable">
             <thead>
               <tr>
                 <th>Determinación</th>
@@ -38,7 +42,74 @@
               </tr>
             </thead>
             <tbody id="analisisBody">
-
+              @if(isset($plantilla))
+                @php
+                  $subseccion_actual = -1;
+                @endphp
+                @foreach ($plantilla->detalles as $detalle)
+                  @if($subseccion_actual != $detalle->determinacion->subseccion->id)
+                    <tr class='tr-titulo'>
+                      <td colspan='4' style='text-align:center'>
+                        <u>{{$detalle->determinacion->subseccion->titulo}}</u>
+                      </td>
+                      <td>
+                        <button subId='{{$detalle->determinacion->subseccion->id}}' type='button' class='btn btn-danger btn-flat delete-sub'>
+                          <i class='fa fa-trash'></i>
+                        </button>
+                      </td>
+                    </tr>
+                  @endif
+                  <tr class='determinacion-{{$detalle->determinacion->subseccion->id}}'>
+                     <td>{{$detalle->determinacion->titulo}}</td>
+                     @switch ($detalle->determinacion->tipo_referencia)
+                       @case ("booleano")
+                         <td>
+                            <select class='form-control determinacion-select valor' name=determinacion[{{$detalle->determinacion->id}}]>
+                              <option value='Negativo'>Negativo</option>
+                              <option value='Positivo'>Positivo</option>
+                            </select>
+                          </td>
+                         @break
+                       @case ('reactiva')
+                          <td>
+                            <select class='form-control valor' name=determinacion[{{$detalle->determinacion->id}}]>
+                                <option value='No Reactiva'>No Reactiva</option>
+                                <option value='Reactiva'>Reactiva</option>
+                            </select>
+                          </td>
+                         @break;
+                       @case ('rango')
+                         <td><input class='form-control determinacion-rango valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
+                         @break
+                       @case ('rango_edad')
+                         <td><input class='form-control determinacion-rango-edad valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
+                         @break
+                       @case ('rango_sexo')
+                         <td><input class='form-control determinacion-rango-sexo valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
+                         @break
+                       @default
+                         <td><input class='form-control valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
+                    @endswitch
+                    <td>
+                       {{$detalle->determinacion->rango_referencia_format}}
+                       <input type='hidden' class='rango-referencia' value='{{$detalle->determinacion->rango_referencia}}'>
+                    </td>
+                    <td class='center'>
+                      @if($detalle->determinacion->tipo_referencia != 'sin_referencia')
+                        <input type='checkbox' class='rango-check flat-blue' id='check-{{$detalle->determinacion->id}}' name=fuera_rango[{{$detalle->determinacion->id}}]>
+                      @endif
+                    </td>
+                    <td>
+                        <button subId="{{$detalle->determinacion->subseccion->id}}" type='button' class='btn btn-danger btn-flat delete-det'>
+                          <i class='fa fa-trash'></i>
+                        </button>
+                    </td>
+                  </tr>
+                  @php
+                    $subseccion_actual = $detalle->determinacion->subseccion->id;
+                  @endphp
+                @endforeach
+              @endif
             </tbody>
           </table>
         </div>

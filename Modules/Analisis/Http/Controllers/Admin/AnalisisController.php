@@ -17,6 +17,7 @@ use Log;
 use Barryvdh\DomPDF\Facade as PDF;
 use View;
 use Carbon\Carbon;
+use Modules\Plantillas\Entities\Plantilla;
 class AnalisisController extends AdminBaseController
 {
     /**
@@ -106,9 +107,12 @@ class AnalisisController extends AdminBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('analisis::admin.analises.create');
+        $plantilla = null;
+        if($request->has('plantilla') && $request->plantilla != '')
+          $plantilla = Plantilla::find($request->plantilla);
+        return view('analisis::admin.analises.create', compact('plantilla'));
     }
 
     /**
