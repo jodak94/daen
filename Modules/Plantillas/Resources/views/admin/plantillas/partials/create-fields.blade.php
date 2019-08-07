@@ -7,7 +7,7 @@
       <div class="box-body">
         <div class="row">
           <div class="col-md-3">
-            {!! Form::normalInput('nombre', 'Nombre de Plantilla', $errors, null, ['require' => true]) !!}
+            {!! Form::normalInput('nombre', 'Nombre de Plantilla', $errors, null, ['required' => true]) !!}
           </div>
         </div>
         <div class="row">

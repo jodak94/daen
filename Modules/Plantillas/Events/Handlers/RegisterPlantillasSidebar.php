@@ -40,30 +40,11 @@ class RegisterPlantillasSidebar implements \Maatwebsite\Sidebar\SidebarExtender
             $group->item(trans('plantillas::plantillas.title.plantillas'), function (Item $item) {
                 $item->icon('fa fa-copy');
                 $item->weight(10);
+                $item->append('admin.plantillas.plantilla.create');
+                $item->route('admin.plantillas.plantilla.index');
                 $item->authorize(
-                     /* append */
+                     $this->auth->hasAccess('plantillas.plantillas.index')
                 );
-                $item->item(trans('plantillas::plantillas.title.plantillas'), function (Item $item) {
-                    $item->icon('fa fa-copy');
-                    $item->weight(0);
-                    $item->append('admin.plantillas.plantilla.create');
-                    $item->route('admin.plantillas.plantilla.index');
-                    $item->authorize(
-                        $this->auth->hasAccess('plantillas.plantillas.index')
-                    );
-                });
-                $item->item(trans('plantillas::plantilladetalles.title.plantilladetalles'), function (Item $item) {
-                    $item->icon('fa fa-copy');
-                    $item->weight(0);
-                    $item->append('admin.plantillas.plantilladetalle.create');
-                    $item->route('admin.plantillas.plantilladetalle.index');
-                    $item->authorize(
-                        $this->auth->hasAccess('plantillas.plantilladetalles.index')
-                    );
-                });
-// append
-
-
             });
         });
 

@@ -10,7 +10,7 @@
           html
               ="<tr class='determinacion-"+ui.item.id+"'>"
               +"  <td>"+det.titulo
-              +"    <input type='hidden' name=determinacion["+det.id+"] value='"+det.id+"'"
+              +"    <input type='hidden' name=determinacion["+det.id+"] value='"+det.id+"'>"
               +"  </td>"
               +"  <td>"
               +"    <button subId="+ui.item.id+" type='button' class='btn btn-danger btn-flat delete-det'>"

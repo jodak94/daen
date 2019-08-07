@@ -9,4 +9,8 @@ class PlantillaDetalle extends Model
 
     protected $table = 'plantillas__plantilladetalles';
     protected $fillable = [];
+
+    public function determinacion(){
+      return $this->belongsTo('Modules\Analisis\Entities\Determinacion');
+    }
 }
