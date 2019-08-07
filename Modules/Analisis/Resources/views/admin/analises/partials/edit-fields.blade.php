@@ -54,7 +54,7 @@
                     </td>
                   </tr>
                 @endif
-                <tr class='determinacion-{{$resultado->determinacion->id}}'>
+                <tr class='determinacion-{{$resultado->determinacion->subseccion->id}}'>
                    <td>{{$resultado->determinacion->titulo}}</td>
                    @switch ($resultado->determinacion->tipo_referencia)
                      @case ("booleano")
