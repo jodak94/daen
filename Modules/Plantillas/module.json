@@ -1,0 +1,18 @@
+{
+    "name": "Plantillas",
+    "alias": "plantillas",
+    "description": "",
+    "keywords": [],
+    "version": "1.0.0",
+	"active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Plantillas\\Providers\\PlantillasServiceProvider",
+        "Modules\\Plantillas\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        
+    ],
+    "requires": []
+}
