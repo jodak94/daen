@@ -13,6 +13,16 @@
     background: rgba(255,255,255,0.85)!important;
     border-top-color:#2F444E !important;
   }
+  .btn{
+    min-height: 100px;
+  }
+  .btn{
+    display: table;
+  }
+  .btn h4{
+    vertical-align: middle;
+    display: table-cell;
+  }
   </style>
 @stop
 
@@ -25,17 +35,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 display-table">
           <a class="btn btn-success btn-lg col-md-12" href="{{route('admin.analisis.analisis.create')}}">
             <h4>Cargar Resultado</h4>
           </a>
         </div>
-        <div class="col-md-4">
-          <a class="btn btn-success btn-lg col-md-12" href="#">
-            <h4>Presupuesto</h4>
+        <div class="col-md-4 display-table">
+          <a class="btn btn-success btn-lg col-md-12" href="{{route('admin.empresas.empresa.index')}}">
+            <h4>Empresas</h4>
           </a>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 display-table">
           <a class="btn btn-success btn-lg col-md-12" href="{{route('admin.pacientes.paciente.index')}}">
             <h4>Pacientes</h4>
           </a>
