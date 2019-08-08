@@ -10,7 +10,7 @@ class Determinacion extends Model
 
     protected $table = 'analisis__determinacions';
     public $translatedAttributes = [];
-    protected $fillable = ['tipo_referencia', 'titulo', 'rango_referencia', 'unidad_medida', 'subseccion_id'];
+    protected $fillable = ['tipo_referencia', 'titulo', 'rango_referencia', 'unidad_medida', 'subseccion_id', 'orden'];
     protected $appends = ['rango_referencia_format'];
 
     public static $tipos_refs = [

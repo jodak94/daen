@@ -14,7 +14,7 @@ class AddOrdenToSubseccion extends Migration
     public function up()
     {
         Schema::table('analisis__subseccions', function (Blueprint $table) {
-          $table->integer('orden')->nullable();
+          $table->integer('orden')->default(0);
         });
     }
 

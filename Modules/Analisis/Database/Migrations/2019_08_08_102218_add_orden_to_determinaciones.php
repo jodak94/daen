@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddOrdenToSeccion extends Migration
+class AddOrdenToDeterminaciones extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddOrdenToSeccion extends Migration
      */
     public function up()
     {
-        Schema::table('analisis__seccions', function (Blueprint $table) {
+        Schema::table('analisis__determinacions', function (Blueprint $table) {
           $table->integer('orden')->default(0);
         });
     }
@@ -25,7 +25,7 @@ class AddOrdenToSeccion extends Migration
      */
     public function down()
     {
-        Schema::table('analisis__seccions', function (Blueprint $table) {
+        Schema::table('analisis__determinacions', function (Blueprint $table) {
           $table->dropColumn('orden');
         });
     }

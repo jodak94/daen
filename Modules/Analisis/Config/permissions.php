@@ -26,6 +26,7 @@ return [
         'create' => 'analisis::determinacions.create resource',
         'edit' => 'analisis::determinacions.edit resource',
         'destroy' => 'analisis::determinacions.destroy resource',
+        'ordenar' => 'analisis::determinacions.ordenar resource'
     ],
     'analisis.resultados' => [
         'index' => 'analisis::resultados.list resource',

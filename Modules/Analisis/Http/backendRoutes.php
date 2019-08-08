@@ -131,6 +131,10 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'as' => 'admin.analisis.subseccion.search_ajax',
         'uses' => 'SubseccionController@search_ajax',
     ]);
+    $router->get('subseccions/determinaciones', [
+      'as' => 'admin.analisis.subseccion.determinaciones',
+      'uses' => 'SubseccionController@determinacion',
+    ]);
     $router->bind('determinacion', function ($id) {
         return app('Modules\Analisis\Repositories\DeterminacionRepository')->find($id);
     });
@@ -168,6 +172,11 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'as' => 'admin.analisis.determinacion.destroy',
         'uses' => 'DeterminacionController@destroy',
         'middleware' => 'can:analisis.determinacions.destroy'
+    ]);
+    $router->post('determinacions/ordenar', [
+        'as' => 'admin.analisis.determinacion.ordenar',
+        'uses' => 'DeterminacionController@ordenar',
+        'middleware' => 'can:analisis.determinacions.ordenar'
     ]);
     $router->bind('resultado', function ($id) {
         return app('Modules\Analisis\Repositories\ResultadoRepository')->find($id);

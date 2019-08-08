@@ -101,8 +101,8 @@ class SubseccionController extends AdminBaseController
     {
         try {
           $orden = $subseccion->orden;
-          $this->subseccion->destroy($subseccion);
           $subsecciones = Subseccion::where('seccion_id', $subseccion->seccion_id)->where('orden', '>', $orden)->get();
+          $this->subseccion->destroy($subseccion);
           foreach ($subsecciones as $key => $sub) {
             $sub->orden = $orden;
             $sub->save();
@@ -119,7 +119,9 @@ class SubseccionController extends AdminBaseController
 
     public function search_ajax(Request $request){
       $sub = Subseccion::select('*', 'titulo as value')
-        ->with(['determinacion'])
+        ->with(['determinacion' => function($q){
+          $q->orderBy('orden');
+        }])
         ->where('titulo', 'like', '%'.$request->term.'%')->take(5)->get()->toArray();
 
       return response()->json($sub);
@@ -132,5 +134,13 @@ class SubseccionController extends AdminBaseController
         $c++;
       }
       return response()->json(['error' => false, 'message' => 'Orden establecido correctamente']);
+    }
+
+    public function determinacion(Request $request){
+      $subseccion = Subseccion::find($request->id);
+      if(isset($subseccion))
+        return response()->json(['error' => false, 'determinaciones' => $subseccion->determinacion()->orderBy('orden', 'asc')->get()]);
+
+      return response()->json(['error' => true]);
     }
 }

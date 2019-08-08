@@ -9,7 +9,23 @@
         <li class="active">{{ trans('analisis::subseccions.title.subseccions') }}</li>
     </ol>
 @stop
-
+@push('css-stack')
+  <link rel="stylesheet" href="{{ asset('themes/adminlte/css/vendor/jQueryUI/jquery-ui-1.10.3.custom.min.css') }}">
+  <style>
+    .orden-td{
+      text-align: center;
+    }
+    .orden-td:hover{
+      cursor: move;
+    }
+    .orden-td:active{
+      cursor: move;
+    }
+    .btn{
+      height: 34px;
+    }
+  </style>
+@endpush
 @section('content')
     <div class="row">
         <div class="col-xs-12">
@@ -50,6 +66,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
+                                        <button type="button" class="ordenar-determinaciones btn btn-default btn-flat" subseccion="{{$subseccion->id}}">Ordenar Determinaciones</button>
                                         <a href="{{ route('admin.analisis.subseccion.edit', [$subseccion->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
                                         <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.analisis.subseccion.destroy', [$subseccion->id]) }}"><i class="fa fa-trash"></i></button>
                                     </div>
@@ -86,7 +103,10 @@
     </dl>
 @stop
 
+@include('analisis::admin.subseccions.partials.modal-ordenar-determinaciones')
 @push('js-stack')
+    <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
+    @include('analisis::admin.subseccions.partials.script-index')
     <script type="text/javascript">
         $( document ).ready(function() {
             $(document).keypressAction({

@@ -12,6 +12,7 @@ use Modules\Analisis\Repositories\DeterminacionRepository;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 use Yajra\DataTables\Facades\DataTables;
 use Log;
+use DB;
 class DeterminacionController extends AdminBaseController
 {
     /**
@@ -108,6 +109,7 @@ class DeterminacionController extends AdminBaseController
             $request['rango_referencia'] = strtolower(str_replace(' ', '_', $request->rango_referencia));
             break;
         }
+        $request['orden'] = count(Determinacion::where('subseccion_id', $request->subseccion_id)->get());
         $this->determinacion->create($request->all());
 
         return redirect()->route('admin.analisis.determinacion.index')
@@ -184,12 +186,30 @@ class DeterminacionController extends AdminBaseController
     public function destroy(Determinacion $determinacion)
     {
         try {
+          $orden = $determinacion->orden;
+          $determinaciones = Determinacion::where('subseccion_id', $determinacion->subseccion_id)->where('orden', '>', $orden)->get();
           $this->determinacion->destroy($determinacion);
+          foreach ($determinaciones as $key => $det) {
+            $det->orden = $orden;
+            $det->save();
+            $orden++;
+          }
         } catch (\Exception $e) {
+          Log::info($e);
           return redirect()->route('admin.analisis.determinacion.index')->withError('Error al elimnar, existen resultados o plantillas que dependen del registro');
         }
 
         return redirect()->route('admin.analisis.determinacion.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('analisis::determinacions.title.determinacions')]));
+    }
+
+    public function ordenar(Request $request){
+      $c = 0;
+      Log::info($request->determinaciones);
+      foreach ($request->determinaciones as $id) {
+        DB::table('analisis__determinacions')->where('id', $id)->update(['orden' => $c]);
+        $c++;
+      }
+      return response()->json(['error' => false, 'message' => 'Orden establecido correctamente']);
     }
 }
