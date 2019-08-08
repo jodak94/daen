@@ -19,7 +19,7 @@ class CreatePlantillasPlantillaDetallesTable extends Migration
             $table->integer('plantilla_id')->unsigned();
             $table->foreign('plantilla_id')->references('id')->on('plantillas__plantillas')->onDelete('cascade');
             $table->integer('determinacion_id')->unsigned();
-            $table->foreign('determinacion_id')->references('id')->on('analisis__determinacions')->onDelete('cascade');
+            $table->foreign('determinacion_id')->references('id')->on('analisis__determinacions');
             $table->timestamps();
         });
     }
