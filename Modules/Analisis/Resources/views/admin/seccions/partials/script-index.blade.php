@@ -37,7 +37,7 @@
         },
          success: function(data){
            console.log(data)
-           showMessage(data.message, 'Success', 'success')
+           showMessage(data.message, 'Operación Exitosa', 'success')
            $("#modal-ordenar-subsecciones").modal('hide')
            $("#spin").hide();
          },

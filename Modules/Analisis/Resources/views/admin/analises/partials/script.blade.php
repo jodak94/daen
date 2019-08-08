@@ -104,7 +104,7 @@
               break;
             case 'reactiva':
               html += "<td>"
-                    +  " <select class='form-control valor' name=determinacion["+det.id+"]>"
+                    +  " <select class='form-control determinacion-select  valor' name=determinacion["+det.id+"]>"
                     +  "   <option value='No Reactiva'>No Reactiva</option>"
                     +  "   <option value='Reactiva'>Reactiva</option>"
                     +  " </select>"
@@ -204,7 +204,7 @@
         min = 2;
         max = 3;
       }
-      if(parseInt(val) < parseInt(rango[min]) || parseInt(val) > parseInt(rango[max])){
+      if(parseFloat(val) < parseFloat(rango[min]) || parseFloat(val) > parseFloat(rango[max])){
         $('#'+dom.id).iCheck('check');
       }else{
         $('#'+dom.id).iCheck('uncheck');
@@ -212,11 +212,36 @@
     })
 
     $(".table").on('keyup', '.determinacion-rango-sexo', function(event){
-      console.log($(this).val())
+      let val = $(this).val()
+      let rango = $(this).parent().parent().find('.rango-referencia').val();
+      rango = rango.replace('|', '-').replace(/[^\d.-]/g,'');
+      rango = rango.split('-')
+      let dom = $(this).parent().parent().find('.rango-check')[0];
+      if(val == ''){
+        $('#'+dom.id).iCheck('uncheck');
+        return;
+      }
+      let min = 0;//Fem
+      let max = 1;//Fer
+      if(paciente.sexo == 'masculino'){
+        min = 2;
+        max = 3;
+      }
+      if(parseFloat(val) < parseFloat(rango[min]) || parseFloat(val) > parseFloat(rango[max])){
+        $('#'+dom.id).iCheck('check');
+      }else{
+        $('#'+dom.id).iCheck('uncheck');
+      }
     })
 
     $(".table").on('change', '.determinacion-select', function(event){
-      console.log($(this).val())
+      let val = $(this).val().replace(' ', '_').toLowerCase();
+      let ref = $(this).parent().parent().find('.rango-referencia').val();
+      let dom = $(this).parent().parent().find('.rango-check')[0];
+      if(val != ref)
+        $('#'+dom.id).iCheck('check');
+      else
+        $('#'+dom.id).iCheck('uncheck');
     })
 
     $("#analisis-form").submit(function(e) {
@@ -242,6 +267,7 @@
     });
 
   })
+
   function trTitulo(titulo, id){
     var html
         ="<tr class='tr-titulo'>"
