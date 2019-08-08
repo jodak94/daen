@@ -115,7 +115,6 @@ class PlantillaController extends AdminBaseController
             where d.id in ('.implode(', ', array_keys($request['determinacion'])).')
             order by s.orden, ss.orden;');
           foreach ($orden as $det_id) {
-            Log::info($det_id->id);
             $detalle = new PlantillaDetalle();
             $detalle->plantilla_id = $plantilla->id;
             $detalle->determinacion_id = $det_id->id;
@@ -148,11 +147,9 @@ class PlantillaController extends AdminBaseController
     }
 
     public function search_ajax(Request $request){
-      Log::info($request->term);
       $sub = Plantilla::select('*', 'nombre as value')
         ->where('nombre', 'like', '%'.$request->term.'%')->take(5)->get()->toArray();
 
-      Log::info($sub);
       return response()->json($sub);
     }
 }
