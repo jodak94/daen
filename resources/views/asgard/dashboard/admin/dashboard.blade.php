@@ -23,6 +23,12 @@
     vertical-align: middle;
     display: table-cell;
   }
+  .small-box{
+    background-color: #00a65a;
+  }
+  .small-box-footer{
+    background-color: #008d4c!important;
+  }
   </style>
 @stop
 
@@ -35,7 +41,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 display-table">
+        {{-- <div class="col-md-4 display-table">
           <a class="btn btn-success btn-lg col-md-12" href="{{route('admin.analisis.analisis.create')}}">
             <h4>Cargar Resultado</h4>
           </a>
@@ -49,6 +55,66 @@
           <a class="btn btn-success btn-lg col-md-12" href="{{route('admin.pacientes.paciente.index')}}">
             <h4>Pacientes</h4>
           </a>
+        </div> --}}
+        <div class="col-md-3">
+          <div class="small-box">
+            <a href="{{route('admin.analisis.analisis.index')}}" class="small-box" style="margin-bottom:0px; color:white; padding-bottom: 50px">
+              <div class="inner">
+                <h4>Resultados</h4>
+              </div>
+              <div class="icon">
+                <i class="fa fa-flask"></i>
+              </div>
+            </a>
+            <a href="{{route('admin.analisis.analisis.create')}}" class="small-box-footer" style="height: 25px" >
+              Cargar nuevo <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="small-box">
+            <a href="{{route('admin.empresas.empresa.index')}}" class="small-box" style="margin-bottom:0px; color:white; padding-bottom: 50px">
+              <div class="inner">
+                <h4>Empresas</h4>
+              </div>
+              <div class="icon">
+                <i class="fa fa-industry"></i>
+              </div>
+            </a>
+            <a href="{{route('admin.empresas.empresa.create')}}" class="small-box-footer" style="height: 25px" >
+              Cargar nuevo <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="small-box">
+            <a href="{{route('admin.pacientes.paciente.index')}}" class="small-box" style="margin-bottom:0px; color:white; padding-bottom: 50px">
+              <div class="inner">
+                <h4>Pacientes</h4>
+              </div>
+              <div class="icon">
+                <i class="fa fa-users"></i>
+              </div>
+            </a>
+            <a href="{{route('admin.pacientes.paciente.create')}}" class="small-box-footer" style="height: 25px" >
+              Cargar nuevo <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="small-box">
+            <a href="{{route('admin.plantillas.plantilla.index')}}" class="small-box" style="margin-bottom:0px; color:white; padding-bottom: 50px">
+              <div class="inner">
+                <h4>Plantillas</h4>
+              </div>
+              <div class="icon">
+                <i class="fa fa-file-text-o"></i>
+              </div>
+            </a>
+            <a href="{{route('admin.plantillas.plantilla.create')}}" class="small-box-footer" style="height: 25px" >
+              Cargar nuevo <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>
