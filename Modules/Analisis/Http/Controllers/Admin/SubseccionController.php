@@ -99,14 +99,19 @@ class SubseccionController extends AdminBaseController
      */
     public function destroy(Subseccion $subseccion)
     {
-        $orden = $subseccion->orden;
-        $subsecciones = Subseccion::where('seccion_id', $subseccion->seccion_id)->where('orden', '>', 'from')->get();
-        foreach ($subsecciones as $key => $sub) {
-          $sub->orden = $orden;
-          $sub->save();
-          $orden++;
+        try {
+          $orden = $subseccion->orden;
+          $this->subseccion->destroy($subseccion);
+          $subsecciones = Subseccion::where('seccion_id', $subseccion->seccion_id)->where('orden', '>', $orden)->get();
+          foreach ($subsecciones as $key => $sub) {
+            $sub->orden = $orden;
+            $sub->save();
+            $orden++;
+          }
+        } catch (\Exception $e) {
+          return redirect()->route('admin.analisis.subseccion.index')->withError('Error al elimnar, existen resultados o plantillas que dependen del registro');
         }
-        $this->subseccion->destroy($subseccion);
+
 
         return redirect()->route('admin.analisis.subseccion.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('analisis::subseccions.title.subseccions')]));

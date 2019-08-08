@@ -183,7 +183,11 @@ class DeterminacionController extends AdminBaseController
      */
     public function destroy(Determinacion $determinacion)
     {
-        $this->determinacion->destroy($determinacion);
+        try {
+          $this->determinacion->destroy($determinacion);
+        } catch (\Exception $e) {
+          return redirect()->route('admin.analisis.determinacion.index')->withError('Error al elimnar, existen resultados o plantillas que dependen del registro');
+        }
 
         return redirect()->route('admin.analisis.determinacion.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('analisis::determinacions.title.determinacions')]));

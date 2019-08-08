@@ -96,14 +96,18 @@ class SeccionController extends AdminBaseController
      */
     public function destroy(Seccion $seccion)
     {
-        $orden = $seccion->orden;
-        $secciones = Seccion::where('orden', '>', 'from')->get();
-        foreach ($secciones as $key => $s) {
-          $s->orden = $orden;
-          $s->save();
-          $orden++;
+        try {
+          $orden = $seccion->orden;
+          $this->seccion->destroy($seccion);
+          $secciones = Seccion::where('orden', '>', $orden)->get();
+          foreach ($secciones as $key => $s) {
+            $s->orden = $orden;
+            $s->save();
+            $orden++;
+          }
+        } catch (\Exception $e) {
+          return redirect()->route('admin.analisis.seccion.index')->withError('Error al elimnar, existen resultados o plantillas que dependen del registro');
         }
-        $this->seccion->destroy($seccion);
 
         return redirect()->route('admin.analisis.seccion.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('analisis::seccions.title.seccions')]));
