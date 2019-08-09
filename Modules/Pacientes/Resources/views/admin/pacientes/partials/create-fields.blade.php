@@ -6,15 +6,15 @@
 <div class="box-body">
   <div class="row">
     <div class="col-md-6">
-      {!! Form::normalInput('nombre', 'Nombre', $errors) !!}
+      {!! Form::normalInput('nombre', 'Nombre', $errors, null, ['required' => true]) !!}
     </div>
     <div class="col-md-6">
-      {!! Form::normalInput('apellido', 'Apellido', $errors) !!}
+      {!! Form::normalInput('apellido', 'Apellido', $errors, null, ['required' => true]) !!}
     </div>
   </div>
   <div class="row">
     <div class="col-md-6">
-      {!! Form::normalInput('cedula', 'C.I', $errors) !!}
+      {!! Form::normalInput('cedula', 'C.I', $errors, null, ['required' => true]) !!}
     </div>
     <div class="col-md-6">
       {!! Form:: normalSelect('sexo', 'Sexo', $errors, ['femenino' => 'Femenino', 'masculino' => 'Masculino']) !!}
@@ -24,7 +24,7 @@
     <div class="col-md-6">
       <div class="form-group ">
         <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-        <input class="form-control" placeholder="Fecha de Nacimiento" type="date" name="fecha_nacimiento" id="fecha_nacimiento">
+        <input class="form-control" placeholder="Fecha de Nacimiento" type="date" name="fecha_nacimiento" id="fecha_nacimiento" required>
       </div>
     </div>
   </div>

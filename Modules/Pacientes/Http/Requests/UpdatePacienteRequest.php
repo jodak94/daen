@@ -3,15 +3,16 @@
 namespace Modules\Pacientes\Http\Requests;
 
 use Modules\Core\Internationalisation\BaseFormRequest;
-
+use Log;
 class UpdatePacienteRequest extends BaseFormRequest
 {
     public function rules()
     {
+	$paciente = $this->route('paciente');
         return [
           'nombre'  => 'required',
           'apellido' => 'required',
-          'cedula' => 'numeric|required|unique:pacientes__pacientes',
+          'cedula' =>  'numeric|required|unique:pacientes__pacientes,cedula,'.$paciente->id,
           'sexo'     => 'required|in:masculino,femenino',
       ];
     }
