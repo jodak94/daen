@@ -43,6 +43,7 @@
             $("#addPaciente").modal('hide');
             $("#paciente_id").val(data.paciente.id)
             $("#buscar-subseccion").prop("disabled", false)
+            mostrar_paciente(paciente)
           }
           $("#spin").hide();
         },
@@ -64,8 +65,18 @@
         paciente = ui.item.paciente
         $("#paciente_id").val(ui.item.id)
         $("#buscar-subseccion").prop("disabled", false)
+        mostrar_paciente(paciente)
       }
     })
+
+    function mostrar_paciente (paciente){
+      $("#full-name-to-show").val(paciente.nombre + ' ' + paciente.apellido);
+      $("#ci-to-show").val(paciente.cedula_format);
+      $("#sexo-to-show").val(paciente.sexo_format);
+      $("#fecha-nacimiento-to-show").val(paciente.fecha_nacimiento_format);
+      $("#edad-to-show").val(paciente.edad);
+      $("#paciente-box").show();
+    }
 
     $("#buscar-empresa").autocomplete({
       appendTo: '.modal-add-paciente',

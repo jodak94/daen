@@ -35,9 +35,9 @@
   @endphp
   <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
   @if($resultado->fuera_rango)
-    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->fuera_rango->x - $ajuste_x}}cm;top: {{ $y }}cm">{{$resultado->valor}}</div>
+    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->fuera_rango->x - $ajuste_x}}cm;top: {{ $y }}cm">{{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}</div>
   @else
-    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->resultado->x - $ajuste_x }}cm;top: {{ $y }}cm">{{$resultado->valor}}</div>
+    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->resultado->x - $ajuste_x }}cm;top: {{ $y }}cm">{{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}</div>
   @endif
   <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->rango_referencia_format . ' ' . $resultado->determinacion->unidad_medida}}</div>
   @php

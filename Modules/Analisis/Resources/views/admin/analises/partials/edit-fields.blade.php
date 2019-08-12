@@ -12,6 +12,54 @@
     </div>
   </div>
 </div>
+<div class="row" id="paciente-box">
+  <div class="col-md-12">
+    <div class="box box-solid box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title" style="margin-right: 10px">Paciente</h3>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group ">
+              <label for="buscar-subseccion">Nombre y Apellido</label>
+              <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+              <input disabled="disabled" type="text" id="full-name-to-show" class="form-control" value="{{$analisis->paciente->nombre . ' ' . $analisis->paciente->apellido}}">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group ">
+              <label for="buscar-subseccion">Cédula</label>
+              <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+              <input disabled="disabled" type="text" id="ci-to-show" class="form-control" value="{{$analisis->paciente->cedula_format}}">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group ">
+              <label for="buscar-subseccion">Sexo</label>
+              <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+              <input disabled="disabled" type="text" id="sexo-to-show" class="form-control" value="{{$analisis->paciente->sexo_format}}">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group ">
+              <label for="buscar-subseccion">Fecha de Nacimiento</label>
+              <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+              <input disabled="disabled" type="text" id="fecha-nacimiento-to-show" class="form-control" value="{{$analisis->paciente->fecha_nacimiento_format}}">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group ">
+              <label for="buscar-subseccion">Edad</label>
+              <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+              <input disabled="disabled" type="text" id="edad-to-show" class="form-control" value="{{$analisis->paciente->edad}}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-12">
     <div class="box box-solid box-primary">

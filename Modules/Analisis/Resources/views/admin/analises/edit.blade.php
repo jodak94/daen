@@ -57,6 +57,7 @@
     </div>
     {!! Form::close() !!}
 @stop
+@include('pacientes::admin.pacientes.partials.modal-add-paciente')
 
 @section('footer')
     <a data-toggle="modal" data-target="#keyboardShortcutsModal"><i class="fa fa-keyboard-o"></i></a> &nbsp;
