@@ -15,20 +15,32 @@
             {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null) !!}
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-          <table style="display:none" class="data-table table table-bordered table-hover" id="analisisTable">
-            <thead>
-              <tr>
-                <th>Determinación</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody id="analisisBody">
+        <div class="row">
+          <div class="col-md-9">
+            <table class="data-table table table-bordered table-hover" id="analisisTable">
+              <thead>
+                <tr>
+                  <th>Determinación</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="analisisBody">
 
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-3">
+            <table class="data-table table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Subtitulo</th>
+                  <th>Mostrar</th>
+                </tr>
+              </thead>
+              <tbody id="configuracionBody">
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

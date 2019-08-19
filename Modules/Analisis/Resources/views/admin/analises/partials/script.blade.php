@@ -99,6 +99,8 @@
       select: function( event, ui){
         $("#analisisTable").show()
         var html = trTitulo(ui.item.titulo, ui.item.id);
+        var confHtml = trConfiguracion(ui.item.titulo, ui.item.id)
+        $("#configuracionBody").append(confHtml)
         $("#analisisBody").append(html)
         $.each(ui.item.determinacion, function(index, det){
           html
@@ -170,13 +172,18 @@
     $("#analisisBody").on('click', '.delete-sub', function(){
       $(".determinacion-"+$(this).attr('subId')).remove()
       $(this).closest('tr').remove()
+      $(".conf-"+$(this).attr('subId')).remove()
     })
 
-    $(".table").on('keydown', '.determinacion-rango', function(event){
+    $(".table").on('keydown', '.valor', function(event){
       if(event.keyCode == 9 || event.keyCode == 13){
         event.preventDefault();
-        if(!$(this).closest("tr").is(":last-child"))
-          $(this).closest('tr').next('tr').find('.valor').focus()
+        if(!$(this).closest("tr").is(":last-child")){
+          let nextTr = $(this).closest('tr').next('tr');
+          if(nextTr.hasClass('tr-titulo'))
+            nextTr = nextTr.next('tr')
+          nextTr.find('.valor').focus()
+        }
       }
       if(event.keyCode == 13 && $(this).closest("tr").is(":last-child"))
         $("#analisis-form").submit()
@@ -192,7 +199,7 @@
         $('#'+dom.id).iCheck('uncheck');
         return;
       }
-      if(parseInt(val) < parseInt(rango[0]) || parseInt(val) > parseInt(rango[1])){
+      if(parseFloat(val) < parseFloat(rango[0]) || parseFloat(val) > parseFloat(rango[1])){
         $('#'+dom.id).iCheck('check');
       }else{
         $('#'+dom.id).iCheck('uncheck');
@@ -289,6 +296,21 @@
         +"    <button subId='"+id+"' type='button' class='btn btn-danger btn-flat delete-sub'>"
         +"      <i class='fa fa-trash'></i>"
         +"    </button>"
+        +"  </td>"
+        +"</tr>"
+    return html;
+  }
+
+  function trConfiguracion(titulo, id){
+    var html
+        ="<tr class='conf-"+id+"'>"
+        +"  <td style='text-align:center'>"
+        +     titulo
+        +   "</td>"
+        +"  <td class='center'>"
+        +"    <div class='checkbox'>"
+        +"      <input type='checkbox' class='rango-check flat-blue' checked name='mostrar["+id+"]'>"
+        +"    </div>"
         +"  </td>"
         +"</tr>"
     return html;

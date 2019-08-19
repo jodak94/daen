@@ -5,6 +5,8 @@
       select: function( event, ui){
         $("#analisisTable").show()
         var html = trTitulo(ui.item.titulo, ui.item.id);
+        var confHtml = trConfiguracion(ui.item.titulo, ui.item.id)
+        $("#configuracionBody").append(confHtml)
         $("#analisisBody").append(html)
         $.each(ui.item.determinacion, function(index, det){
           html
@@ -49,6 +51,21 @@
         +"    <button subId='"+id+"' type='button' class='btn btn-danger btn-flat delete-sub'>"
         +"      <i class='fa fa-trash'></i>"
         +"    </button>"
+        +"  </td>"
+        +"</tr>"
+    return html;
+  }
+
+  function trConfiguracion(titulo, id){
+    var html
+        ="<tr class='conf-"+id+"'>"
+        +"  <td style='text-align:center'>"
+        +     titulo
+        +   "</td>"
+        +"  <td class='center'>"
+        +"    <div class='checkbox'>"
+        +"      <input type='checkbox' class='rango-check flat-blue' checked name='mostrar["+id+"]'>"
+        +"    </div>"
         +"  </td>"
         +"</tr>"
     return html;

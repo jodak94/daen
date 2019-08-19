@@ -37,6 +37,24 @@ class Determinacion extends Model
       if($this['tipo_referencia'] == 'reactiva' || $this['tipo_referencia'] == 'booleano'){
         return ucfirst(str_replace('_', ' ', $this['rango_referencia']));
       }
+      if($this['tipo_referencia'] == 'rango_sexo'){
+        $rango_tmp = explode('|', preg_replace("/[^0-9\-|.]/", "", $this['rango_referencia']));
+        $rango = '';
+        $r = explode('-', $rango_tmp[0]);
+        if($r[0] == '0')
+          $rango .= 'Fem Inferior a ' . $r[1];
+        else
+          $rango .= 'Fem ' . $r[0] . ' - ' . $r[1];
+
+        $rango .= ' | ';
+        $r = explode('-', $rango_tmp[1]);
+        if($r[0] == '0')
+          $rango .= 'Masc Inferior a ' . $r[1];
+        else
+          $rango .= 'Masc ' . $r[0] . ' - ' . $r[1];
+
+        return $rango;
+      }
       return $this['rango_referencia'];
     }
 

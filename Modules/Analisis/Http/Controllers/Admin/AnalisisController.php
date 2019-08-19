@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Analisis\Entities\Analisis;
 use Modules\Analisis\Entities\Resultado;
+use Modules\Analisis\Entities\Determinacion;
 use Modules\Analisis\Http\Requests\CreateAnalisisRequest;
 use Modules\Analisis\Http\Requests\UpdateAnalisisRequest;
 use Modules\Analisis\Repositories\AnalisisRepository;
@@ -18,6 +19,10 @@ use Barryvdh\DomPDF\Facade as PDF;
 use View;
 use Carbon\Carbon;
 use Modules\Plantillas\Entities\Plantilla;
+use lepiaf\SerialPort\SerialPort;
+use lepiaf\SerialPort\Parser\SeparatorParser;
+use lepiaf\SerialPort\Configure\TTYConfigure;
+
 class AnalisisController extends AdminBaseController
 {
     /**
@@ -126,56 +131,72 @@ class AnalisisController extends AdminBaseController
         if(!isset($request->paciente_id))
           return response()->json(['error' => true, 'message'=> 'No se encontró el paciente']);
 
-        if(!isset($request->determinacion))
+        if(!isset($request->determinacion) || (isset($request->determinacion) && !count($request->determinacion)))
           return response()->json(['error' => true, 'message'=> 'No se encontraron determinaciones']);
 
         $fuera_rango = [];
         if(isset($request->fuera_rango))
           $fuera_rango = array_keys($request->fuera_rango);
 
+        $mostrar = [];
+        if(isset($request->mostrar))
+          $mostrar = array_keys($request->mostrar);
+
         DB::beginTransaction();
+        $analisis = new Analisis();
+        $analisis->paciente_id = $request->paciente_id;
+        $analisis->created_by = Auth::user()->id;
+        $analisis->save();
+        $orden = DB::select('
+        select d.id from analisis__seccions s
+        join analisis__subseccions ss on ss.seccion_id = s.id join analisis__determinacions d on d.subseccion_id = ss.id
+        where d.id in ('.implode(', ', array_keys($request['determinacion'])).')
+        order by s.orden, ss.orden, d.orden;');
+        
         try{
-          $analisis = new Analisis();
-          $analisis->paciente_id = $request->paciente_id;
-          $analisis->created_by = Auth::user()->id;
-          $analisis->save();
-          $orden = DB::select('
-            select d.id from analisis__seccions s
-            join analisis__subseccions ss on ss.seccion_id = s.id join analisis__determinacions d on d.subseccion_id = ss.id
-            where d.id in ('.implode(', ', array_keys($request['determinacion'])).')
-            order by s.orden, ss.orden;');
-          foreach ($orden as $det_id) {
-            if(!isset($request->determinacion[$det_id->id]))//valor
-              continue;
-            $resultado = new Resultado();
-            $resultado->determinacion_id = $det_id->id;
-            $resultado->analisis_id = $analisis->id;
-            $resultado->valor = $request->determinacion[$det_id->id];
-            if(in_array($det_id->id, $fuera_rango))
-              $resultado->fuera_rango = true;
-            else
-              $resultado->fuera_rango = false;
-            $resultado->save();
-          }
-          if($request->has('analisis_id') && trim($request->analisis_id) != ''){
-            $analisis_to_remove = Analisis::find($request->analisis_id);
-            $analisis->created_by = $analisis_to_remove->created_by;
-            $analisis->modified_by = Auth::user()->id;
-            $analisis->created_at = $analisis_to_remove->created_at;
-            $analisis->updated_at = $analisis_to_remove->updated_at;
-            $analisis_to_remove->delete();
-          }else{
-            $analisis->created_by = Auth::user()->id;
-          }
-          $analisis->save();
+          $this->procesamientoNormal($request, $analisis, $orden, $fuera_rango, $mostrar);
         } catch (\Exception $e) {
-          Log::info('Error al crear el análisis');
+          Log::info("----ERROR PROCESAMIENTO NORMAL----");
           Log::info($e);
           return response()->json(['error' => true, 'message'=> 'Ocurrió un error en el servidor, avisar al administrador.']);
         }
         DB::commit();
         \Session::put('success', 'Análisis guardado exitosamente');
         return response()->json(['error' => false, 'analisis_id'=> $analisis->id]);
+    }
+
+
+    private function procesamientoNormal($request, $analisis, $orden, $fuera_rango, $mostrar){
+      foreach ($orden as $det_id) {
+        if(!isset($request->determinacion[$det_id->id]))//valor
+          continue;
+        $resultado = new Resultado();
+        $resultado->determinacion_id = $det_id->id;
+        $resultado->analisis_id = $analisis->id;
+        $resultado->valor = $request->determinacion[$det_id->id];
+        $sub_id = DB::select('SELECT sub.id FROM analisis__subseccions sub join analisis__determinacions det on sub.id = det.subseccion_id where det.id = ' . $det_id->id)[0]->id;
+        if(in_array($sub_id, $mostrar))
+          $resultado->mostrar_subtitulo = true;
+        else
+          $resultado->mostrar_subtitulo = false;
+
+        if(in_array($det_id->id, $fuera_rango))
+          $resultado->fuera_rango = true;
+        else
+          $resultado->fuera_rango = false;
+        $resultado->save();
+      }
+      if($request->has('analisis_id') && trim($request->analisis_id) != ''){
+        $analisis_to_remove = Analisis::find($request->analisis_id);
+        $analisis->created_by = $analisis_to_remove->created_by;
+        $analisis->modified_by = Auth::user()->id;
+        $analisis->created_at = $analisis_to_remove->created_at;
+        $analisis->updated_at = $analisis_to_remove->updated_at;
+        $analisis_to_remove->delete();
+      }else{
+        $analisis->created_by = Auth::user()->id;
+      }
+      $analisis->save();
     }
 
     public function export_to_pdf(Request $request) {
@@ -199,7 +220,6 @@ class AnalisisController extends AdminBaseController
     }
 
 
-
     public function obtener_boxes($action){
       if($action == 'preview')
         $boxes = json_decode(json_encode([
@@ -221,8 +241,8 @@ class AnalisisController extends AdminBaseController
               'sexo_paciente' => ['x' => 1.2, 'y' => 2.2],
               'fecha' => ['x' => 1.2, 'y' => 2.6],
               'titulo_resultado' => ['x' => 1.2, 'y' => 4.5],
-              'resultado' => ['x' => 9.7, 'y' => 4.5],
-              'fuera_rango' => ['x' => 12.5, 'y' => 4.5],
+              'resultado' => ['x' => 9.5, 'y' => 4.5],
+              'fuera_rango' => ['x' => 12.2, 'y' => 4.5],
               'rango_referencia' => ['x' => 14.5, 'y' => 4.5],
             ]));
 

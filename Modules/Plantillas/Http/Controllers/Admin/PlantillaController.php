@@ -65,10 +65,17 @@ class PlantillaController extends AdminBaseController
           join analisis__subseccions ss on ss.seccion_id = s.id join analisis__determinacions d on d.subseccion_id = ss.id
           where d.id in ('.implode(', ', array_keys($request['determinacion'])).')
           order by s.orden, ss.orden;');
+        $mostrar = [];
+        if(isset($request->mostrar))
+          $mostrar = array_keys($request->mostrar);
+
         foreach ($orden as $det_id) {
           $detalle = new PlantillaDetalle();
           $detalle->plantilla_id = $plantilla->id;
           $detalle->determinacion_id = $det_id->id;
+          $sub_id = DB::select('SELECT sub.id FROM analisis__subseccions sub join analisis__determinacions det on sub.id = det.subseccion_id where det.id = ' . $det_id->id)[0]->id;
+          if(in_array($sub_id, $mostrar))
+            $detalle->mostrar_subtitulo = true;
           $detalle->save();
         }
       } catch (\Exception $e) {
@@ -114,10 +121,16 @@ class PlantillaController extends AdminBaseController
             join analisis__subseccions ss on ss.seccion_id = s.id join analisis__determinacions d on d.subseccion_id = ss.id
             where d.id in ('.implode(', ', array_keys($request['determinacion'])).')
             order by s.orden, ss.orden;');
+          $mostrar = [];
+          if(isset($request->mostrar))
+            $mostrar = array_keys($request->mostrar);
           foreach ($orden as $det_id) {
             $detalle = new PlantillaDetalle();
             $detalle->plantilla_id = $plantilla->id;
             $detalle->determinacion_id = $det_id->id;
+            $sub_id = DB::select('SELECT sub.id FROM analisis__subseccions sub join analisis__determinacions det on sub.id = det.subseccion_id where det.id = ' . $det_id->id)[0]->id;
+            if(in_array($sub_id, $mostrar))
+              $detalle->mostrar_subtitulo = true;
             $detalle->save();
           }
           $this->plantilla->destroy($plantilla_to_remove);

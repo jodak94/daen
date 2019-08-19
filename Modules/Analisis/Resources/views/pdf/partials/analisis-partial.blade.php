@@ -24,7 +24,7 @@
       <br>
     @endif
   @endif
-  @if($subseccion_actual != $resultado->determinacion->subseccion->id)
+  @if($subseccion_actual != $resultado->determinacion->subseccion->id && $resultado->mostrar_subtitulo)
     <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><u>{{$resultado->determinacion->subseccion->titulo}}</u></div>
     @php
       $y += $y_acu

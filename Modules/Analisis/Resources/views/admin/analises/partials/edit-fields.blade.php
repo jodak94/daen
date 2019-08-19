@@ -61,7 +61,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <div class="box box-solid box-primary">
       <div class="box-header with-border">
         <h3 class="box-title" style="margin-right: 10px">Análisis</h3>
@@ -155,6 +155,45 @@
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="box box-solid box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title" style="margin-right: 10px">Configuración</h3>
+      </div>
+      <div class="box-body">
+        <table class="data-table table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Subtitulo</th>
+              <th>Mostrar</th>
+            </tr>
+          </thead>
+          <tbody id="configuracionBody">
+            @php
+              $ss_actual_id = -1;
+            @endphp
+            @foreach ($analisis->resultados as $resultado)
+              @if($ss_actual_id != $resultado->determinacion->subseccion->id)
+                <tr class="conf-{{$resultado->determinacion->subseccion->id}}">
+                  <td style="text-align:center">
+                   {{$resultado->determinacion->subseccion->titulo}}
+                 </td>
+                  <td class="center">
+                    <div class="checkbox">
+                      <input type="checkbox" class="rango-check flat-blue" @if($resultado->mostrar_subtitulo) checked @endif name="mostrar[{{$resultado->determinacion->subseccion->id}}]">
+                    </div>
+                  </td>
+                </tr>
+                @php
+                  $ss_actual_id = $resultado->determinacion->subseccion->id;
+                @endphp
+              @endif
+            @endforeach
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
