@@ -18,7 +18,7 @@
                     <i class="fa fa-eye"></i> {{ trans('page::pages.view-page') }}
                 </a>
             </li>
-            <li><a href="{{ url('/') }}"><i class="fa fa-eye"></i> {{ trans('core::core.general.view website') }}</a></li>
+            {{-- <li><a href="{{ url('/') }}"><i class="fa fa-eye"></i> {{ trans('core::core.general.view website') }}</a></li> --}}
             @if(count(LaravelLocalization::getSupportedLocales())>1)
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
