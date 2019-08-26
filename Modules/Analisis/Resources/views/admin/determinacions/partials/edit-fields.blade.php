@@ -9,6 +9,10 @@
     <div class="col-md-4">
       {!! Form:: normalSelect('tipo_referencia', 'Tipo de Rango de referencia', $errors, $tipos_refs, $determinacion) !!}
     </div>
+    <div class="col-md-3">
+      <label style="color:white">lineas</label>
+      {!! Form:: normalCheckbox('multiples_lineas', 'Varias lineas', $errors, $determinacion) !!}
+    </div>
   </div>
   <div class="row" id="rango-titulo-container" @if($determinacion->tipo_referencia == 'sin_referencia') style="display:none"@endif>
     <div class="col-md-9">

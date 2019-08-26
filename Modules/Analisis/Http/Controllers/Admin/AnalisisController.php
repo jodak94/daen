@@ -152,7 +152,15 @@ class AnalisisController extends AdminBaseController
         join analisis__subseccions ss on ss.seccion_id = s.id join analisis__determinacions d on d.subseccion_id = ss.id
         where d.id in ('.implode(', ', array_keys($request['determinacion'])).')
         order by s.orden, ss.orden, d.orden;');
-        
+        if($request->procesar_spin){
+          try {
+            $this->procesamientoSpin($request, $analisis, $orden);
+          } catch (\Exception $e) {
+            Log::info("----ERROR PROCESAMIENTO SPINLAB----");
+            Log::info($e);
+            return response()->json(['error' => true, 'message'=> 'Ocurrió un error en la comunicación con el SpinLab.']);
+          }
+        }
         try{
           $this->procesamientoNormal($request, $analisis, $orden, $fuera_rango, $mostrar);
         } catch (\Exception $e) {
@@ -165,6 +173,78 @@ class AnalisisController extends AdminBaseController
         return response()->json(['error' => false, 'analisis_id'=> $analisis->id]);
     }
 
+    private function procesamientoSpin($request, $analisis, $orden){
+      Log::info(array_column($orden, 'id'));
+      foreach ($orden as $o) {
+        Log::info($o->id);
+      }
+      $determinaciones = Determinacion::whereIn('id', array_column($orden, 'id'))->get();
+      foreach ($determinaciones as $det) {
+        Log::info($det->titulo);
+      }
+      $frame = $this->obtenerFrame($analisis, $determinaciones);
+      Log::info($frame);
+      dd();
+      return;
+      $ENQ = '♣';//5
+      $ACK = '♠';//6
+      $EOT = '♦';//4
+      $serialPort = new SerialPort(new SeparatorParser(), new TTYConfigure());
+      $serialPort->open("/dev/ttyACM0");
+      $serialPort->write($ENQ);
+      $finalizado = false;
+      while ($data = $serialPort->read()) {
+        $det = Determinacion::find($orden[$actual]->id);
+        $frame = $this->obtenerFrame($analisis, $determinaciones);
+        Log::info($data);
+        Log::info($frame);
+        if($data == $ACK) {
+          $serialPort->write($frame);
+          if($finalizado)
+            break;
+        }
+
+
+      }
+      $serialPort->write($EOT);
+      $serialPort->close();
+    }
+
+    private function obtenerFrame($analisis, $determinaciones){
+      $STX = '☻';//2
+      $CR  = '♪';//13
+      $LF  = '◙';//10
+
+      $frame  = $STX;     //Inicio
+      //---------Header---------
+      $frame .= 'H|';                 //Tipo
+      $frame .= '\^&|';               //Delimitador
+      $frame .= '||||||';             //Message Control ID | Access Password | Sender Name | Sender Addres | Reserved Field  | Sender Phone |
+      $frame .= '|||||';              //Charac. of Sender | Receiver ID | Comment or Special Inst. | Processing ID | Version No. | Date and Time of Message
+      $frame .= $CR;                  //Carriage Return
+      //--------Paciente--------
+      $frame .= 'P|';                 //Tipo
+      $frame .= '1|';                 //Secuencia
+      $frame .= '|';                  //Practice Assigned Patient ID
+      $frame .= $analisis->id . '|';  //Laboratory Assigned Patient ID
+      $frame .= '|';                  //Patient ID No. 3
+      $frame .= $analisis->paciente->nombre . '&' . $analisis->paciente->apellido . '|';  //Pacient Name
+      $frame .= $analisis->fecha_nacimiento . '|'; //Fecha de nacimiento
+      $frame .= ($analisis->paciente->edad > 15 ? strtoupper($analisis->paciente->sexo[0]) : 'U') . '|';
+      $frame .= $CR;
+      //Orden
+      foreach ($determinaciones as $key => $det) {
+        $frame .= 'O|';               //Tipo
+        $frame .= $key + 1 . '|';     //Secuencio
+        $frame .= $analisis->id;      //ID de la muestra
+        $frame .= '|';                //Instrument Speciment ID
+        $frame .= substr($det->titulo, 0, 4) . '|'; //Determinación
+        $frame .= $CR;
+      }
+      $frame .= $LF;
+
+      return $frame;
+    }
 
     private function procesamientoNormal($request, $analisis, $orden, $fuera_rango, $mostrar){
       foreach ($orden as $det_id) {

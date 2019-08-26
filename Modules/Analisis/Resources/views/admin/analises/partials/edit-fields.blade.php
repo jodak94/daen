@@ -131,7 +131,13 @@
                        <td><input class='form-control determinacion-rango-sexo valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                        @break
                      @default
-                       <td><input class='form-control valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
+                       <td>
+                         @if($resultado->determinacion->multiples_lineas)
+                           <textarea class='form-control valor' rows='5' name=determinacion[{{$resultado->determinacion->id}}]>{{trim($resultado->valor)}}</textarea>
+                         @else
+                           <input class='form-control valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]>
+                         @endif
+                       </td>
                   @endswitch
                   <td>
                      {{$resultado->determinacion->rango_referencia_format}}

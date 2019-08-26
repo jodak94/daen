@@ -35,9 +35,44 @@
   @endphp
   <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
   @if($resultado->fuera_rango)
-    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->fuera_rango->x - $ajuste_x}}cm;top: {{ $y }}cm">{{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}</div>
+    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->fuera_rango->x - $ajuste_x}}cm;top: {{ $y }}cm">
+      @if($resultado->determinacion->multiples_lineas)
+        @php
+          $valores = explode('<br />', nl2br($analisis->resultados[0]->valor, '\n'))
+        @endphp
+        @foreach ($valores as $value)
+          {{$value}}<br>
+          @php
+            $y += $y_acu;
+          @endphp
+        @endforeach
+      @else
+        {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}
+      @endif
+    </div>
   @else
-    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->resultado->x - $ajuste_x }}cm;top: {{ $y }}cm">{{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}</div>
+    @php
+      if($resultado->determinacion->multiples_lineas){
+        $x_ajustada = $boxes->titulo_resultado->x + 1;
+        $y += $y_acu;
+      }else
+        $x_ajustada = $boxes->resultado->x - $ajuste_x;
+    @endphp
+    <div class="{{$action}}" style="position: absolute;left: {{ $x_ajustada }}cm;top: {{ $y }}cm">
+      @if($resultado->determinacion->multiples_lineas)
+        @php
+          $valores = explode('<br />', nl2br($resultado->valor, '\n'))
+        @endphp
+        @foreach ($valores as $value)
+          {{$value}}<br>
+          @php
+            $y += $y_acu;
+          @endphp
+        @endforeach
+      @else
+        {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}
+      @endif
+    </div>
   @endif
   <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->rango_referencia_format . ' ' . $resultado->determinacion->unidad_medida}}</div>
   @php

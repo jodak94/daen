@@ -133,7 +133,10 @@
               html += "<td><input class='form-control determinacion-rango-sexo valor' name=determinacion["+det.id+"]></td>"
               break;
             default:
-              html += "<td><input class='form-control valor' name=determinacion["+det.id+"]></td>"
+              if(det.multiples_lineas)
+                html += "<td><textarea class='form-control valor' name=determinacion["+det.id+"] rows='5'></textarea></td>"
+              else
+                html += "<td><input class='form-control valor' name=determinacion["+det.id+"]></td>"
 
           }
           html
@@ -176,6 +179,8 @@
     })
 
     $(".table").on('keydown', '.valor', function(event){
+      if($(this).is("textarea"))
+        return;
       if(event.keyCode == 9 || event.keyCode == 13){
         event.preventDefault();
         if(!$(this).closest("tr").is(":last-child")){

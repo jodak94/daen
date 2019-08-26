@@ -9,7 +9,7 @@ class Seccion extends Model
 {
     protected $table = 'analisis__seccions';
     public $translatedAttributes = [];
-    protected $fillable = ['titulo', 'orden'];
+    protected $fillable = ['titulo', 'orden', 'salto_pagina'];
 
     public function subsecciones(){
       return $this->hasMany('Modules\Analisis\Entities\Subseccion');

@@ -6,8 +6,12 @@
     <div class="col-md-3">
       {!! Form:: normalSelect('subseccion_id', 'Subsección', $errors, $subsecciones) !!}
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       {!! Form:: normalSelect('tipo_referencia', 'Tipo de Rango de referencia', $errors, $tipos_refs) !!}
+    </div>
+    <div class="col-md-3">
+      <label style="color:white">lineas</label>
+      {!! Form:: normalCheckbox('multiples_lineas', 'Varias lineas', $errors) !!}
     </div>
   </div>
   <div class="row" id="rango-titulo-container">
