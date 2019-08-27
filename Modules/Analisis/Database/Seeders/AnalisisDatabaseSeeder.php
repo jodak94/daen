@@ -57,7 +57,7 @@ class AnalisisDatabaseSeeder extends Seeder
                 '0.7-1.4',
                 'rango'
               ],
-              'Acido Urico' => [
+              'Ácido Úrico' => [
                 'mg/dl',
                 'Fem 2.5 - 6.8 | Masc 3.0 - 7.2',
                 'rango_sexo'
@@ -66,17 +66,17 @@ class AnalisisDatabaseSeeder extends Seeder
             'Perfil Hepático' => [
               'GOT' => [
                 'U/L',
-                '0-12',
-                'rango'
+                'Fem 0 - 31 | Masc 0 - 38',
+                'rango_sexo'
               ],
               'GPT' => [
                 'U/L',
-                '0-12',
-                'rango'
+                'Fem 0 - 32 | Masc 0 - 40',
+                'rango_sexo'
               ],
               'Fosfatasa Alcalina' => [
                 'U/L',
-                'Niños 100 - 400 | Adultos 68 - 240',
+                'Niños 0 - 645 | Adultos 98 - 279',
                 'rango_edad'
               ],
               'Bilirrubina Total' => [
