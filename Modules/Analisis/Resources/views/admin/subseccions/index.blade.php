@@ -127,6 +127,7 @@
                 "info": true,
                 "autoWidth": true,
                 "order": [[ 0, "desc" ]],
+                "pageLength": 50,
                 "language": {
                     "url": '<?php echo Module::asset("core:js/vendor/datatables/{$locale}.json") ?>'
                 }

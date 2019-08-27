@@ -34,7 +34,7 @@ class SubseccionController extends AdminBaseController
      */
     public function index()
     {
-        $subseccions = $this->subseccion->all();
+        $subseccions = Subseccion::orderBy('titulo')->get();
         return view('analisis::admin.subseccions.index', compact('subseccions'));
     }
 

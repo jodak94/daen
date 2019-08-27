@@ -53,7 +53,7 @@ class RegisterAnalisisSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->icon('fa fa-cog');
                 $item->weight(15);
                 $item->authorize(
-                     /* append */
+                    $this->auth->hasAccess('analisis.seccions.configurar')
                 );
                 $item->item(trans('analisis::seccions.title.seccions'), function (Item $item) {
                     $item->icon('fa fa-copy');

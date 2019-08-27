@@ -12,7 +12,8 @@ return [
         'create' => 'analisis::seccions.create resource',
         'edit' => 'analisis::seccions.edit resource',
         'destroy' => 'analisis::seccions.destroy resource',
-        'ordenar' => 'analisis::seccions.ordenar resource'
+        'ordenar' => 'analisis::seccions.ordenar resource',
+        'configurar' => 'analisis::seccions.configurar resource'
     ],
     'analisis.subseccions' => [
         'index' => 'analisis::subseccions.list resource',

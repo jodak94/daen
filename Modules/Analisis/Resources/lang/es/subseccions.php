@@ -1,17 +1,17 @@
 <?php
 
 return [
-    'list resource' => 'List subseccions',
-    'create resource' => 'Create subseccions',
-    'edit resource' => 'Edit subseccions',
-    'destroy resource' => 'Destroy subseccions',
+    'list resource' => 'Listar subsecciones',
+    'create resource' => 'Crear subsección',
+    'edit resource' => 'Editar subsección',
+    'destroy resource' => 'Eliminar subseccion',
     'title' => [
         'subseccions' => 'Subsecciones',
-        'create subseccion' => 'Create a subseccion',
+        'create subseccion' => 'Crear subsección',
         'edit subseccion' => 'Editar subsección',
     ],
     'button' => [
-        'create subseccion' => 'Create a subseccion',
+        'create subseccion' => 'Crear subsección',
     ],
     'table' => [
     ],

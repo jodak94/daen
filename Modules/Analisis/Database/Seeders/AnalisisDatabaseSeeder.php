@@ -211,17 +211,24 @@ class AnalisisDatabaseSeeder extends Seeder
                 'sin_referencia',
               ],
             ]
-          ]
+          ],
         ];
+        $s_orden = 0;
+        $ss_orden = 0;
+        $d_orden = 0;
         foreach ($secciones as $key => $seccion_) {
           $seccion = new Seccion();
           $seccion->titulo = $key;
+          $seccion->orden = $s_orden;
           $seccion->save();
+          $ss_orden = 0;
           foreach ($seccion_ as $key => $subseccion_) {
             $subseccion = new Subseccion();
             $subseccion->titulo = $key;
             $subseccion->seccion_id = $seccion->id;
+            $subseccion->orden = $ss_orden;
             $subseccion->save();
+            $d_orden = 0;
             foreach ($subseccion_ as $key => $determinacion) {
               $det = new Determinacion();
               $det->titulo = $key;
@@ -229,14 +236,68 @@ class AnalisisDatabaseSeeder extends Seeder
               $det->rango_referencia = $determinacion[1];
               $det->subseccion_id = $subseccion->id;
               $det->tipo_referencia = $determinacion[2];
+              $det->orden = $d_orden;
               $det->save();
+              $d_orden++;
             }
+            $ss_orden++;
           }
+          $s_orden++;
+        }
+
+
+        $microbiologia = [
+          'Urocultivo' => [
+            'Examen en Fresco',
+            'Coloración de Gram',
+            'recuento de colonias',
+            'Antibiograma',
+          ],
+          'Coprocultivo' => [
+            'Examen Macroscópico'
+            'Examen en Fresco',
+            'Benedict',
+            'Proteínas',
+            'Coloración de Gram',
+            'Coloración de Ziebl Nielsen',
+            'Cultivo',
+          ],
+          'Cultivo De Hisopado Faringeo' => [
+            'Examen en fresco',
+            'Coloración de Gram',
+            'Coloración de Giemsa',
+            'Coloración de Ziebl Nielsen',
+            'Cultivo'
+          ]
+        ];
+
+        $seccion = new Seccion();
+        $seccion->titulo = 'Microbiología';
+        $seccion->orden = $s_orden;
+        $seccion->save();
+        $ss_orden = 0;
+        foreach ($microbiologia as $sskey => $subseccion_) {
+          $subseccion = new Subseccion();
+          $subseccion->titulo = $sskey;
+          $subseccion->seccion_id = $seccion->id;
+          $subseccion->orden = $ss_orden;
+          $subseccion->save();
+          $d_orden = 0;
+          foreach ($subseccion_ as $dkey => $det) {
+            $det = new Determinacion();
+            $det->titulo = $dkey;
+            $det->subseccion_id = $subseccion->id;
+            $det->tipo_referencia = 'sin_referencia';
+            $det->orden = $d_orden;
+            $det->save();
+            $d_orden++;
+          }
+          $ss_orden++;
         }
 
         DB::table('backgorund_images')->insert([
-          ['file' => 'img/back-1.jpg'],
-          ['file' => 'img/back-2.jpg'],
+          ['file' => 'img/back-resultado--1.jpg'],
+          ['file' => 'img/back-resultado--2.jpg'],
         ]);
         DB::commit();
     }

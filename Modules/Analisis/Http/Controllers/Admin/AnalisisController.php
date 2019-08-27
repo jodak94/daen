@@ -314,18 +314,30 @@ class AnalisisController extends AdminBaseController
            'fuera_rango' => ['x' => 14.8, 'y' => 7.5],
            'rango_referencia' => ['x' => 17, 'y' => 7.5],
          ]));
-         if($action == 'download' || $action == 'print')
-           $boxes = json_decode(json_encode([
-              'cedula_paciente' => ['x' => 1.2, 'y' => 1],
-              'nombre_paciente' => ['x' => 1.2, 'y' => 1.4],
-              'edad_paciente' => ['x' => 1.2, 'y' => 1.8],
-              'sexo_paciente' => ['x' => 1.2, 'y' => 2.2],
-              'fecha' => ['x' => 1.2, 'y' => 2.6],
-              'titulo_resultado' => ['x' => 1.2, 'y' => 4.5],
-              'resultado' => ['x' => 9.5, 'y' => 4.5],
-              'fuera_rango' => ['x' => 12.2, 'y' => 4.5],
-              'rango_referencia' => ['x' => 14.5, 'y' => 4.5],
-            ]));
+      if($action == 'download')
+       $boxes = json_decode(json_encode([
+          'cedula_paciente' => ['x' => 1.2, 'y' => 1],
+          'nombre_paciente' => ['x' => 1.2, 'y' => 1.4],
+          'edad_paciente' => ['x' => 1.2, 'y' => 1.8],
+          'sexo_paciente' => ['x' => 1.2, 'y' => 2.2],
+          'fecha' => ['x' => 1.2, 'y' => 2.6],
+          'titulo_resultado' => ['x' => 1.2, 'y' => 4.5],
+          'resultado' => ['x' => 9.5, 'y' => 4.5],
+          'fuera_rango' => ['x' => 12.2, 'y' => 4.5],
+          'rango_referencia' => ['x' => 14.5, 'y' => 4.5],
+        ]));
+      if($action == 'print')
+      $boxes = json_decode(json_encode([
+         'cedula_paciente' => ['x' => 2.2, 'y' => 1.5],
+         'nombre_paciente' => ['x' => 2.2, 'y' => 1.9],
+         'edad_paciente' => ['x' => 2.2, 'y' => 2.3],
+         'sexo_paciente' => ['x' => 2.2, 'y' => 2.8],
+         'fecha' => ['x' => 2.2, 'y' => 3.1],
+         'titulo_resultado' => ['x' => 2.2, 'y' => 5],
+         'resultado' => ['x' => 10.5, 'y' => 5],
+         'fuera_rango' => ['x' => 13.2, 'y' => 5],
+         'rango_referencia' => ['x' => 15.5, 'y' => 5],
+       ]));
 
        return $boxes;
     }

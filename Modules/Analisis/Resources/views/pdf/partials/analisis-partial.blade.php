@@ -16,6 +16,7 @@
   $seccion_actual = -1;
   $subseccion_actual = -1;
   $page_number = 0;
+  $bottom_limit = 21;
 @endphp
 @foreach ($analisis->resultados as $resultado)
   @if($seccion_actual != $resultado->determinacion->subseccion->seccion->id)
@@ -33,6 +34,16 @@
     @php
       $page_number++;
     @endphp
+    @if($y + $y_acu + 1.4 >= 21)
+      <div style="page-break-after: always;"></div>
+      @if($action == 'download')
+          <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}" width="100%" style="margin: auto;"/>
+      @endif
+      @php
+        if($action != 'preview')
+          $y = $boxes->titulo_resultado->y;
+      @endphp
+    @endif
     <div class="{{$action}} @if($seccion_actual != -1) margin-top @endif" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><b>{{$resultado->determinacion->subseccion->seccion->titulo}}</b></div>
     @php
       if($seccion_actual != -1)
@@ -45,6 +56,16 @@
     @endif
   @endif
   @if($subseccion_actual != $resultado->determinacion->subseccion->id && $resultado->mostrar_subtitulo)
+    @if($y + $y_acu >= 21)
+      <div style="page-break-after: always;"></div>
+      @if($action == 'download')
+          <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}" width="100%" style="margin: auto;"/>
+      @endif
+      @php
+        if($action != 'preview')
+          $y = $boxes->titulo_resultado->y;
+      @endphp
+    @endif
     <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><u>{{$resultado->determinacion->subseccion->titulo}}</u></div>
     @php
       $y += $y_acu
@@ -88,6 +109,16 @@
           @php
             $y += $y_acu;
           @endphp
+          @if($y >= 21 )
+            <div style="page-break-after: always;"></div>
+            @if($action == 'download')
+                <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}" width="100%" style="margin: auto;"/>
+            @endif
+            @php
+              if($action != 'preview')
+                $y = $boxes->titulo_resultado->y;
+            @endphp
+          @endif
         @endforeach
       @else
         {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}
@@ -100,4 +131,17 @@
     $seccion_actual = $resultado->determinacion->subseccion->seccion->id;
     $subseccion_actual = $resultado->determinacion->subseccion->id;
   @endphp
+  @if($y >= 21 )
+    <div style="page-break-after: always;"></div>
+    @if($action == 'download')
+        <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}" width="100%" style="margin: auto;"/>
+    @endif
+    @php
+      if($action != 'preview')
+        $y = $boxes->titulo_resultado->y;
+    @endphp
+  @endif
+  <script>
+    console.log('{{$y}}');
+  </script>
 @endforeach
