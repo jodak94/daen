@@ -44,7 +44,8 @@ class SeccionController extends AdminBaseController
      */
     public function create()
     {
-        return view('analisis::admin.seccions.create');
+        $backgrounds = DB::table('backgorund_images')->get();
+        return view('analisis::admin.seccions.create', compact('backgrounds'));
     }
 
     /**

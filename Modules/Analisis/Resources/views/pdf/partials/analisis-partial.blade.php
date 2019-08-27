@@ -1,8 +1,12 @@
 @if($action == 'preview')
-  <img src="{{ asset('img/back-resultado-min.jpg')}}"  width="100%"/>
+  <img src="{{ asset('img/back-preview.jpg')}}"  width="100%"/>
 @endif
 @if($action == 'download')
-    <img src="{{ public_path('img/back-resultado-min.jpg')}}" width="100%" style="margin: auto;"/>
+    @if(isset($analisis->resultados[0]->determinacion->subseccion->seccion->background))
+      <img src="{{ public_path($analisis->resultados[0]->determinacion->subseccion->seccion->background)}}" width="100%" style="margin: auto;"/>
+    @else
+      <img src="{{ public_path('img/back-resultado-1.jpg')}}" width="100%" style="margin: auto;"/>
+    @endif
 @endif
 {{-- Cabecera --}}
 @include('analisis::pdf.partials.paciente')
@@ -18,10 +22,11 @@
     @if($resultado->determinacion->subseccion->seccion->salto_pagina && $page_number != 0)
       <div style="page-break-after: always;"></div>
       @if($action == 'download')
-          <img src="{{ public_path('img/back-cultivo-min.jpg')}}" width="100%" style="margin: auto;"/>
+          <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}" width="100%" style="margin: auto;"/>
       @endif
       @php
-        $y = $boxes->titulo_resultado->y;
+        if($action != 'preview')
+          $y = $boxes->titulo_resultado->y;
       @endphp
       @include('analisis::pdf.partials.paciente')
     @endif

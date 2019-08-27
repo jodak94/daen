@@ -7,11 +7,11 @@ return [
     'destroy resource' => 'Eliminar sección',
     'title' => [
         'seccions' => 'Secciones',
-        'create seccion' => 'Create a seccion',
+        'create seccion' => 'Crear  sección',
         'edit seccion' => 'Edit a seccion',
     ],
     'button' => [
-        'create seccion' => 'Create a seccion',
+        'create seccion' => 'Crear sección',
     ],
     'table' => [
     ],

@@ -233,6 +233,11 @@ class AnalisisDatabaseSeeder extends Seeder
             }
           }
         }
+
+        DB::table('backgorund_images')->insert([
+          ['file' => 'img/back-1.jpg'],
+          ['file' => 'img/back-2.jpg'],
+        ]);
         DB::commit();
     }
 }

@@ -10,7 +10,20 @@
         <li class="active">{{ trans('analisis::seccions.title.create seccion') }}</li>
     </ol>
 @stop
-
+@push('css-stack')
+  <style>
+    .background-option{
+      border: 12px solid white;
+    }
+    .background-option:hover{
+      cursor: pointer;
+    }
+    .selected{
+      border: 4px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+@endpush
 @section('content')
     {!! Form::open(['route' => ['admin.analisis.seccion.store'], 'method' => 'post']) !!}
     <div class="row">
@@ -57,12 +70,5 @@
             });
         });
     </script>
-    <script>
-        $( document ).ready(function() {
-            $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({
-                checkboxClass: 'icheckbox_flat-blue',
-                radioClass: 'iradio_flat-blue'
-            });
-        });
-    </script>
+    @include('analisis::admin.seccions.partials.script-create')
 @endpush

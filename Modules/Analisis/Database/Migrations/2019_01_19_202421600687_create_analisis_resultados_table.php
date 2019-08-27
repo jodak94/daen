@@ -16,13 +16,13 @@ class CreateAnalisisResultadosTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             // Your fields
-            $table->string('valor')->nullable();
+            $table->string('valor', 1000)->nullable();
             $table->integer('determinacion_id')->unsigned();
             $table->foreign('determinacion_id')->references('id')->on('analisis__determinacions');
             $table->integer('analisis_id')->unsigned();
             $table->foreign('analisis_id')->references('id')->on('analisis__analises')->onDelete('cascade');
             $table->timestamps();
-        });
+        }); 
     }
 
     /**
