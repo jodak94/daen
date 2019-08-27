@@ -1,5 +1,15 @@
 <script>
   $(document).ready(function(){
+    $('.fecha').pickadate({
+      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+      today: 'Hoy',
+      clear: 'Limpiar',
+      close: 'Cerrar',
+      selectMonths: true,
+      selectYears: 100,
+      format:'dd/mm/yyyy'
+    });
     var paciente;
     $("#add_paciente_button").on('click', function(){
       $("#error").hide();

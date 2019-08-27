@@ -11,6 +11,9 @@
       </span>
     </div>
   </div>
+  <div class="col-md-3">
+    {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>$analisis->fecha_format],['class'=>'form-control fecha']) !!}
+  </div>
 </div>
 <div class="row" id="paciente-box">
   <div class="col-md-12">

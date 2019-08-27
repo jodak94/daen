@@ -11,6 +11,9 @@
       </span>
     </div>
   </div>
+  <div class="col-md-3">
+    {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>Carbon\Carbon::now()->format('d/m/Y')],['class'=>'form-control fecha']) !!}
+  </div>
 </div>
 <div class="row" id="paciente-box" style="display:none">
   <div class="col-md-12">

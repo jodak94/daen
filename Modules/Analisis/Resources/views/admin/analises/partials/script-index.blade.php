@@ -38,7 +38,7 @@
       },
       columns:[
         { data: 'paciente_nombre', name: 'paciente_nombre' },
-        { data: 'created_at_format', name: 'created_at_format' },
+        { data: 'fecha_format', name: 'fecha_format' },
         { data: 'creado_por', name: 'creado_por' },
         { data: 'acciones', name: 'acciones' },
       ],

@@ -57,7 +57,7 @@
                           <thead>
                           <tr>
                               <th>Paciente</th>
-                              <th>Fecha Hora</th>
+                              <th>Fecha</th>
                               <th>Creado Por</th>
                               <th>Acciones</th>
                           </tr>
@@ -67,7 +67,7 @@
                           </tbody>
                           <tfoot>
                             <th>Paciente</th>
-                            <th>Fecha Hora</th>
+                            <th>Fecha</th>
                             <th>Creado Por</th>
                             <th>Acciones</th>
                           </tfoot>

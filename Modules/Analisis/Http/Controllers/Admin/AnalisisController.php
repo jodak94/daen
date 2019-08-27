@@ -95,12 +95,12 @@ class AnalisisController extends AdminBaseController
          });
 
       if (isset($re->fecha_desde) && trim($re->fecha_desde) != '')
-         $query->whereDate('created_at', '>=', $this->fechaFormat($re->fecha_desde) );
+         $query->whereDate('fecha', '>=', $this->fechaFormat($re->fecha_desde) );
 
       if (isset($re->fecha_hasta) && trim($re->fecha_hasta) != '')
-         $query->whereDate('created_at', '<=', $this->fechaFormat($re->fecha_hasta) );
+         $query->whereDate('fecha', '<=', $this->fechaFormat($re->fecha_hasta) );
 
-       return $query->orderBy('created_at', 'desc');
+       return $query->orderBy('fecha', 'desc');
    }
 
    private function fechaFormat($date){
@@ -146,6 +146,7 @@ class AnalisisController extends AdminBaseController
         $analisis = new Analisis();
         $analisis->paciente_id = $request->paciente_id;
         $analisis->created_by = Auth::user()->id;
+        $analisis->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha);
         $analisis->save();
         $orden = DB::select('
         select d.id from analisis__seccions s
