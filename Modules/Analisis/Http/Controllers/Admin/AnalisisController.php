@@ -62,7 +62,7 @@ class AnalisisController extends AdminBaseController
                 <a id="analisis_'.$analisis->id.'" href="javascript:void(0)" class="preview btn btn-default btn-flat" title="Vista Previa">
                   <i class="fa fa-search"></i>
                 </a>
-                <a  href="'.$download_route.'" class="preview btn btn-default btn-flat" title="Descargar">
+                <a  href="'.$download_route.'" class="btn btn-default btn-flat" title="Descargar">
                   <i class="fa fa-download"></i>
                 </a>
                 <a href="'.$print_route.'" class="btn btn-default btn-flat" title="Imprimir" target="_blank">
@@ -323,7 +323,7 @@ class AnalisisController extends AdminBaseController
           'fecha' => ['x' => 1.2, 'y' => 2.6],
           'titulo_resultado' => ['x' => 1.2, 'y' => 4.5],
           'resultado' => ['x' => 9.5, 'y' => 4.5],
-          'fuera_rango' => ['x' => 12.2, 'y' => 4.5],
+          'fuera_rango' => ['x' => 12, 'y' => 4.5],
           'rango_referencia' => ['x' => 14.5, 'y' => 4.5],
         ]));
       if($action == 'print')
@@ -331,11 +331,11 @@ class AnalisisController extends AdminBaseController
          'cedula_paciente' => ['x' => 2.2, 'y' => 1.5],
          'nombre_paciente' => ['x' => 2.2, 'y' => 1.9],
          'edad_paciente' => ['x' => 2.2, 'y' => 2.3],
-         'sexo_paciente' => ['x' => 2.2, 'y' => 2.8],
+         'sexo_paciente' => ['x' => 2.2, 'y' => 2.7],
          'fecha' => ['x' => 2.2, 'y' => 3.1],
          'titulo_resultado' => ['x' => 2.2, 'y' => 5],
          'resultado' => ['x' => 10.5, 'y' => 5],
-         'fuera_rango' => ['x' => 13.2, 'y' => 5],
+         'fuera_rango' => ['x' => 13, 'y' => 5],
          'rango_referencia' => ['x' => 15.5, 'y' => 5],
        ]));
 

@@ -40,7 +40,13 @@
   }
 @endphp
 <body>
-    @include('analisis::pdf.partials.analisis-partial')
+    @if($action == 'preview')
+      @include('analisis::pdf.partials.analisis-preview-partial')
+    @elseif ($action == 'download')
+      @include('analisis::pdf.partials.analisis-download-partial')
+    @elseif($action == 'print')
+      @include('analisis::pdf.partials.analisis-print-partial')
+    @endif
 </body>
 
 </html>

@@ -220,6 +220,7 @@ class AnalisisDatabaseSeeder extends Seeder
           $seccion = new Seccion();
           $seccion->titulo = $key;
           $seccion->orden = $s_orden;
+          $seccion->background = 'img/back-resultado-1.jpg';
           $seccion->save();
           $ss_orden = 0;
           foreach ($seccion_ as $key => $subseccion_) {
@@ -250,11 +251,11 @@ class AnalisisDatabaseSeeder extends Seeder
           'Urocultivo' => [
             'Examen en Fresco',
             'Coloración de Gram',
-            'recuento de colonias',
+            'Recuento de colonias',
             'Antibiograma',
           ],
           'Coprocultivo' => [
-            'Examen Macroscópico'
+            'Examen Macroscópico',
             'Examen en Fresco',
             'Benedict',
             'Proteínas',
@@ -274,6 +275,8 @@ class AnalisisDatabaseSeeder extends Seeder
         $seccion = new Seccion();
         $seccion->titulo = 'Microbiología';
         $seccion->orden = $s_orden;
+        $seccion->salto_pagina = true;
+        $seccion->background = 'img/back-resultado-2.jpg';
         $seccion->save();
         $ss_orden = 0;
         foreach ($microbiologia as $sskey => $subseccion_) {
@@ -283,12 +286,13 @@ class AnalisisDatabaseSeeder extends Seeder
           $subseccion->orden = $ss_orden;
           $subseccion->save();
           $d_orden = 0;
-          foreach ($subseccion_ as $dkey => $det) {
+          foreach ($subseccion_ as $dkey => $det_) {
             $det = new Determinacion();
-            $det->titulo = $dkey;
+            $det->titulo = $det_;
             $det->subseccion_id = $subseccion->id;
             $det->tipo_referencia = 'sin_referencia';
             $det->orden = $d_orden;
+            $det->multiples_lineas = true;
             $det->save();
             $d_orden++;
           }
@@ -296,8 +300,8 @@ class AnalisisDatabaseSeeder extends Seeder
         }
 
         DB::table('backgorund_images')->insert([
-          ['file' => 'img/back-resultado--1.jpg'],
-          ['file' => 'img/back-resultado--2.jpg'],
+          ['file' => 'img/back-resultado-1.jpg'],
+          ['file' => 'img/back-resultado-2.jpg'],
         ]);
         DB::commit();
     }
