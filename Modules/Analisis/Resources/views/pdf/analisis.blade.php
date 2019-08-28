@@ -25,6 +25,19 @@
     margin-top: 0.4cm;
   @endif
 }
+@if($action == 'download')
+  img{
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+@endif
+@if($action == 'preview')
+.jconfirm-content-pane{
+  padding-left: 0;
+  padding-right: 0;
+}
+@endif
 </style>
 @php
   switch ($action) {

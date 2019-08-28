@@ -57,8 +57,8 @@ class SeccionController extends AdminBaseController
     public function store(CreateSeccionRequest $request)
     {
         $request['orden'] = count(Seccion::get());
-        if(isset($request->background))
-          $request['background'] = 'img/back-resultado-1.jpg';
+        if(!isset($request->background))
+          $request["background"] = 'img/back-resultado-1.jpg';
         $this->seccion->create($request->all());
 
         return redirect()->route('admin.analisis.seccion.index')
