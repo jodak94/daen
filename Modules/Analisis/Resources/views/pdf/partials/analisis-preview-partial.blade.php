@@ -35,7 +35,7 @@
     if($resultado->fuera_rango)
       $x_resultado = $boxes->fuera_rango->x;
     else
-      $x_resultado = $boxes->titulo_resultado->x;
+      $x_resultado = $boxes->resultado->x;
 
     if($resultado->determinacion->multiples_lineas){
       $x_ajustada = $boxes->titulo_resultado->x + 1;
@@ -46,7 +46,7 @@
   <div class="{{$action}}" style="position: absolute;left: {{ $x_ajustada}}cm;top: {{ $y }}cm">
     @if($resultado->determinacion->multiples_lineas)
       @php
-        $valores = explode('<br />', nl2br($analisis->resultados[0]->valor, '\n'));
+        $valores = explode('<br />', nl2br($resultado->valor, '\n'));
         foreach ($valores as $value) {
           echo ($value . '<br>');
           $y += $y_acu;
@@ -54,7 +54,7 @@
         $y += $y_acu;
       @endphp
     @else
-      {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}
+      {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida }}
     @endif
   </div>
   <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->rango_referencia_format . ' ' . $resultado->determinacion->unidad_medida}}</div>
