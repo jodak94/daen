@@ -22,7 +22,7 @@
     @endif
     <div class="{{$action}} @if($seccion_actual != -1) margin-top @endif" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><b>{{$resultado->determinacion->subseccion->seccion->titulo}}</b></div>
     @php
-      $y += $y_acu + $ajuste_y;
+      $y += $y_acu + $ajuste_y + 0.4;
     @endphp
   @endif
   {{-- -------------!SECCIONES-------------- --}}
@@ -31,7 +31,7 @@
   @if($subseccion_actual != $resultado->determinacion->subseccion->id && $resultado->mostrar_subtitulo)
     <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><u>{{$resultado->determinacion->subseccion->titulo}}</u></div>
     @php
-      $y += $y_acu
+      $y += $y_acu + 0.4
     @endphp
   @endif
   {{-- -------------!SUBSECCIONES------------- --}}
