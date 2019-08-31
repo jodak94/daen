@@ -45,7 +45,7 @@ class RegisterUserSidebar extends AbstractAdminSidebar
         });
         $menu->group(trans('user::users.my account'), function (Group $group) {
             $group->weight(110);
-            $group->item(trans('user::users.profile'), function (Item $item) {
+            $group->item('Perfil', function (Item $item) {
                 $item->weight(0);
                 $item->icon('fa fa-user');
                 $item->route('admin.account.profile.edit');
