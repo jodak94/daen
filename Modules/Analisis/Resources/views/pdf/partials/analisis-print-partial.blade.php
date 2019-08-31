@@ -20,18 +20,24 @@
         $ajuste_y = 0;
       @endphp
     @endif
+    @php
+      $y += $y_acu + $ajuste_y;
+    @endphp
     <div class="{{$action}} @if($seccion_actual != -1) margin-top @endif" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><b>{{$resultado->determinacion->subseccion->seccion->titulo}}</b></div>
     @php
-      $y += $y_acu + $ajuste_y + 0.4;
+      $y += $y_acu + $ajuste_y;
     @endphp
   @endif
   {{-- -------------!SECCIONES-------------- --}}
 
   {{-- -------------SUBSECCIONES------------- --}}
   @if($subseccion_actual != $resultado->determinacion->subseccion->id && $resultado->mostrar_subtitulo)
+    @php
+      $y += $y_acu;
+    @endphp  
     <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><u>{{$resultado->determinacion->subseccion->titulo}}</u></div>
     @php
-      $y += $y_acu + 0.4
+      $y += $y_acu
     @endphp
   @endif
   {{-- -------------!SUBSECCIONES------------- --}}
