@@ -33,7 +33,8 @@
   {{-- -------------SUBSECCIONES------------- --}}
   @if($subseccion_actual != $resultado->determinacion->subseccion->id && $resultado->mostrar_subtitulo)
     @php
-      $y += $y_acu;
+      if($resultado->determinacion->subseccion->orden > 0)
+        $y += $y_acu;
     @endphp  
     <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><u>{{$resultado->determinacion->subseccion->titulo}}</u></div>
     @php
