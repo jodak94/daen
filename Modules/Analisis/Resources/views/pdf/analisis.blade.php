@@ -12,10 +12,10 @@
   font-size: 18px;
 }
 .print{
-  font-size: 12px;
+  font-size: 15px;
 }
 .download{
-  font-size: 12px;
+  font-size: 15px;
 }
 .margin-top{
   @if($action == 'preview')
