@@ -67,12 +67,12 @@ class AnalisisController extends AdminBaseController
                 </a>
                 <a href="'.$print_route.'" class="btn btn-default btn-flat" title="Imprimir" target="_blank">
                   <i class="fa fa-print"></i>
+                </a>
+                <a href="'.$edit_route.'" class="btn btn-default btn-flat" title="Editar">
+                  <i class="fa fa-pencil"></i>
                 </a>';
             if(Auth::user()->hasRoleSlug('administrador') || Auth::user()->hasRoleSlug('admin'))
               $html .= '
-              <a href="'.$edit_route.'" class="btn btn-default btn-flat" title="Editar">
-                <i class="fa fa-pencil"></i>
-              </a>
               <button class="btn btn-danger btn-flat" title="Eliminar" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="'.$delete_route.'">
                 <i class="fa fa-trash"></i>
               </button>';
