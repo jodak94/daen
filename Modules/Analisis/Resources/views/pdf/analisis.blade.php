@@ -45,10 +45,10 @@
       $y_acu = 0.6;
       break;
     case 'download':
-      $y_acu = 0.4;
+      $y_acu = 0.5;
       break;
     case 'print':
-      $y_acu = 0.4;
+      $y_acu = 0.5;
       break;
   }
 @endphp

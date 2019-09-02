@@ -24,18 +24,14 @@
       $y += $y_acu + $ajuste_y;
     @endphp
     <div class="{{$action}} @if($seccion_actual != -1) margin-top @endif" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><b>{{$resultado->determinacion->subseccion->seccion->titulo}}</b></div>
-    @php
-      $y += $y_acu + $ajuste_y;
-    @endphp
   @endif
   {{-- -------------!SECCIONES-------------- --}}
 
   {{-- -------------SUBSECCIONES------------- --}}
   @if($subseccion_actual != $resultado->determinacion->subseccion->id && $resultado->mostrar_subtitulo)
     @php
-      if($resultado->determinacion->subseccion->orden > 0)
         $y += $y_acu;
-    @endphp  
+    @endphp
     <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><u>{{$resultado->determinacion->subseccion->titulo}}</u></div>
     @php
       $y += $y_acu
@@ -77,6 +73,9 @@
         $y += $y_acu
       @endphp
     @endforeach
+    @php
+      $y += $y_acu
+    @endphp
   </div>
   @else
     <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
@@ -84,7 +83,17 @@
       {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}
     </div>
   @endif
-  <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->rango_referencia_format . ' ' . $resultado->determinacion->unidad_medida}}</div>
+  @if(strpos($resultado->determinacion->rango_referencia_format, '|'))
+    @php
+      $rangos = explode('|', $resultado->determinacion->rango_referencia_format);
+      echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.' cm;top:  '.$y.' cm">'.$rangos[0] . ' ' . $resultado->determinacion->unidad_medida.'</div>');
+      $y += $y_acu;
+      echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.' cm;top:  '.$y.' cm">'.$rangos[1] . ' ' . $resultado->determinacion->unidad_medida.'</div>');
+      $y += 0.1;
+    @endphp
+  @else
+    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->rango_referencia_format . ' ' . $resultado->determinacion->unidad_medida}}</div>
+  @endif
   {{-- ------------!RESULTADOS-------------- --}}
   @php
     $y += $y_acu;

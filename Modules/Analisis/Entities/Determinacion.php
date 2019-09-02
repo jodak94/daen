@@ -55,6 +55,25 @@ class Determinacion extends Model
 
         return $rango;
       }
+
+      if($this['tipo_referencia'] == 'rango_edad'){
+        $rango_tmp = explode('|', preg_replace("/[^0-9\-|.]/", "", $this['rango_referencia']));
+        $rango = '';
+        $r = explode('-', $rango_tmp[0]);
+        if($r[0] == '0')
+          $rango .= 'Niños Inferior a ' . $r[1];
+        else
+          $rango .= 'Niños ' . $r[0] . ' - ' . $r[1];
+
+        $rango .= ' | ';
+        $r = explode('-', $rango_tmp[1]);
+        if($r[0] == '0')
+          $rango .= 'Adultos Inferior a ' . $r[1];
+        else
+          $rango .= 'Adultos ' . $r[0] . ' - ' . $r[1];
+
+        return $rango;
+      }
       return $this['rango_referencia'];
     }
 
