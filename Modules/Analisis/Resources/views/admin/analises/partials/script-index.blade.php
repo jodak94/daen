@@ -102,4 +102,23 @@
       console.log($("#add_plantilla_url").attr('href'));
     }
   })
+
+  $("#reset-cont").on('click', function(){
+    $.ajax({
+      url: "{{route('admin.configuraciones.reset_cont')}}",
+      type: 'GET',
+      success: function(data){
+        $("#contador-diario").html('0');
+      },
+      error: function(error){
+        $.toast({
+          heading: 'Error',
+          text: 'Ocurrio un error en el servidor',
+          showHideTransition: 'slide',
+          icon:'error',
+          position: 'top-right'
+        })
+      }
+    })
+  })
 </script>

@@ -1,9 +1,6 @@
 @extends('layouts.master')
 
 @section('content-header')
-    <h1>
-        {{ trans('analisis::analises.title.edit analisis') }}
-    </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
         <li><a href="{{ route('admin.analisis.analisis.index') }}">{{ trans('analisis::analises.title.analises') }}</a></li>
@@ -51,8 +48,13 @@
                     @foreach (LaravelLocalization::getSupportedLocales() as $locale => $language)
                         <?php $i++; ?>
                         <div class="tab-pane {{ locale() == $locale ? 'active' : '' }}" id="tab_{{ $i }}">
-                            @include('analisis::admin.analises.partials.edit-fields', ['lang' => $locale])
-                            <input type="hidden" value="{{$analisis->id}}" name="analisis_id">
+                          <div class="box-header" style="border-bottom: 1px solid #f4f4f4">
+                            <h3 style="margin:0">
+                                {{ trans('analisis::analises.title.edit analisis') }}
+                            </h3>
+                          </div>
+                          @include('analisis::admin.analises.partials.edit-fields', ['lang' => $locale])
+                          <input type="hidden" value="{{$analisis->id}}" name="analisis_id">
                         </div>
                     @endforeach
 

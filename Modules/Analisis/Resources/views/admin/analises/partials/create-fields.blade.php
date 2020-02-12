@@ -14,6 +14,17 @@
   <div class="col-md-3">
     {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>Carbon\Carbon::now()->format('d/m/Y')],['class'=>'form-control fecha']) !!}
   </div>
+  <div class="col-md-3">
+    <div class="pull-right">
+      <label>Contador Actual: </label>
+      <span id="contador-diario">
+        @php
+          $cont = DB::select('select * from configuraciones where id = 1')[0]->cont_diario + 1;
+          echo($cont);
+        @endphp
+      </span>
+    </div>
+  </div>
 </div>
 <div class="row" id="paciente-box" style="display:none">
   <div class="col-md-12">

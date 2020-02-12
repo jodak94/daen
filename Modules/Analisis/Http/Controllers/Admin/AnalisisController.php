@@ -276,6 +276,10 @@ class AnalisisController extends AdminBaseController
         $analisis_to_remove->delete();
       }else{
         $analisis->created_by = Auth::user()->id;
+        $cont = DB::select('select * from configuraciones where id = 1')[0]->cont_diario;
+        (int)$cont++;
+        DB::table('configuraciones')->where('id', 1)->update(['cont_diario' => $cont]);
+        $analisis->cont_diario = $cont;
       }
       $analisis->save();
     }
@@ -381,5 +385,11 @@ class AnalisisController extends AdminBaseController
 
         return redirect()->route('admin.analisis.analisis.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('analisis::analises.title.analises')]));
+    }
+
+    public function resetCont(){
+      DB::table('configuraciones')->where('id', 1)->update(['cont_diario' => 0]);
+
+      return response()->json(['success' => true]);
     }
 }

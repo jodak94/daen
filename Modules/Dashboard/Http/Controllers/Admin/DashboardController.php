@@ -8,7 +8,10 @@ use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 use Modules\Dashboard\Repositories\WidgetRepository;
 use Modules\User\Contracts\Authentication;
 use Nwidart\Modules\Contracts\RepositoryInterface;
-
+use Modules\Analisis\Entities\Analisis;
+use Auth;
+use DB;
+use Carbon\Carbon;
 class DashboardController extends AdminBaseController
 {
     /**
@@ -47,6 +50,10 @@ class DashboardController extends AdminBaseController
         if ($widget) {
             $customWidgets = $widget->widgets;
         }
+
+        $last = Analisis::latest()->first();
+        if(isset($last) && Carbon::parse($last->created_at)->day != Carbon::now()->day)//Otro día
+          DB::table('configuraciones')->where('id', 1)->update(['cont_diario' => 0]);
 
         return view('dashboard::admin.dashboard', compact('customWidgets'));
     }

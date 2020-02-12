@@ -212,9 +212,10 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'middleware' => 'can:analisis.resultados.destroy'
     ]);
 // append
-
-
-
-
-
+});
+$router->group(['prefix' =>'/configuraciones'], function (Router $router) {
+  $router->get('reset-cont', [
+    'as' => 'admin.configuraciones.reset_cont',
+    'uses' => 'AnalisisController@resetCont'
+  ]);
 });

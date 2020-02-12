@@ -14,6 +14,14 @@
   <div class="col-md-3">
     {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>$analisis->fecha_format],['class'=>'form-control fecha']) !!}
   </div>
+  <div class="col-md-3">
+    <div class="pull-right">
+      <label>Contador Actual: </label>
+      <span id="contador-diario">
+        {{$analisis->cont_diario}}
+      </span>
+    </div>
+  </div>
 </div>
 <div class="row" id="paciente-box">
   <div class="col-md-12">
