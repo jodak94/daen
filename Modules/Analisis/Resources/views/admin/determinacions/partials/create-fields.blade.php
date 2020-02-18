@@ -14,6 +14,15 @@
       {!! Form:: normalCheckbox('multiples_lineas', 'Varias lineas', $errors) !!}
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label style="color:white">lineas</label>
+      {!! Form:: normalCheckbox('trato_especial', 'Trato Especial', $errors) !!}
+    </div>
+    <div class="col-md-3" style="display:none" id="tipo_trato_container">
+      {!! Form:: normalSelect('tipo_trato', 'Tipo trato', $errors, [null => '--', 'antibiograma' => 'Antibiograma']) !!}
+    </div>
+  </div>
   <div class="row" id="rango-titulo-container">
     <div class="col-md-9">
       <h3>Rango de Referencia</h3>

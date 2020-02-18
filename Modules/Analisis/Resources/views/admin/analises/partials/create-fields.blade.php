@@ -19,8 +19,8 @@
       <label>Contador Actual: </label>
       <span id="contador-diario">
         @php
-          $cont = DB::select('select * from configuraciones where id = 1')[0]->cont_diario + 1;
-          echo($cont);
+          $cont = DB::select('select * from configuraciones where `key` = "cont_diario"')[0]->value;
+          echo($cont + 1);
         @endphp
       </span>
     </div>
@@ -86,7 +86,7 @@
             @if(isset($plantilla))
               {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null) !!}
             @else
-              {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null, ['disabled' => true]) !!}
+              {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null, ['disabled' => false]) !!}
             @endif
           </div>
         </div>

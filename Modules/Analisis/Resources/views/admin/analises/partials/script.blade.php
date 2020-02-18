@@ -116,38 +116,63 @@
           html
               ="<tr class='determinacion-"+ui.item.id+"'>"
               +"  <td>"+det.titulo+"</td>"
-          switch (det.tipo_referencia) {
-            case 'booleano':
-              html += "<td>"
-                   +  " <select class='form-control determinacion-select valor' name=determinacion["+det.id+"]>"
-                   +  "   <option value='Negativo'>Negativo</option>"
-                   +  "   <option value='Positivo'>Positivo</option>"
-                   +  " </select>"
-                   +  "</td>"
-              break;
-            case 'reactiva':
-              html += "<td>"
-                    +  " <select class='form-control determinacion-select  valor' name=determinacion["+det.id+"]>"
-                    +  "   <option value='No Reactiva'>No Reactiva</option>"
-                    +  "   <option value='Reactiva'>Reactiva</option>"
-                    +  " </select>"
-                    +  "</td>"
-              break;
-            case 'rango':
-              html += "<td><input class='form-control determinacion-rango valor' name=determinacion["+det.id+"]></td>"
-              break;
-            case 'rango_edad':
-              html += "<td><input class='form-control determinacion-rango-edad valor' name=determinacion["+det.id+"]></td>"
-              break;
-            case 'rango_sexo':
-              html += "<td><input class='form-control determinacion-rango-sexo valor' name=determinacion["+det.id+"]></td>"
-              break;
-            default:
-              if(det.multiples_lineas)
-                html += "<td><textarea class='form-control valor' name=determinacion["+det.id+"] rows='5'></textarea></td>"
-              else
-                html += "<td><input class='form-control valor' name=determinacion["+det.id+"]></td>"
+          if(det.trato_especial){
+            switch(det.tipo_trato){
+              case 'antibiograma':
+                html += "<td>"
+                     +  "  <table class='table table-bordered table-hover'>"
+                     +  "    <tr>"
+                     +  "       <td></td>"
+                     +  "       <td><b>Sensible</b></td>"
+                     +  "       <td><b>Resistente</b></td>"
+                     +  "    </tr>";
 
+                det.helper.forEach(el => {
+                html += "    <tr>"
+                     +  "      <td>"+el+"</td>"
+                     +  "      <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='"+det.id+"' tipo='sensible' det='"+el+"'></td>"
+                     +  "      <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='"+det.id+"' tipo='resistente' det='"+el+"'></td>";
+                     +  "    </tr>";
+                });
+                html += "   </table>"
+                     +  "  <input type='hidden' name=determinacion["+det.id+"] id='ant-"+det.id+"' value=':'>"
+                     +  "</td>";
+                break;
+            }
+          }else{
+            switch (det.tipo_referencia) {
+              case 'booleano':
+                html += "<td>"
+                     +  " <select class='form-control determinacion-select valor' name=determinacion["+det.id+"]>"
+                     +  "   <option value='Negativo'>Negativo</option>"
+                     +  "   <option value='Positivo'>Positivo</option>"
+                     +  " </select>"
+                     +  "</td>"
+                break;
+              case 'reactiva':
+                html += "<td>"
+                      +  " <select class='form-control determinacion-select  valor' name=determinacion["+det.id+"]>"
+                      +  "   <option value='No Reactiva'>No Reactiva</option>"
+                      +  "   <option value='Reactiva'>Reactiva</option>"
+                      +  " </select>"
+                      +  "</td>"
+                break;
+              case 'rango':
+                html += "<td><input class='form-control determinacion-rango valor' name=determinacion["+det.id+"]></td>"
+                break;
+              case 'rango_edad':
+                html += "<td><input class='form-control determinacion-rango-edad valor' name=determinacion["+det.id+"]></td>"
+                break;
+              case 'rango_sexo':
+                html += "<td><input class='form-control determinacion-rango-sexo valor' name=determinacion["+det.id+"]></td>"
+                break;
+              default:
+                if(det.multiples_lineas)
+                  html += "<td><textarea class='form-control valor' name=determinacion["+det.id+"] rows='5'></textarea></td>"
+                else
+                  html += "<td><input class='form-control valor' name=determinacion["+det.id+"]></td>"
+
+            }
           }
           html
              +="  <td>"
@@ -298,6 +323,21 @@
          },
        });
     });
+
+    $(".table").on('ifChanged', '.antCheck', function (e) {
+      let val = $("#ant-" + $(this).attr('detid')).val();
+      let det = $(this).attr('det')
+      if($(this)[0].checked){
+        if($(this).attr('tipo') == 'sensible'){
+          val = det.trim() + ',' + val ;
+        }else{
+          val += det.trim() + ',';
+        }
+      }else{
+        val = val.substring(0, val.indexOf(det.trim())) + val.substring(val.indexOf(det.trim()) + det.length, val.length);
+      }
+      $("#ant-" + $(this).attr('detid')).val(val);
+    })
 
   })
 

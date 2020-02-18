@@ -5,13 +5,14 @@ namespace Modules\Analisis\Entities;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Log;
+use DB;
 class Determinacion extends Model
 {
 
     protected $table = 'analisis__determinacions';
     public $translatedAttributes = [];
-    protected $fillable = ['tipo_referencia', 'titulo', 'rango_referencia', 'unidad_medida', 'subseccion_id', 'orden', 'multiples_lineas'];
-    protected $appends = ['rango_referencia_format'];
+    protected $fillable = ['tipo_referencia', 'titulo', 'rango_referencia', 'unidad_medida', 'subseccion_id', 'orden', 'multiples_lineas', 'trato_especial', 'tipo_trato'];
+    protected $appends = ['rango_referencia_format', 'helper'];
 
     public static $tipos_refs = [
       'rango' => 'Rango',
@@ -75,6 +76,15 @@ class Determinacion extends Model
         return $rango;
       }
       return $this['rango_referencia'];
+    }
+
+    public function getHelperAttribute(){
+      if($this['trato_especial'] && $this['tipo_trato'] == 'antibiograma'){
+        $v = DB::select('select value from configuraciones where `key` = "antibiograma"')[0]->value;
+        return explode(',', $v);
+      }else{
+        return '';
+      }
     }
 
 

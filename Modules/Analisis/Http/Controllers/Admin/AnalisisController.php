@@ -117,7 +117,9 @@ class AnalisisController extends AdminBaseController
         $plantilla = null;
         if($request->has('plantilla') && $request->plantilla != '')
           $plantilla = Plantilla::find($request->plantilla);
-        return view('analisis::admin.analises.create', compact('plantilla'));
+
+        $dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Biernes', 'Sábado', 'Domingo'];
+        return view('analisis::admin.analises.create', compact('plantilla', 'dias'));
     }
 
     /**
@@ -276,9 +278,9 @@ class AnalisisController extends AdminBaseController
         $analisis_to_remove->delete();
       }else{
         $analisis->created_by = Auth::user()->id;
-        $cont = DB::select('select * from configuraciones where id = 1')[0]->cont_diario;
+        $cont = DB::select('select * from configuraciones where `key` = "cont_diario"')[0]->value;
         (int)$cont++;
-        DB::table('configuraciones')->where('id', 1)->update(['cont_diario' => $cont]);
+        DB::table('configuraciones')->where('key', "cont_diario")->update(['value' => $cont]);
         $analisis->cont_diario = $cont;
       }
       $analisis->save();
@@ -388,7 +390,7 @@ class AnalisisController extends AdminBaseController
     }
 
     public function resetCont(){
-      DB::table('configuraciones')->where('id', 1)->update(['cont_diario' => 0]);
+      DB::table('configuraciones')->where('key', 'cont_diario')->update(['value' => 0]);
 
       return response()->json(['success' => true]);
     }

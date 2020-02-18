@@ -293,6 +293,10 @@ class AnalisisDatabaseSeeder extends Seeder
             $det->tipo_referencia = 'sin_referencia';
             $det->orden = $d_orden;
             $det->multiples_lineas = true;
+            if($det_ == 'Antibiograma'){
+              $det->trato_especial = true;
+              $det->tipo_trato = 'antibiograma';
+            }
             $det->save();
             $d_orden++;
           }
@@ -302,6 +306,19 @@ class AnalisisDatabaseSeeder extends Seeder
         DB::table('backgorund_images')->insert([
           ['file' => 'img/back-resultado-1.jpg'],
           ['file' => 'img/back-resultado-2.jpg'],
+        ]);
+
+        DB::table('configuraciones')->insert([
+          [
+            'key' => 'cont_diario',
+            'value' => '0',
+            'text' => 'Contador diario',
+          ],
+          [
+            'key' => 'antibiograma',
+            'value' => 'Ampicilina/Sulbactam, Ampicilina, Cefixima, Cefotaxima, Cefalotina, Cefuroxima, Ceftazidima, Ciprofloxacina, Norfloxacina, Gentamicina, Nitrofurantoina, Trimetoprima/sulfametazol',
+            'text' => 'Antibiograma',
+          ],
         ]);
         DB::commit();
     }

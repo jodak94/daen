@@ -53,7 +53,7 @@
                         <label>Contador Diario: </label>
                         <span id="contador-diario">
                           @php
-                            echo(\DB::select('select * from configuraciones where id = 1')[0]->cont_diario)
+                            echo(\DB::select('select * from configuraciones where `key` = "cont_diario"')[0]->value)
                           @endphp
                         </span>
                         <br>
