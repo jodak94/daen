@@ -53,7 +53,7 @@ class DashboardController extends AdminBaseController
 
         $last = Analisis::latest()->first();
         if(isset($last) && Carbon::parse($last->created_at)->day != Carbon::now()->day)//Otro día
-          DB::table('configuraciones')->where('id', 1)->update(['cont_diario' => 0]);
+          DB::table('configuraciones')->where('key', 'cont_diario')->update(['value' => 0]);
 
         return view('dashboard::admin.dashboard', compact('customWidgets'));
     }

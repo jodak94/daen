@@ -43,20 +43,48 @@
     }else
       $x_ajustada = $x_resultado - $ajuste_x;
   @endphp
-  <div class="{{$action}}" style="position: absolute;left: {{ $x_ajustada}}cm;top: {{ $y }}cm">
-    @if($resultado->determinacion->multiples_lineas)
-      @php
-        $valores = explode('<br />', nl2br($resultado->valor, '\n'));
-        foreach ($valores as $value) {
-          echo ($value . '<br>');
+  @if($resultado->determinacion->trato_especial)
+    @switch($resultado->determinacion->tipo_trato)
+      @case ('antibiograma')
+        <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x  + 0.4}}cm;top: {{ $y }}cm; font-style: italic">Sensible A:</div>
+        @php
           $y += $y_acu;
-        }
-        $y += $y_acu;
-      @endphp
-    @else
-      {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida }}
-    @endif
-  </div>
+          $v = explode(':', $analisis->resultados[9]->valor);
+        @endphp
+        @foreach (explode(',',rtrim($v[0], ',')) as $sensible)
+          <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x + 0.8 }}cm;top: {{ $y }}cm">- {{$sensible}}</div>
+          @php
+            $y += $y_acu
+          @endphp
+        @endforeach
+        <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x  + 0.4}}cm;top: {{ $y }}cm; font-style: italic">Resistente A:</div>
+        @php
+          $y += $y_acu
+        @endphp
+        @foreach (explode(',',rtrim($v[1], ',')) as $resistente)
+          <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x + 0.8 }}cm;top: {{ $y }}cm">- {{$resistente}}</div>
+          @php
+            $y += $y_acu
+          @endphp
+        @endforeach
+      @break
+    @endswitch
+  @else
+    <div class="{{$action}}" style="position: absolute;left: {{ $x_ajustada}}cm;top: {{ $y }}cm">
+      @if($resultado->determinacion->multiples_lineas)
+        @php
+          $valores = explode('<br />', nl2br($resultado->valor, '\n'));
+          foreach ($valores as $value) {
+            echo ($value . '<br>');
+            $y += $y_acu;
+          }
+          $y += $y_acu;
+        @endphp
+      @else
+        {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida }}
+      @endif
+    </div>
+  @endif
   <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->rango_referencia_format . ' ' . $resultado->determinacion->unidad_medida}}</div>
   @php
     $y += $y_acu;

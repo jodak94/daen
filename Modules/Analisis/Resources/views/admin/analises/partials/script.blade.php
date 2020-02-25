@@ -324,22 +324,45 @@
        });
     });
 
+    @if(isset($analisis))
+    $(".antCheck").on('ifChanged', function (e) {
+    @else
     $(".table").on('ifChanged', '.antCheck', function (e) {
+    @endif
       let val = $("#ant-" + $(this).attr('detid')).val();
       let det = $(this).attr('det')
+      console.log(val)
       if($(this)[0].checked){
+        let duo;
         if($(this).attr('tipo') == 'sensible'){
+          duo = $(this).closest('td').parent().children()[2];
+          if($(duo).find('input')[0].checked){
+            $(duo).iCheck('uncheck');
+            val = borrar(val, det);
+          }
           val = det.trim() + ',' + val ;
         }else{
+          duo = $(this).closest('td').parent().children()[1];
+          if($(duo).find('input')[0].checked){
+            $(duo).iCheck('uncheck');
+            val = borrar(val, det);
+          }
           val += det.trim() + ',';
         }
       }else{
-        val = val.substring(0, val.indexOf(det.trim())) + val.substring(val.indexOf(det.trim()) + det.length, val.length);
+        val = borrar(val, det);
       }
+      console.log(val)
       $("#ant-" + $(this).attr('detid')).val(val);
     })
 
   })
+
+  function borrar(val, det){
+    det = det.trim() + ',';
+    val = val.substring(0, val.indexOf(det)) + val.substring(val.indexOf(det) + det.length, val.length);
+    return val;
+  }
 
   function trTitulo(titulo, id){
     var html
