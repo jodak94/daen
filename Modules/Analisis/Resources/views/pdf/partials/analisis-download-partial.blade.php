@@ -64,7 +64,7 @@
         <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x  + 0.4}}cm;top: {{ $y }}cm; font-style: italic">Sensible A:</div>
         @php
           $y += $y_acu;
-          $v = explode(':', $analisis->resultados[9]->valor);
+          $v = explode(':', $resultado->valor);
         @endphp
         @foreach (explode(',',rtrim($v[0], ',')) as $sensible)
           <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x + 0.8 }}cm;top: {{ $y }}cm">- {{$sensible}}</div>

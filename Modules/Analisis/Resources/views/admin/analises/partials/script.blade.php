@@ -324,7 +324,7 @@
        });
     });
 
-    @if(isset($analisis))
+    @if(isset($analisis) || isset($plantilla))
     $(".antCheck").on('ifChanged', function (e) {
     @else
     $(".table").on('ifChanged', '.antCheck', function (e) {

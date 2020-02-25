@@ -251,7 +251,7 @@ class AnalisisController extends AdminBaseController
 
     private function procesamientoNormal($request, $analisis, $orden, $fuera_rango, $mostrar){
       foreach ($orden as $det_id) {
-        if(!isset($request->determinacion[$det_id->id]))//valor
+        if(!isset($request->determinacion[$det_id->id]) || $request->determinacion[$det_id->id] == ':')//si esta vacio o es : (vacio para antibiograma)
           continue;
         $resultado = new Resultado();
         $resultado->determinacion_id = $det_id->id;

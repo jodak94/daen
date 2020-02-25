@@ -83,9 +83,9 @@
       <div class="box-body">
         <div class="row">
           <div class="col-md-4">
-            @if(isset($plantilla))
-              {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null) !!}
-            @else
+            @if(!isset($plantilla))
+              {{-- {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null) !!} --}}
+            {{-- @else --}}
               {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null, ['disabled' => false]) !!}
             @endif
           </div>
@@ -123,35 +123,68 @@
                   @endif
                   <tr class='determinacion-{{$detalle->determinacion->subseccion->id}}'>
                      <td>{{$detalle->determinacion->titulo}}</td>
-                     @switch ($detalle->determinacion->tipo_referencia)
-                       @case ("booleano")
-                         <td>
-                            <select class='form-control determinacion-select valor' name=determinacion[{{$detalle->determinacion->id}}]>
-                              <option value='Negativo'>Negativo</option>
-                              <option value='Positivo'>Positivo</option>
-                            </select>
+                     @if($detalle->determinacion->trato_especial)
+                       @switch($detalle->determinacion->tipo_trato)
+                         @case ('antibiograma')
+                           <td>
+                             <table class='table table-bordered table-hover'>
+                                <tr>
+                                  <td></td>
+                                  <td><b>Sensible</b></td>
+                                  <td><b>Resistente</b></td>
+                                </tr>
+                                @foreach ($detalle->determinacion->helper as $value)
+                                  @php
+                                    $value = trim($value);
+                                  @endphp
+                                  <tr>
+                                    <td>{{$value}}</td>
+                                    <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='{{$detalle->determinacion->id}}' tipo='sensible' det='{{$value}}'></td>
+                                    <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='{{$detalle->determinacion->id}}' tipo='resistente' det='{{$value}}'></td>
+                                  </tr>
+                                @endforeach
+                             </table>
+                             <input type='hidden'  id='ant-{{$detalle->determinacion->id}}' value=':' name=determinacion[{{$detalle->determinacion->id}}]>
                           </td>
-                         @break
-                       @case ('reactiva')
-                          <td>
-                            <select class='form-control valor' name=determinacion[{{$detalle->determinacion->id}}]>
-                                <option value='No Reactiva'>No Reactiva</option>
-                                <option value='Reactiva'>Reactiva</option>
-                            </select>
-                          </td>
-                         @break;
-                       @case ('rango')
-                         <td><input class='form-control determinacion-rango valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
-                         @break
-                       @case ('rango_edad')
-                         <td><input class='form-control determinacion-rango-edad valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
-                         @break
-                       @case ('rango_sexo')
-                         <td><input class='form-control determinacion-rango-sexo valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
-                         @break
-                       @default
-                         <td><input class='form-control valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
-                    @endswitch
+                        @break
+                       @endswitch
+                     @else
+                       @switch ($detalle->determinacion->tipo_referencia)
+                         @case ("booleano")
+                           <td>
+                              <select class='form-control determinacion-select valor' name=determinacion[{{$detalle->determinacion->id}}]>
+                                <option value='Negativo'>Negativo</option>
+                                <option value='Positivo'>Positivo</option>
+                              </select>
+                            </td>
+                           @break
+                         @case ('reactiva')
+                            <td>
+                              <select class='form-control valor' name=determinacion[{{$detalle->determinacion->id}}]>
+                                  <option value='No Reactiva'>No Reactiva</option>
+                                  <option value='Reactiva'>Reactiva</option>
+                              </select>
+                            </td>
+                           @break;
+                         @case ('rango')
+                           <td><input class='form-control determinacion-rango valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
+                           @break
+                         @case ('rango_edad')
+                           <td><input class='form-control determinacion-rango-edad valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
+                           @break
+                         @case ('rango_sexo')
+                           <td><input class='form-control determinacion-rango-sexo valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
+                           @break
+                         @default
+                           <td>
+                             @if($detalle->determinacion->multiples_lineas)
+                               <textarea class='form-control valor' rows='5' name=determinacion[{{$detalle->determinacion->id}}]></textarea>
+                             @else
+                               <input class='form-control valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]>
+                             @endif
+                           </td>
+                       @endswitch
+                     @endif
                     <td>
                        {{$detalle->determinacion->rango_referencia_format}}
                        <input type='hidden' class='rango-referencia' value='{{$detalle->determinacion->rango_referencia}}'>
