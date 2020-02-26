@@ -81,15 +81,16 @@
         <h3 class="box-title" style="margin-right: 10px">Análisis</h3>
       </div>
       <div class="box-body">
+        @if(!isset($plantilla))
         <div class="row">
           <div class="col-md-4">
-            @if(!isset($plantilla))
-              {{-- {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null) !!} --}}
-            {{-- @else --}}
               {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null, ['disabled' => false]) !!}
-            @endif
+          </div>
+          <div class="col-md-4 col-md-offset-1">
+              {!! Form::normalInput('buscar-seccion', 'Agregar Grupo', $errors, null, ['disabled' => false]) !!}
           </div>
         </div>
+      @endif
       </div>
       <div class="row">
         <div class="col-md-12">

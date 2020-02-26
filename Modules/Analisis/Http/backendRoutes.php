@@ -88,6 +88,10 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
       'as' => 'admin.analisis.seccion.subseccion',
       'uses' => 'SeccionController@subseccion',
     ]);
+    $router->get('secciones/search_ajax', [
+        'as' => 'admin.analisis.seccion.search_ajax',
+        'uses' => 'SeccionController@search_ajax',
+    ]);
     $router->bind('subseccion', function ($id) {
         return app('Modules\Analisis\Repositories\SubseccionRepository')->find($id);
     });

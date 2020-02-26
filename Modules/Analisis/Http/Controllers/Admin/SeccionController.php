@@ -133,4 +133,17 @@ class SeccionController extends AdminBaseController
 
       return response()->json(['error' => true]);
     }
+
+    public function search_ajax(Request $request){
+      $sub = Seccion::select('*', 'titulo as value')
+        ->with(['subsecciones' => function($q){
+          $q->orderBy('orden');
+          $q->with(['determinacion' => function($qsub){
+            $qsub->orderBy('orden');
+          }]);
+        }])
+        ->where('titulo', 'like', '%'.$request->term.'%')->take(5)->get()->toArray();
+
+      return response()->json($sub);
+    }
 }

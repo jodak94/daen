@@ -108,100 +108,24 @@
       source: '{{route('admin.analisis.subseccion.search_ajax')}}',
       select: function( event, ui){
         $("#analisisTable").show()
-        var html = trTitulo(ui.item.titulo, ui.item.id);
-        var confHtml = trConfiguracion(ui.item.titulo, ui.item.id)
-        $("#configuracionBody").append(confHtml)
-        $("#analisisBody").append(html)
-        $.each(ui.item.determinacion, function(index, det){
-          html
-              ="<tr class='determinacion-"+ui.item.id+"'>"
-              +"  <td>"+det.titulo+"</td>"
-          if(det.trato_especial){
-            switch(det.tipo_trato){
-              case 'antibiograma':
-                html += "<td>"
-                     +  "  <table class='table table-bordered table-hover'>"
-                     +  "    <tr>"
-                     +  "       <td></td>"
-                     +  "       <td><b>Sensible</b></td>"
-                     +  "       <td><b>Resistente</b></td>"
-                     +  "    </tr>";
+        agregarSubseccion(ui.item.determinacion, ui.item.titulo, ui.item.id)
+        $(this).val("")
+        return false;
+      }
+    })
 
-                det.helper.forEach(el => {
-                html += "    <tr>"
-                     +  "      <td>"+el+"</td>"
-                     +  "      <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='"+det.id+"' tipo='sensible' det='"+el+"'></td>"
-                     +  "      <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='"+det.id+"' tipo='resistente' det='"+el+"'></td>";
-                     +  "    </tr>";
-                });
-                html += "   </table>"
-                     +  "  <input type='hidden' name=determinacion["+det.id+"] id='ant-"+det.id+"' value=':'>"
-                     +  "</td>";
-                break;
-            }
-          }else{
-            switch (det.tipo_referencia) {
-              case 'booleano':
-                html += "<td>"
-                     +  " <select class='form-control determinacion-select valor' name=determinacion["+det.id+"]>"
-                     +  "   <option value='Negativo'>Negativo</option>"
-                     +  "   <option value='Positivo'>Positivo</option>"
-                     +  " </select>"
-                     +  "</td>"
-                break;
-              case 'reactiva':
-                html += "<td>"
-                      +  " <select class='form-control determinacion-select  valor' name=determinacion["+det.id+"]>"
-                      +  "   <option value='No Reactiva'>No Reactiva</option>"
-                      +  "   <option value='Reactiva'>Reactiva</option>"
-                      +  " </select>"
-                      +  "</td>"
-                break;
-              case 'rango':
-                html += "<td><input class='form-control determinacion-rango valor' name=determinacion["+det.id+"]></td>"
-                break;
-              case 'rango_edad':
-                html += "<td><input class='form-control determinacion-rango-edad valor' name=determinacion["+det.id+"]></td>"
-                break;
-              case 'rango_sexo':
-                html += "<td><input class='form-control determinacion-rango-sexo valor' name=determinacion["+det.id+"]></td>"
-                break;
-              default:
-                if(det.multiples_lineas)
-                  html += "<td><textarea class='form-control valor' name=determinacion["+det.id+"] rows='5'></textarea></td>"
-                else
-                  html += "<td><input class='form-control valor' name=determinacion["+det.id+"]></td>"
-
-            }
-          }
-          html
-             +="  <td>"
-              +     det.rango_referencia_format
-              +"    <input type='hidden' class='rango-referencia' value='"+det.rango_referencia+"'>"
-              +"  </td>"
-              +"  <td class='center'>";
-          if(det.tipo_referencia != 'sin_referencia')
-          html
-             +="    <input type='checkbox' class='rango-check flat-blue' id='check-"+det.id+"' name=fuera_rango["+det.id+"]>";
-          html
-             +="  </td>"
-              +"  <td>"
-              +"    <button subId="+ui.item.id+" type='button' class='btn btn-danger btn-flat delete-det'>"
-              +"      <i class='fa fa-trash'></i>"
-              +"    </button>"
-              +"  </td>"
-              +"</tr>"
-          $("#analisisBody").append(html)
-
-          $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({
-              checkboxClass: 'icheckbox_flat-blue',
-              radioClass: 'iradio_flat-blue'
-          });
+    $("#buscar-seccion").autocomplete({
+      source: '{{route('admin.analisis.seccion.search_ajax')}}',
+      select: function( event, ui){
+        $("#analisisTable").show()
+        ui.item.subsecciones.forEach(sub => {
+          agregarSubseccion(sub.determinacion, sub.titulo, sub.id)
         })
         $(this).val("")
         return false;
       }
     })
+
     $("#analisisBody").on('click', '.delete-det', function(){
       if($(".determinacion-"+$(this).attr('subId')).size() == 1)
         $(this).closest('tr').prev().remove()
@@ -331,7 +255,6 @@
     @endif
       let val = $("#ant-" + $(this).attr('detid')).val();
       let det = $(this).attr('det')
-      console.log(val)
       if($(this)[0].checked){
         let duo;
         if($(this).attr('tipo') == 'sensible'){
@@ -352,7 +275,6 @@
       }else{
         val = borrar(val, det);
       }
-      console.log(val)
       $("#ant-" + $(this).attr('detid')).val(val);
     })
 
@@ -362,6 +284,99 @@
     det = det.trim() + ',';
     val = val.substring(0, val.indexOf(det)) + val.substring(val.indexOf(det) + det.length, val.length);
     return val;
+  }
+
+  function agregarSubseccion(determinaciones, subTitulo, subid){
+    var html = trTitulo(subTitulo, subid);
+    var confHtml = trConfiguracion(subTitulo, subid)
+    $("#configuracionBody").append(confHtml)
+    $("#analisisBody").append(html)
+    $.each(determinaciones, function(index, det){
+      html
+          ="<tr class='determinacion-"+subid+"'>"
+          +"  <td>"+det.titulo+"</td>"
+      if(det.trato_especial){
+        switch(det.tipo_trato){
+          case 'antibiograma':
+            html += "<td>"
+                 +  "  <table class='table table-bordered table-hover'>"
+                 +  "    <tr>"
+                 +  "       <td></td>"
+                 +  "       <td><b>Sensible</b></td>"
+                 +  "       <td><b>Resistente</b></td>"
+                 +  "    </tr>";
+
+            det.helper.forEach(el => {
+            html += "    <tr>"
+                 +  "      <td>"+el+"</td>"
+                 +  "      <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='"+det.id+"' tipo='sensible' det='"+el+"'></td>"
+                 +  "      <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='"+det.id+"' tipo='resistente' det='"+el+"'></td>";
+                 +  "    </tr>";
+            });
+            html += "   </table>"
+                 +  "  <input type='hidden' name=determinacion["+det.id+"] id='ant-"+det.id+"' value=':'>"
+                 +  "</td>";
+            break;
+        }
+      }else{
+        switch (det.tipo_referencia) {
+          case 'booleano':
+            html += "<td>"
+                 +  " <select class='form-control determinacion-select valor' name=determinacion["+det.id+"]>"
+                 +  "   <option value='Negativo'>Negativo</option>"
+                 +  "   <option value='Positivo'>Positivo</option>"
+                 +  " </select>"
+                 +  "</td>"
+            break;
+          case 'reactiva':
+            html += "<td>"
+                  +  " <select class='form-control determinacion-select  valor' name=determinacion["+det.id+"]>"
+                  +  "   <option value='No Reactiva'>No Reactiva</option>"
+                  +  "   <option value='Reactiva'>Reactiva</option>"
+                  +  " </select>"
+                  +  "</td>"
+            break;
+          case 'rango':
+            html += "<td><input class='form-control determinacion-rango valor' name=determinacion["+det.id+"]></td>"
+            break;
+          case 'rango_edad':
+            html += "<td><input class='form-control determinacion-rango-edad valor' name=determinacion["+det.id+"]></td>"
+            break;
+          case 'rango_sexo':
+            html += "<td><input class='form-control determinacion-rango-sexo valor' name=determinacion["+det.id+"]></td>"
+            break;
+          default:
+            if(det.multiples_lineas)
+              html += "<td><textarea class='form-control valor' name=determinacion["+det.id+"] rows='5'></textarea></td>"
+            else
+              html += "<td><input class='form-control valor' name=determinacion["+det.id+"]></td>"
+
+        }
+      }
+      html
+         +="  <td>"
+          +     det.rango_referencia_format
+          +"    <input type='hidden' class='rango-referencia' value='"+det.rango_referencia+"'>"
+          +"  </td>"
+          +"  <td class='center'>";
+      if(det.tipo_referencia != 'sin_referencia')
+      html
+         +="    <input type='checkbox' class='rango-check flat-blue' id='check-"+det.id+"' name=fuera_rango["+det.id+"]>";
+      html
+         +="  </td>"
+          +"  <td>"
+          +"    <button subId="+subid+" type='button' class='btn btn-danger btn-flat delete-det'>"
+          +"      <i class='fa fa-trash'></i>"
+          +"    </button>"
+          +"  </td>"
+          +"</tr>"
+      $("#analisisBody").append(html)
+
+      $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({
+          checkboxClass: 'icheckbox_flat-blue',
+          radioClass: 'iradio_flat-blue'
+      });
+    })
   }
 
   function trTitulo(titulo, id){
