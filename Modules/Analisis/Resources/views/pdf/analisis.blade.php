@@ -17,6 +17,10 @@
 .download{
   font-size: 15px;
 }
+.tituloS{
+  text-transform: uppercase;
+  text-decoration: underline;
+}
 .margin-top{
   @if($action == 'preview')
     margin-top: 0.4cm;

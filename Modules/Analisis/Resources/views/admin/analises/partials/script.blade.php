@@ -108,7 +108,7 @@
       source: '{{route('admin.analisis.subseccion.search_ajax')}}',
       select: function( event, ui){
         $("#analisisTable").show()
-        agregarSubseccion(ui.item.determinacion, ui.item.titulo, ui.item.id)
+        agregarSubseccion(ui.item.determinacion, ui.item.titulo, ui.item.id, ui.item.mostrar)
         $(this).val("")
         return false;
       }
@@ -119,7 +119,7 @@
       select: function( event, ui){
         $("#analisisTable").show()
         ui.item.subsecciones.forEach(sub => {
-          agregarSubseccion(sub.determinacion, sub.titulo, sub.id)
+          agregarSubseccion(sub.determinacion, sub.titulo, sub.id, ui.item.mostrar)
         })
         $(this).val("")
         return false;
@@ -286,9 +286,9 @@
     return val;
   }
 
-  function agregarSubseccion(determinaciones, subTitulo, subid){
+  function agregarSubseccion(determinaciones, subTitulo, subid, mostrarTitulo){
     var html = trTitulo(subTitulo, subid);
-    var confHtml = trConfiguracion(subTitulo, subid)
+    var confHtml = trConfiguracion(subTitulo, subid, mostrarTitulo)
     $("#configuracionBody").append(confHtml)
     $("#analisisBody").append(html)
     $.each(determinaciones, function(index, det){
@@ -394,7 +394,7 @@
     return html;
   }
 
-  function trConfiguracion(titulo, id){
+  function trConfiguracion(titulo, id, mostrarTitulo){
     var html
         ="<tr class='conf-"+id+"'>"
         +"  <td style='text-align:center'>"
@@ -402,7 +402,7 @@
         +   "</td>"
         +"  <td class='center'>"
         +"    <div class='checkbox'>"
-        +"      <input type='checkbox' class='rango-check flat-blue' checked name='mostrar["+id+"]'>"
+        +"      <input type='checkbox' class='rango-check flat-blue' "+ (mostrarTitulo?"checked ": "") +"name='mostrar["+id+"]'>"
         +"    </div>"
         +"  </td>"
         +"</tr>"

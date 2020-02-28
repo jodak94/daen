@@ -33,6 +33,41 @@ class AnalisisDatabaseSeeder extends Seeder
                 '70-110',
                 'rango'
               ],
+              'Calcio' => [
+                'mg/dl',
+                '8.5-10.5',
+                'rango'
+              ],
+              'Magnesio' => [
+                'mg/dl',
+                '1.7-2.5',
+                'rango'
+              ],
+              'Fosforo' => [
+                'mg/dl',
+                'Niños 4.0 - 4.0 | Adultos 2.5 - 5.6',
+                'rango_edad'
+              ],
+              'Amilasa' => [
+                'UA/dl',
+                '0-120',
+                'rango'
+              ],
+              'Lipasa' => [
+                'U/L',
+                '2-15',
+                'rango'
+              ],
+              'Aldolasa' => [
+                'U/L',
+                '1.2-8.8',
+                'rango'
+              ],
+              'Hb A1C' => [
+                '%',
+                '0-6.5',
+                'rango'
+              ],
             ],
             'Perfil Lipidico' => [
               'Colesterol Total' => [
@@ -40,9 +75,29 @@ class AnalisisDatabaseSeeder extends Seeder
                 '0-200',
                 'rango'
               ],
+              'HDL' => [
+                'mg/dl',
+                'Fem 45 - x | Masc 35 - x',
+                'rango_sexo'
+              ],
+              'LDL' => [
+                'mg/dl',
+                '0-150',
+                'rango'
+              ],
+              'VLDL' => [
+                'mg/dl',
+                '0-40',
+                'rango'
+              ],
               'Trigliceridos' => [
                 'mg/dl',
                 '0-150',
+                'rango'
+              ],
+              'Lipidos totales' => [
+                'mg/dl',
+                '400-800',
                 'rango'
               ],
             ],
@@ -94,6 +149,28 @@ class AnalisisDatabaseSeeder extends Seeder
                 '0-0.8',
                 'rango'
               ],
+              'Gamma GT' => [
+                'U/L',
+                '11-61',
+                'rango'
+              ],
+            ],
+            'Electrolitos' => [
+              'Sodio' => [
+                'mEq/l',
+                '135-148',
+                'rango'
+              ],
+              'Potasio' => [
+                'mEq/l',
+                '135-148',
+                'rango'
+              ],
+              'Cloro' => [
+                'mEq/l',
+                '135-148',
+                'rango'
+              ],
             ],
           ],
           'Inmunologia' => [
@@ -110,7 +187,7 @@ class AnalisisDatabaseSeeder extends Seeder
                 ],
               ],
           ],
-          'Tipificación' => [
+          'Tipificación Sanguinea' => [
             'Tipificación Sanguinea' => [
               'Grupo Sanguineo' => [
                 null,
@@ -228,6 +305,8 @@ class AnalisisDatabaseSeeder extends Seeder
             $subseccion->titulo = $key;
             $subseccion->seccion_id = $seccion->id;
             $subseccion->orden = $ss_orden;
+            if($seccion->titulo == $subseccion->titulo)
+              $subseccion->mostrar = false;
             $subseccion->save();
             $d_orden = 0;
             foreach ($subseccion_ as $key => $determinacion) {
