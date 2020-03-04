@@ -119,7 +119,7 @@
       select: function( event, ui){
         $("#analisisTable").show()
         ui.item.subsecciones.forEach(sub => {
-          agregarSubseccion(sub.determinacion, sub.titulo, sub.id, ui.item.mostrar)
+          agregarSubseccion(sub.determinacion, sub.titulo, sub.id, sub.mostrar)
         })
         $(this).val("")
         return false;
@@ -156,17 +156,26 @@
     $(".table").on('keyup', '.determinacion-rango', function(event){
       let val = $(this).val()
       let rango = $(this).parent().parent().find('.rango-referencia').val();
-
       rango = rango.split('-')
       let dom = $(this).parent().parent().find('.rango-check')[0];
       if(val == ''){
         $('#'+dom.id).iCheck('uncheck');
         return;
       }
-      if(parseFloat(val) < parseFloat(rango[0]) || parseFloat(val) > parseFloat(rango[1])){
-        $('#'+dom.id).iCheck('check');
+      console.log(parseFloat(val));
+      console.log(parseFloat(rango[0]))//Urea
+      if($(this).attr('hasta') != undefined){
+        if(parseFloat(val) < parseFloat(rango[0]) || parseFloat(val) > parseFloat(rango[1])){
+          $('#'+dom.id).iCheck('check');
+        }else{
+          $('#'+dom.id).iCheck('uncheck');
+        }
       }else{
-        $('#'+dom.id).iCheck('uncheck');
+        if(parseFloat(val) <= parseFloat(rango[0]) || parseFloat(val) > parseFloat(rango[1])){
+          $('#'+dom.id).iCheck('check');
+        }else{
+          $('#'+dom.id).iCheck('uncheck');
+        }
       }
     })
 
@@ -295,7 +304,7 @@
       html
           ="<tr class='determinacion-"+subid+"'>"
           +"  <td>"+det.titulo+"</td>"
-      if(det.trato_especial){
+      if(det.trato_especial && det.tipo_trato=='antibiograma'){
         switch(det.tipo_trato){
           case 'antibiograma':
             html += "<td>"
@@ -338,6 +347,9 @@
             break;
           case 'rango':
             html += "<td><input class='form-control determinacion-rango valor' name=determinacion["+det.id+"]></td>"
+            break;
+          case 'rango_hasta':
+            html += "<td><input class='form-control determinacion-rango valor' hasta='true' name=determinacion["+det.id+"]></td>"
             break;
           case 'rango_edad':
             html += "<td><input class='form-control determinacion-rango-edad valor' name=determinacion["+det.id+"]></td>"

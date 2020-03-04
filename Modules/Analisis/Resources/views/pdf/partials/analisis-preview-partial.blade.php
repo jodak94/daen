@@ -85,7 +85,35 @@
       @endif
     </div>
   @endif
-  <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->rango_referencia_format . ' ' . $resultado->determinacion->unidad_medida}}</div>
+  @if(isset($resultado->determinacion->texto_ref))
+    <script>console.log("IFT")</script>
+    @if($resultado->trato_especial && $resultado->tipo_trato == 'bgch' && $resultado->valor == 'positivo')
+      <script>console.log("IFBGCG")</script>
+      <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">Negativo</div>
+    @else
+      <script>console.log("ELSET")</script>
+      @php
+      $lineas = explode('|', $resultado->determinacion->texto_ref);
+        foreach ($lineas as $linea) {
+          echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.' cm;top:  '.$y.' cm">'.$linea.'</div>');
+          $y += $y_acu;
+        }
+      @endphp
+    @endif
+  @else
+    <script>console.log("ELSET")</script>
+    @if(strpos($resultado->determinacion->rango_referencia_format, '|'))
+      @php
+        $rangos = explode('|', $resultado->determinacion->rango_referencia_format);
+        echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.' cm;top:  '.$y.' cm">'.$rangos[0] . ' ' . $resultado->determinacion->unidad_medida.'</div>');
+        $y += $y_acu;
+        echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.' cm;top:  '.$y.' cm">'.$rangos[1] . ' ' . $resultado->determinacion->unidad_medida.'</div>');
+        $y += 0.1;
+      @endphp
+    @else
+      <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->rango_referencia_format . ' ' . $resultado->determinacion->unidad_medida}} </div>
+    @endif
+  @endif
   @php
     $y += $y_acu;
     $seccion_actual = $resultado->determinacion->subseccion->seccion->id;
