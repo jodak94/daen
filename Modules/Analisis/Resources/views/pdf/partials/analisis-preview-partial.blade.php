@@ -86,22 +86,18 @@
     </div>
   @endif
   @if(isset($resultado->determinacion->texto_ref))
-    <script>console.log("IFT")</script>
     @if($resultado->trato_especial && $resultado->tipo_trato == 'bgch' && $resultado->valor == 'positivo')
-      <script>console.log("IFBGCG")</script>
       <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">Negativo</div>
     @else
-      <script>console.log("ELSET")</script>
       @php
       $lineas = explode('|', $resultado->determinacion->texto_ref);
         foreach ($lineas as $linea) {
-          echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.' cm;top:  '.$y.' cm">'.$linea.'</div>');
+          echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.'cm;top:  '.$y.'cm">'.$linea.'</div>');
           $y += $y_acu;
         }
       @endphp
     @endif
   @else
-    <script>console.log("ELSET")</script>
     @if(strpos($resultado->determinacion->rango_referencia_format, '|'))
       @php
         $rangos = explode('|', $resultado->determinacion->rango_referencia_format);

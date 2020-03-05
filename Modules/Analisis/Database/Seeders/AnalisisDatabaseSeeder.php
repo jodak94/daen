@@ -267,16 +267,15 @@ class AnalisisDatabaseSeeder extends Seeder
                 'negativo',
                 'booleano'
               ],
+              'IgE Total' => [
+                null,
+                'negativo',
+                'booleano'
+              ],
               'Antinucleares ANA -IgG, Anticuerpos' => [
                 'KUI/ML',
                 '0-100',
                 'rango_hasta'
-              ],
-              'Test de Coombs - Directo' => [
-                null,
-                'negativo',
-                'booleano',
-                'Negativo:dil.1:10'
               ],
               'DNA ds, Anticuerpos' => [
                 null,
@@ -292,7 +291,7 @@ class AnalisisDatabaseSeeder extends Seeder
                  2º Mitad: 23-240 pg/ml |
                  Fase lutea: 14-255 pg/ml |
                  Pico Ovulatorio: 80-560 pg/ml |
-                 Menopausia: < 35 pg/mg'
+                 Menopausia: Menor a 35 pg/mg'
               ],
               'Hormona Luteinizante LH' => [
                 'mUI/ml',
@@ -322,9 +321,9 @@ class AnalisisDatabaseSeeder extends Seeder
                 'ng/ml',
                 null,
                 null,
-                'Mujeres: 5-26 ng/ml',
-                'Post Menopausia: 3.3-18 ng/ml',
-                'Pre Pubertad: Menor a 1.5 ng/ml'
+                'Mujeres: 5-26 ng/ml|
+                 Post Menopausia: 3.3-18 ng/ml|
+                 Pre Pubertad: Menor a 1.5 ng/ml'
               ],
             ],
             'Serologia para Dengue' => [

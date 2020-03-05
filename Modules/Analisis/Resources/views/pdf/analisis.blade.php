@@ -17,6 +17,9 @@
 .download{
   font-size: 15px;
 }
+.texto-ref{
+  font-size: 13px!important;
+}
 .tituloS{
   text-transform: uppercase;
   text-decoration: underline;

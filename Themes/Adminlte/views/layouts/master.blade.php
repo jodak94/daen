@@ -31,6 +31,7 @@
       }
       .jconfirm .jconfirm-box {
         padding: 0;
+        width: 90%!important;
       }
       .jconfirm-content-pane{
         padding: 15px;

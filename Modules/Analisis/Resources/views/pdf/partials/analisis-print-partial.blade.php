@@ -120,6 +120,20 @@
         {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}
       </div>
     @endif
+  @endif
+  @if(isset($resultado->determinacion->texto_ref))
+    @if($resultado->trato_especial && $resultado->tipo_trato == 'bgch' && $resultado->valor == 'positivo')
+      <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">Negativo</div>
+    @else
+      @php
+      $lineas = explode('|', $resultado->determinacion->texto_ref);
+        foreach ($lineas as $linea) {
+          echo ('<div class="'.$action.' texto-ref" style="position: absolute;left: '.$boxes->rango_referencia->x.'cm;top: '.$y.'cm">'.$linea.'</div>');
+          $y += $y_acu;
+        }
+      @endphp
+    @endif
+  @else
     @if(strpos($resultado->determinacion->rango_referencia_format, '|'))
       @php
         $rangos = explode('|', $resultado->determinacion->rango_referencia_format);
