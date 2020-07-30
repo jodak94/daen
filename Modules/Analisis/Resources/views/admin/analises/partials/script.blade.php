@@ -162,8 +162,6 @@
         $('#'+dom.id).iCheck('uncheck');
         return;
       }
-      console.log(parseFloat(val));
-      console.log(parseFloat(rango[0]))//Urea
       if($(this).attr('hasta') != undefined){
         if(parseFloat(val) < parseFloat(rango[0]) || parseFloat(val) > parseFloat(rango[1])){
           $('#'+dom.id).iCheck('check');
@@ -327,6 +325,15 @@
                  +  "</td>";
             break;
         }
+      }else if(det.trato_especial && det.tipo_trato=='select'){
+        let options = det.texto_h.split("|");
+        html += "<td>"
+             +  " <select class='form-control valor' name=determinacion["+det.id+"]>";
+             for(var i = 0; i < options.length; i++){
+               html += "<option value='"+options[i]+"'>"+options[i]+"</option>";
+             }
+        html += " </select>"
+             +  "</td>"
       }else{
         switch (det.tipo_referencia) {
           case 'booleano':
@@ -362,7 +369,6 @@
               html += "<td><textarea class='form-control valor' name=determinacion["+det.id+"] rows='5'></textarea></td>"
             else
               html += "<td><input class='form-control valor' name=determinacion["+det.id+"]></td>"
-
         }
       }
       html

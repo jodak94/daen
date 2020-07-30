@@ -15,12 +15,22 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-md-6">
+      <label>Texto Referencia</label>
+      <textarea name="texto_ref" class='form-control valor' rows='5'></textarea>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-3">
       <label style="color:white">lineas</label>
       {!! Form:: normalCheckbox('trato_especial', 'Trato Especial', $errors) !!}
     </div>
-    <div class="col-md-3" style="display:none" id="tipo_trato_container">
-      {!! Form:: normalSelect('tipo_trato', 'Tipo trato', $errors, [null => '--', 'antibiograma' => 'Antibiograma']) !!}
+    <div class="col-md-3 tipo_trato_container" style="display:none">
+      {!! Form:: normalSelect('tipo_trato', 'Tipo trato', $errors, $tipos_tratos) !!}
+    </div>
+    <div class="col-md-6 tipo_trato_container" style="display:none">
+      <label>Texto H</label>
+      <textarea name="texto_h" class='form-control valor' rows='5'></textarea>
     </div>
   </div>
   <div class="row" id="rango-titulo-container">

@@ -13,11 +13,11 @@
           $("#rango-container").html(html);
         })
         $('#trato_especial').on('ifChecked', function(event){
-            $("#tipo_trato_container").show();
+            $(".tipo_trato_container").show();
         });
 
         $('#trato_especial').on('ifUnchecked', function(event){
-            $("#tipo_trato_container").hide();
+            $(".tipo_trato_container").hide();
         });
     });
     function init(tipo, rango, unidad_medida){

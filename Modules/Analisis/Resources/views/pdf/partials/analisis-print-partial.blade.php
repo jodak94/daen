@@ -59,36 +59,32 @@
     else
       $x_ajustada = $x_resultado - $ajuste_x;
   @endphp
-  @if($resultado->determinacion->trato_especial)
-    @switch($resultado->determinacion->tipo_trato)
-      @case ('antibiograma')
-        <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x}}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
-        @php
-          $y += $y_acu
-        @endphp
-        <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x  + 0.4}}cm;top: {{ $y }}cm; font-style: italic">Sensible A:</div>
-        @php
-          $y += $y_acu;
-          $v = explode(':', $resultado->valor);
-        @endphp
-        @foreach (explode(',',rtrim($v[0], ',')) as $sensible)
-          <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x + 0.8 }}cm;top: {{ $y }}cm">- {{$sensible}}</div>
-          @php
-            $y += $y_acu
-          @endphp
-        @endforeach
-        <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x  + 0.4}}cm;top: {{ $y }}cm; font-style: italic">Resistente A:</div>
-        @php
-          $y += $y_acu
-        @endphp
-        @foreach (explode(',',rtrim($v[1], ',')) as $resistente)
-          <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x + 0.8 }}cm;top: {{ $y }}cm">- {{$resistente}}</div>
-          @php
-            $y += $y_acu
-          @endphp
-        @endforeach
-      @break
-    @endswitch
+  @if($resultado->determinacion->tipo_trato == 'antibiograma')
+    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x}}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
+    @php
+      $y += $y_acu
+    @endphp
+    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x  + 0.4}}cm;top: {{ $y }}cm; font-style: italic">Sensible A:</div>
+    @php
+      $y += $y_acu;
+      $v = explode(':', $resultado->valor);
+    @endphp
+    @foreach (explode(',',rtrim($v[0], ',')) as $sensible)
+      <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x + 0.8 }}cm;top: {{ $y }}cm">- {{$sensible}}</div>
+      @php
+        $y += $y_acu
+      @endphp
+    @endforeach
+    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x  + 0.4}}cm;top: {{ $y }}cm; font-style: italic">Resistente A:</div>
+    @php
+      $y += $y_acu
+    @endphp
+    @foreach (explode(',',rtrim($v[1], ',')) as $resistente)
+      <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x + 0.8 }}cm;top: {{ $y }}cm">- {{$resistente}}</div>
+      @php
+        $y += $y_acu
+      @endphp
+    @endforeach
   @else
     @if($resultado->determinacion->multiples_lineas)
       @php

@@ -81,7 +81,8 @@ class DeterminacionController extends AdminBaseController
     {
         $subsecciones = Subseccion::all()->pluck('titulo', 'id')->toArray();
         $tipos_refs = Determinacion::$tipos_refs;
-        return view('analisis::admin.determinacions.create', compact('subsecciones', 'tipos_refs'));
+        $tipos_tratos = Determinacion::$tipos_tratos;
+        return view('analisis::admin.determinacions.create', compact('subsecciones', 'tipos_refs', 'tipos_tratos'));
     }
 
     /**
@@ -142,7 +143,8 @@ class DeterminacionController extends AdminBaseController
         }
         $determinacion->rango = $rango;
         $tipos_refs = Determinacion::$tipos_refs;
-        return view('analisis::admin.determinacions.edit', compact('determinacion', 'subsecciones', 'tipos_refs'));
+        $tipos_tratos = Determinacion::$tipos_tratos;
+        return view('analisis::admin.determinacions.edit', compact('determinacion', 'subsecciones', 'tipos_refs', 'tipos_tratos'));
     }
 
     /**

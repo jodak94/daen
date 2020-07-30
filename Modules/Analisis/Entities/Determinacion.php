@@ -11,7 +11,7 @@ class Determinacion extends Model
 
     protected $table = 'analisis__determinacions';
     public $translatedAttributes = [];
-    protected $fillable = ['tipo_referencia', 'titulo', 'rango_referencia', 'unidad_medida', 'subseccion_id', 'orden', 'multiples_lineas', 'trato_especial', 'tipo_trato'];
+    protected $fillable = ['tipo_referencia', 'titulo', 'rango_referencia', 'unidad_medida', 'subseccion_id', 'orden', 'multiples_lineas', 'trato_especial', 'tipo_trato', 'texto_ref', 'texto_h'];
     protected $appends = ['rango_referencia_format', 'helper'];
 
     public static $tipos_refs = [
@@ -21,6 +21,13 @@ class Determinacion extends Model
       'booleano' => 'Positivo / Negativo',
       'reactiva' => 'Reactivo / No Reactivo',
       'sin_referencia' => '--'
+    ];
+
+    public static $tipos_tratos = [
+      null => '--',
+      'antibiograma' => 'Antibiograma',
+      'select' => 'Selección',
+      'bhcg' => 'Bhcg'
     ];
 
     public function subseccion(){

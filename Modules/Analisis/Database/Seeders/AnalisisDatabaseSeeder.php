@@ -470,11 +470,17 @@ class AnalisisDatabaseSeeder extends Seeder
                 null,
                 null,
                 'sin_referencia',
+                null,
+                'select',
+                'A | B | AB | O'
               ],
               'Factor RH' => [
                 null,
                 null,
                 'sin_referencia',
+                null,
+                'select',
+                'Positivo (+) | Negativo (-)'
               ],
             ],
           ],
@@ -653,7 +659,10 @@ class AnalisisDatabaseSeeder extends Seeder
                 $det->texto_ref = $determinacion[3];
               if(isset($determinacion[4])){//trato_especial
                 $det->trato_especial = true;
-                $det->tipo_trato = 'bhcg';
+                $det->tipo_trato = $determinacion[4];
+              }
+              if(isset($determinacion[5])){//texto_h
+                $det->texto_h = $determinacion[5];
               }
               $det->save();
               $d_orden++;
