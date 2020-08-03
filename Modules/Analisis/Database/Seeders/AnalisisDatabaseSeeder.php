@@ -198,7 +198,7 @@ class AnalisisDatabaseSeeder extends Seeder
                 'reactiva',
                 null,
                 'select',
-                'No Reactiva|Reactiva T:1/1|Reactiva T:1/2|Reactiva T:1/4|Reactiva T:1/8|Reactiva T:1/16|Reactiva T:1/64|Reactiva T:1/128|Reactiva T:1/256|Reactiva T:1/512'
+                '|No Reactiva|Reactiva T:1/1|Reactiva T:1/2|Reactiva T:1/4|Reactiva T:1/8|Reactiva T:1/16|Reactiva T:1/64|Reactiva T:1/128|Reactiva T:1/256|Reactiva T:1/512'
               ],
               'Chagas IgG' => [
                 null,
@@ -480,7 +480,7 @@ class AnalisisDatabaseSeeder extends Seeder
                 'sin_referencia',
                 null,
                 'select',
-                'A | B | AB | O'
+                '|A|B|AB|O'
               ],
               'Factor RH' => [
                 null,
@@ -488,7 +488,7 @@ class AnalisisDatabaseSeeder extends Seeder
                 'sin_referencia',
                 null,
                 'select',
-                'Positivo (+) | Negativo (-)'
+                '|Positivo (+)|Negativo (-)'
               ],
             ],
           ],

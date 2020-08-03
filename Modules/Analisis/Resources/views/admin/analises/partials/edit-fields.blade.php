@@ -110,39 +110,70 @@
                 @endif
                 <tr class='determinacion-{{$resultado->determinacion->subseccion->id}}'>
                    <td>{{$resultado->determinacion->titulo}}</td>
-                   @if($resultado->determinacion->trato_especial)
-                     @switch($resultado->determinacion->tipo_trato)
-                       @case ('antibiograma')
-                        @php
-                          $delimiter = strpos($resultado->valor, ':');
-                        @endphp
-                         <td>
-                           <table class='table table-bordered table-hover'>
+                   @if($resultado->determinacion->trato_especial && $resultado->determinacion->tipo_trato=='antibiograma')
+                      @php
+                        $delimiter = strpos($resultado->valor, ':');
+                      @endphp
+                       <td>
+                         <table class='table table-bordered table-hover'>
+                            <tr>
+                              <td></td>
+                              <td><b>Sensible</b></td>
+                              <td><b>Resistente</b></td>
+                            </tr>
+                            @foreach ($resultado->determinacion->helper as $value)
+                              @php
+                                $value = trim($value);
+                              @endphp
                               <tr>
-                                <td></td>
-                                <td><b>Sensible</b></td>
-                                <td><b>Resistente</b></td>
+                                <td>{{$value}}</td>
+                                <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='{{$resultado->determinacion->id}}' tipo='sensible' det='{{$value}}' @if(strpos($resultado->valor, $value) !== false && strpos($resultado->valor, $value) < $delimiter) checked @endif></td>
+                                <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='{{$resultado->determinacion->id}}' tipo='resistente' det='{{$value}}' @if(strpos($resultado->valor, $value) !== false && strpos($resultado->valor, $value) > $delimiter) checked @endif></td>
                               </tr>
-                              @foreach ($resultado->determinacion->helper as $value)
-                                @php
-                                  $value = trim($value);
-                                @endphp
-                                <tr>
-                                  <td>{{$value}}</td>
-                                  <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='{{$resultado->determinacion->id}}' tipo='sensible' det='{{$value}}' @if(strpos($resultado->valor, $value) !== false && strpos($resultado->valor, $value) < $delimiter) checked @endif></td>
-                                  <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='{{$resultado->determinacion->id}}' tipo='resistente' det='{{$value}}' @if(strpos($resultado->valor, $value) !== false && strpos($resultado->valor, $value) > $delimiter) checked @endif></td>
-                                </tr>
-                              @endforeach
-                           </table>
-                           <input type='hidden'  id='ant-{{$resultado->determinacion->id}}' value='{{$resultado->valor}}' name=determinacion[{{$resultado->determinacion->id}}]>
-                        </td>
-                      @break
-                     @endswitch
+                            @endforeach
+                         </table>
+                         <input type='hidden'  id='ant-{{$resultado->determinacion->id}}' value='{{$resultado->valor}}' name=determinacion[{{$resultado->determinacion->id}}]>
+                      </td>
+                   @elseif($resultado->determinacion->trato_especial && $resultado->determinacion->tipo_trato=='select')
+                     @php
+                       $options = explode('|', $resultado->determinacion->texto_h);
+                     @endphp
+                     <td>
+                       <select class='form-control valor @php
+                       switch ($resultado->determinacion->tipo_referencia) {
+                         case 'booleano':
+                           echo 'determinacion-select';
+                           break;
+                         case 'reactiva':
+                           echo 'determinacion-select';
+                           break;
+                         case 'rango':
+                           echo 'determinacion-rango';
+                           break;
+                         case 'rango_hasta':
+                           echo 'determinacion-rango';
+                           break;
+                         case 'rango_edad':
+                           echo 'determinacion-rango-edad';
+                           break;
+                         case 'rango_sexo':
+                           echo 'determinacion-rango-sexo';
+                           break;
+                         default:
+                          echo 's';
+                        }
+                       @endphp' name=determinacion[{{$resultado->determinacion->id}}]">
+                         @foreach ($options as $option)
+                           <option @if($resultado->valor == $option) selected @endif value='{{$option}}'>{{$option}}</option>
+                         @endforeach
+                       </select>
+                     </td>
                    @else
                      @switch ($resultado->determinacion->tipo_referencia)
                        @case ("booleano")
                          <td>
                             <select class='form-control determinacion-select valor' name=determinacion[{{$resultado->determinacion->id}}]>
+                              <option value=''></option>
                               <option @if($resultado->valor == 'Negativo') selected @endif value='Negativo'>Negativo</option>
                               <option @if($resultado->valor == 'Positivo') selected @endif value='Positivo'>Positivo</option>
                             </select>
@@ -151,6 +182,7 @@
                        @case ('reactiva')
                           <td>
                             <select class='form-control valor' name=determinacion[{{$resultado->determinacion->id}}]>
+                                <option value=''></option>
                                 <option @if($resultado->valor == 'No Reactiva') selected @endif value='No Reactiva'>No Reactiva</option>
                                 <option @if($resultado->valor == 'Reactiva') selected @endif value='Reactiva'>Reactiva</option>
                             </select>

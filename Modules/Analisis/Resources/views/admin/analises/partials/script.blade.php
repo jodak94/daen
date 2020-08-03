@@ -227,6 +227,10 @@
       let val = $(this).val().replace(' ', '_').toLowerCase();
       let ref = $(this).parent().parent().find('.rango-referencia').val();
       let dom = $(this).parent().parent().find('.rango-check')[0];
+      if(val == ''){
+        $('#'+dom.id).iCheck('uncheck');
+        return;
+      }
       if(val != ref)
         $('#'+dom.id).iCheck('check');
       else
@@ -339,6 +343,7 @@
           case 'booleano':
             html += "<td>"
                  +  " <select class='form-control determinacion-select valor' name=determinacion["+det.id+"]>"
+                 +  "   <option value=''></option>"
                  +  "   <option value='Negativo'>Negativo</option>"
                  +  "   <option value='Positivo'>Positivo</option>"
                  +  " </select>"
@@ -347,6 +352,7 @@
           case 'reactiva':
             html += "<td>"
                   +  " <select class='form-control determinacion-select  valor' name=determinacion["+det.id+"]>"
+                  +  "   <option value=''></option>"
                   +  "   <option value='No Reactiva'>No Reactiva</option>"
                   +  "   <option value='Reactiva'>Reactiva</option>"
                   +  " </select>"
