@@ -100,6 +100,9 @@ class AnalisisController extends AdminBaseController
       if (isset($re->fecha_hasta) && trim($re->fecha_hasta) != '')
          $query->whereDate('fecha', '<=', $this->fechaFormat($re->fecha_hasta) );
 
+      if(isset($re->cont_diario) && trim($re->cont_diario) != '')
+         $query->where('cont_diario', $re->cont_diario);
+
        return $query->orderBy('fecha', 'desc');
    }
 
@@ -132,6 +135,9 @@ class AnalisisController extends AdminBaseController
     {
         if(!isset($request->paciente_id))
           return response()->json(['error' => true, 'message'=> 'No se encontró el paciente']);
+
+        if(!isset($request->cont_diario))
+          return response()->json(['error' => true, 'message'=> 'No se encontró el código']);
 
         if(!isset($request->determinacion) || (isset($request->determinacion) && !count($request->determinacion)))
           return response()->json(['error' => true, 'message'=> 'No se encontraron determinaciones']);
@@ -278,11 +284,8 @@ class AnalisisController extends AdminBaseController
         $analisis_to_remove->delete();
       }else{
         $analisis->created_by = Auth::user()->id;
-        $cont = DB::select('select * from configuraciones where `key` = "cont_diario"')[0]->value;
-        (int)$cont++;
-        DB::table('configuraciones')->where('key', "cont_diario")->update(['value' => $cont]);
-        $analisis->cont_diario = $cont;
       }
+      $analisis->cont_diario = $request->cont_diario;
       $analisis->save();
     }
 

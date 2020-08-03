@@ -195,9 +195,17 @@ class AnalisisDatabaseSeeder extends Seeder
               'VDRL' => [
                 null,
                 'no_reactiva',
-                'reactiva'
+                'reactiva',
+                null,
+                'select',
+                'No Reactiva|Reactiva T:1/1|Reactiva T:1/2|Reactiva T:1/4|Reactiva T:1/8|Reactiva T:1/16|Reactiva T:1/64|Reactiva T:1/128|Reactiva T:1/256|Reactiva T:1/512'
               ],
               'Chagas IgG' => [
+                null,
+                'negativo',
+                'booleano'
+              ],
+              'Chagas IgM' => [
                 null,
                 'negativo',
                 'booleano'
@@ -386,8 +394,8 @@ class AnalisisDatabaseSeeder extends Seeder
                 null,
                 'sin referencia'
               ],
-              'β-HCG' => [
-                'mUI/ml',
+              'B-HCG' => [
+                null,
                 'negativo',
                 'booleano',
                 'En caso de persistir el atraso repetir |
@@ -396,7 +404,7 @@ class AnalisisDatabaseSeeder extends Seeder
                  a 1 mIU. durante el embarazo normal.',
                 'bhcg',
               ],
-              'β-HCG Cuantitativo' => [
+              'B-HCG Cuantitativo' => [
                 'mUI/ml',
                 '0-5',
                 'rango',

@@ -328,7 +328,7 @@
       }else if(det.trato_especial && det.tipo_trato=='select'){
         let options = det.texto_h.split("|");
         html += "<td>"
-             +  " <select class='form-control valor' name=determinacion["+det.id+"]>";
+             +  " <select class='form-control valor "+ getRefClass(det.tipo_referencia) +"' name=determinacion["+det.id+"]>";
              for(var i = 0; i < options.length; i++){
                html += "<option value='"+options[i]+"'>"+options[i]+"</option>";
              }
@@ -395,6 +395,26 @@
           radioClass: 'iradio_flat-blue'
       });
     })
+  }
+
+  function getRefClass(tipo_ref){
+    switch (tipo_ref) {
+      case 'booleano':
+        return 'determinacion-select';
+      case 'reactiva':
+        return 'determinacion-select';
+      case 'rango':
+        return 'determinacion-rango';
+      case 'rango_hasta':
+        return 'determinacion-rango';
+      case 'rango_edad':
+        return 'determinacion-rango-edad';
+      case 'rango_sexo':
+        return 'determinacion-rango-sexo';
+      default:
+      return '';
+
+    }
   }
 
   function trTitulo(titulo, id){

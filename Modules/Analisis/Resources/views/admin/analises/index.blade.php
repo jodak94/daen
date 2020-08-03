@@ -49,16 +49,7 @@
                         {!! Form::normalInput('fecha_hasta', 'Fecha hasta', $errors,(object)['fecha_hasta'=>$to],['class'=>'form-control fecha','id'=>'fecha_hasta']) !!}
                     </div>
                     <div class="col-md-3">
-                      <div class="pull-right">
-                        <label>Contador Diario: </label>
-                        <span id="contador-diario">
-                          @php
-                            echo(\DB::select('select * from configuraciones where `key` = "cont_diario"')[0]->value)
-                          @endphp
-                        </span>
-                        <br>
-                        <button class="btn btn-default" id="reset-cont">Reiniciar Contador</button>
-                      </div>
+                      {!! Form::normalInput('cont_diario', 'Código', $errors) !!}
                     </div>
                   </div>
                 </div>
@@ -71,6 +62,7 @@
                               <th>Paciente</th>
                               <th>Fecha</th>
                               <th>Creado Por</th>
+                              <th>Código</th>
                               <th>Acciones</th>
                           </tr>
                           </thead>
@@ -81,6 +73,7 @@
                             <th>Paciente</th>
                             <th>Fecha</th>
                             <th>Creado Por</th>
+                            <th>Código</th>
                             <th>Acciones</th>
                           </tfoot>
                       </table>

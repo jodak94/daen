@@ -15,12 +15,7 @@
     {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>$analisis->fecha_format],['class'=>'form-control fecha']) !!}
   </div>
   <div class="col-md-3">
-    <div class="pull-right">
-      <label>Contador Actual: </label>
-      <span id="contador-diario">
-        {{$analisis->cont_diario}}
-      </span>
-    </div>
+    {!! Form::normalInput('cont_diario', 'Código', $errors, $analisis) !!}
   </div>
 </div>
 <div class="row" id="paciente-box">
