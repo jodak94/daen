@@ -43,6 +43,14 @@
       .jconfirm-buttons{
         padding: 15px;
       }
+      .modal-content{
+        border-radius: 5px;
+      }
+      .modal-header .close{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+      }
     </style>
     {!! Theme::style('vendor/jquery-toast/jquery.toast.min.css') !!}
     @section('styles')
@@ -81,7 +89,7 @@
     </header>
     @include('partials.sidebar-nav')
 
-    <aside class="content-wrapper">
+    <aside class="content-wrapper adm-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             @yield('content-header')

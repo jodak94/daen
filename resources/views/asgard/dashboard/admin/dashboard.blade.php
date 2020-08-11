@@ -5,49 +5,62 @@
 
     </h1>
 @stop
-
-@section('styles')
-  <style>
-  .titulo{font-weight: 500;color:black;}
-  .box{
-    background: rgba(255,255,255,0.85)!important;
-    border-top-color:#2F444E !important;
-  }
-  .small-box{
-    background-color: #00a65a;
-  }
-  .small-box-footer{
-    background-color: #008d4c!important;
-  }
-  .logo{
-      position: absolute;
-      right: 20px;
-      bottom: 20px;
-      width: 25%;
+@push('css-stack')
+    <link rel="stylesheet" href="{{ asset('themes/adminlte/css/vendor/jQueryUI/jquery-ui-1.10.3.custom.min.css') }}">
+    {!! Theme::style('vendor/pickadate/css/classic.css') !!}
+    {!! Theme::style('vendor/pickadate/css/classic.date.css') !!}
+    {!! Theme::style('vendor/pickadate/css/classic.time.css') !!}
+    <style>
+      .picker__select--year{
+        padding: 1px;
+      }
+      .picker__select--month{
+        padding: 1px;
+      }
+    </style>
+    <style>
+    .titulo{font-weight: 500;color:black;}
+    .box{
+      background: rgba(255,255,255,0.85)!important;
+      border-top-color:#2F444E !important;
     }
-  .content-wrapper {
-    background-image: linear-gradient(315deg, #00a65a, #ecf0f5 30%);
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    position: relative;
-  }
-  .contador-container{
-      width: 15%;
-      position: absolute;
-      left: 25px;
-      bottom: 20px;
+    .small-box{
+      background-color: #00a65a;
     }
-    .table-bordered-2 > thead > tr > th, .table-bordered-2 > tbody > tr > th, .table-bordered-2 > tfoot > tr > th, .table-bordered-2 > thead > tr > td, .table-bordered-2 > tbody > tr > td, .table-bordered-2 > tfoot > tr > td {
-      border: 1px solid #b2b2b2;
+    .small-box-footer{
+      background-color: #008d4c!important;
     }
-    .table-2{
-        background-color: #e1e6ed;
+    .logo{
+        position: absolute;
+        right: 20px;
+        bottom: 60px;
+        width: 25%;
+      }
+    .adm-wrapper {
+      background-image: linear-gradient(315deg, #00a65a, #ecf0f5 30%);
+      background-repeat: no-repeat;
+      background-position: right bottom;
     }
-    .table-2>tbody>tr>td, .table-2>tbody>tr>th, .table-2>tfoot>tr>td, .table-2>tfoot>tr>th, .table-2>thead>tr>td, .table-2>thead>tr>th {
-      padding: 4px;
-    }
-  </style>
-@stop
+    .contador-container{
+        width: 15%;
+        position: absolute;
+        left: 25px;
+        bottom: 20px;
+      }
+      .table-bordered-2 > thead > tr > th, .table-bordered-2 > tbody > tr > th, .table-bordered-2 > tfoot > tr > th, .table-bordered-2 > thead > tr > td, .table-bordered-2 > tbody > tr > td, .table-bordered-2 > tfoot > tr > td {
+        border: 1px solid #b2b2b2;
+      }
+      .table-2{
+          background-color: #e1e6ed;
+      }
+      .table-2>tbody>tr>td, .table-2>tbody>tr>th, .table-2>tfoot>tr>td, .table-2>tfoot>tr>th, .table-2>thead>tr>td, .table-2>thead>tr>th {
+        padding: 4px;
+      }
+      .small-box-footer a{
+        color: white;
+      }
+    </style>
+@endpush
 
 @section('content')
   <div class="row">
@@ -61,9 +74,21 @@
             <i class="fa fa-flask"></i>
           </div>
         </a>
-        <a href="{{route('admin.analisis.analisis.create')}}" class="small-box-footer" style="height: 25px" >
-          Cargar nuevo <i class="fa fa-arrow-circle-right"></i>
-        </a>
+        {{-- <button class="btn btn-primary btn-flat" data-toggle="modal" id="preconfigurarResultado" style="padding: 4px 10px; margin-right: 15px;"> --}}
+          {{-- <i class="fa fa-cog"></i> Preconfigurar y Cargar Resultado --}}
+        {{-- </button> --}}
+        <div class="row small-box-footer" style="margin:0; height: 25px;">
+          <div class="col-md-6 col-xs-6" style="padding:0">
+            <a href="{{route('admin.analisis.analisis.create')}}">
+              Cargar nuevo <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+          <div class="col-md-6 col-xs-6" style="padding:0">
+            <a href="javascript:void(0)" id="preconfigurarResultado">
+              Preconfigurar nuevo <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-md-3">
@@ -113,4 +138,12 @@
     </div>
   </div>
   <img src="{{url('/img/logo2.png')}}" class="logo">
+  @include('analisis::admin.analises.partials.modal-preconfigurarResultado')
 @stop
+@push('js-stack')
+    <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.number.min.js') }}"></script>
+    {!! Theme::script('vendor/pickadate/js/picker.js') !!}
+    {!! Theme::script('vendor/pickadate/js/picker.date.js') !!}
+    {!! Theme::script('vendor/pickadate/js/picker.time.js') !!}
+@endpush

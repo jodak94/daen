@@ -264,15 +264,8 @@ class AnalisisController extends AdminBaseController
         $resultado->analisis_id = $analisis->id;
         $resultado->valor = $request->determinacion[$det_id->id];
         $sub_id = DB::select('SELECT sub.id FROM analisis__subseccions sub join analisis__determinacions det on sub.id = det.subseccion_id where det.id = ' . $det_id->id)[0]->id;
-        if(in_array($sub_id, $mostrar))
-          $resultado->mostrar_subtitulo = true;
-        else
-          $resultado->mostrar_subtitulo = false;
-
-        if(in_array($det_id->id, $fuera_rango))
-          $resultado->fuera_rango = true;
-        else
-          $resultado->fuera_rango = false;
+        $resultado->mostrar_subtitulo = in_array($sub_id, $mostrar);
+        $resultado->fuera_rango = in_array($det_id->id, $fuera_rango);
         $resultado->save();
       }
       if($request->has('analisis_id') && trim($request->analisis_id) != ''){
@@ -399,5 +392,38 @@ class AnalisisController extends AdminBaseController
       DB::table('configuraciones')->where('key', 'cont_diario')->update(['value' => 0]);
 
       return response()->json(['success' => true]);
+    }
+
+    public function preconfigurar(Request $request){
+      $mostrar = [];
+      if(isset($request->mostrar))
+        $mostrar = array_keys($request->mostrar);
+
+      DB::beginTransaction();
+      $analisis = new Analisis();
+      $analisis->paciente_id = $request->paciente_id;
+      $analisis->created_by = Auth::user()->id;
+      $analisis->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha);
+      $analisis->save();
+      $orden = DB::select('
+      select d.id from analisis__seccions s
+      join analisis__subseccions ss on ss.seccion_id = s.id join analisis__determinacions d on d.subseccion_id = ss.id
+      where d.id in ('.implode(', ', array_keys($request['determinacion'])).')
+      order by s.orden, ss.orden, d.orden;');
+      //------//
+      foreach ($orden as $det_id) {
+        $resultado = new Resultado();
+        $resultado->determinacion_id = $det_id->id;
+        $resultado->analisis_id = $analisis->id;
+        $sub_id = DB::select('SELECT sub.id FROM analisis__subseccions sub join analisis__determinacions det on sub.id = det.subseccion_id where det.id = ' . $det_id->id)[0]->id;
+        $resultado->mostrar_subtitulo = in_array($sub_id, $mostrar);
+        $resultado->save();
+      }
+      $analisis->cont_diario = $request->cont_diario;
+      $analisis->save();
+      DB::commit();
+      \Session::put('success', 'Análisis creado exitosamente');
+      $edit = true;
+      return view('analisis::admin.analises.edit', compact('analisis', 'edit'));
     }
 }

@@ -78,6 +78,7 @@
   {!! Theme::script('vendor/pickadate/js/picker.date.js') !!}
   {!! Theme::script('vendor/pickadate/js/picker.time.js') !!}
   <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
+  @include('analisis::admin.analises.partials.script-paciente')
   @include('analisis::admin.analises.partials.script')
     <script type="text/javascript">
         $( document ).ready(function() {

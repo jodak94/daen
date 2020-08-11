@@ -31,6 +31,11 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'uses' => 'AnalisisController@store',
         'middleware' => 'can:analisis.analises.create'
     ]);
+    $router->post('analises/preconfigurar-analisis', [
+        'as' => 'admin.analisis.analisis.preconfigurar-analisis',
+        'uses' => 'AnalisisController@preconfigurar',
+        'middleware' => 'can:analisis.analises.create'
+    ]);
     $router->get('analises/{analisis}/edit', [
         'as' => 'admin.analisis.analisis.edit',
         'uses' => 'AnalisisController@edit',

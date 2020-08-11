@@ -1,6 +1,6 @@
 <script type="text/javascript">
   $( document ).ready(function(){
-    $('.fecha').pickadate({
+    $('.fecha_filter').pickadate({
       monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
       weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
       today: 'Hoy',
@@ -33,7 +33,7 @@
             d.paciente = $("#paciente").val();
             d.fecha_desde = $("#fecha_desde").val();
             d.fecha_hasta = $("#fecha_hasta").val();
-            d.cont_diario = $("#cont_diario").val();
+            d.cont_diario = $("#cont").val();
         },
         headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
       },
@@ -69,10 +69,10 @@
     $("#paciente").keyup(function(){
         table.ajax.reload();
     });
-    $(".fecha").change(function(){
+    $(".fecha_filter").change(function(){
         table.ajax.reload();
     });
-    $("#cont_diario").keyup(function(){
+    $("#cont").keyup(function(){
         table.ajax.reload();
     });
     $('.data-table').on('click','.preview',function() {
@@ -103,7 +103,6 @@
     select: function( event, ui){
       let url = create_url + '?plantilla=' + ui.item.id;
       $("#add_plantilla_url").attr("href", url);
-      console.log($("#add_plantilla_url").attr('href'));
     }
   })
 
@@ -124,5 +123,9 @@
         })
       }
     })
+  })
+
+  $("#preconfigurarResultado").on('click', function(){
+
   })
 </script>

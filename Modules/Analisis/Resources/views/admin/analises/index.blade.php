@@ -31,7 +31,10 @@
                     <a href="{{ route('admin.analisis.analisis.create') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px; margin-right: 15px;">
                       <i class="fa fa-pencil"></i> {{ trans('analisis::analises.button.create analisis') }}
                     </a>
-                    <button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#addPlantilla" style="padding: 4px 10px;">
+                    <button class="btn btn-primary btn-flat" data-toggle="modal" id="preconfigurarResultado" style="padding: 4px 10px; margin-right: 15px;">
+                      <i class="fa fa-cog"></i> Preconfigurar y Cargar Resultado
+                    </button>
+                    <button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#addPlantilla" style="padding: 4px 10px; ">
                       <i class="fa fa-pencil"></i> Cargar desde Plantilla
                     </button>
                 </div>
@@ -43,13 +46,13 @@
                       {!! Form::normalInput('paciente', 'Paciente', $errors) !!}
                     </div>
                     <div class="col-md-3">
-                        {!! Form::normalInput('fecha_desde', 'Fecha desde', $errors,(object)['fecha_desde'=>$from],['class'=>'form-control fecha','id'=>'fecha_desde']) !!}
+                        {!! Form::normalInput('fecha_desde', 'Fecha desde', $errors,(object)['fecha_desde'=>$from],['class'=>'form-control fecha_filter','id'=>'fecha_desde']) !!}
                     </div>
                     <div class="col-md-3">
-                        {!! Form::normalInput('fecha_hasta', 'Fecha hasta', $errors,(object)['fecha_hasta'=>$to],['class'=>'form-control fecha','id'=>'fecha_hasta']) !!}
+                        {!! Form::normalInput('fecha_hasta', 'Fecha hasta', $errors,(object)['fecha_hasta'=>$to],['class'=>'form-control fecha_filter','id'=>'fecha_hasta']) !!}
                     </div>
                     <div class="col-md-3">
-                      {!! Form::normalInput('cont_diario', 'Código', $errors) !!}
+                      {!! Form::normalInput('cont', 'Código', $errors) !!}
                     </div>
                   </div>
                 </div>
@@ -87,6 +90,7 @@
     @include('core::partials.delete-modal')
 @stop
 @include('analisis::admin.analises.partials.modal-plantilla')
+@include('analisis::admin.analises.partials.modal-preconfigurarResultado')
 @section('footer')
     <a data-toggle="modal" data-target="#keyboardShortcutsModal"><i class="fa fa-keyboard-o"></i></a> &nbsp;
 @stop
