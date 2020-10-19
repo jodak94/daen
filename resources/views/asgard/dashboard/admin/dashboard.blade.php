@@ -59,6 +59,7 @@
       .small-box-footer a{
         color: white;
       }
+      .modal { overflow: auto !important; }
     </style>
 @endpush
 
@@ -139,6 +140,7 @@
   </div>
   <img src="{{url('/img/logo2.png')}}" class="logo">
   @include('analisis::admin.analises.partials.modal-preconfigurarResultado')
+  @include('pacientes::admin.pacientes.partials.modal-add-paciente')
 @stop
 @push('js-stack')
     <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
