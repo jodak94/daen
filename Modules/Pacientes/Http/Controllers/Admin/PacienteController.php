@@ -119,7 +119,7 @@ class PacienteController extends AdminBaseController
     }
 
     public function store_ajax(Request $request){
-      if(count(Paciente::where('cedula', $request->cedula)->get()))
+      if(isset($request->ci) and $request->ci != '' and count(Paciente::where('cedula', $request->cedula)->get()))
         return response()->json(['error' => true, 'message' => 'Ya existe un paciente con esa cedula']);
       $paciente = new Paciente();
       $paciente->nombre = $request->nombre;
@@ -155,10 +155,14 @@ class PacienteController extends AdminBaseController
       $pacientes = $query_pacientes->take(5)->get();
       $results = [];
       foreach ($pacientes as $q){
+        if(isset($q->cedula) and $q->cedula != '')
+          $value = $q->nombre . ' ' .$q->apellido.'. CI: ' . $q->cedula;
+        else
+          $value = $q->nombre . ' ' .$q->apellido;
         $results[] =
         [
           'id' => $q->id,
-          'value' => $q->nombre . ' ' .$q->apellido.'. CI: ' . $q->cedula,
+          'value' => $value,
           'paciente' => $q,
         ];
       }

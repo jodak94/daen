@@ -14,7 +14,7 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      {!! Form::normalInput('cedula', 'C.I', $errors, null, ['required' => true]) !!}
+      {!! Form::normalInput('cedula', 'C.I', $errors, null) !!}
     </div>
     <div class="col-md-6">
       {!! Form:: normalSelect('sexo', 'Sexo', $errors, ['femenino' => 'Femenino', 'masculino' => 'Masculino']) !!}

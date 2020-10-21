@@ -11,7 +11,7 @@ class CreatePacienteRequest extends BaseFormRequest
         return [
           'nombre'  => 'required',
           'apellido' => 'required',
-          'cedula' => 'numeric|required|unique:pacientes__pacientes',
+          'cedula' => 'nullable|numeric|unique:pacientes__pacientes',
           'sexo'     => 'required|in:masculino,femenino',
         ];
     }

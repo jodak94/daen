@@ -12,7 +12,7 @@ class UpdatePacienteRequest extends BaseFormRequest
         return [
           'nombre'  => 'required',
           'apellido' => 'required',
-          'cedula' =>  'numeric|required|unique:pacientes__pacientes,cedula,'.$paciente->id,
+          'cedula' =>  'nullable|numeric|unique:pacientes__pacientes,cedula,'.$paciente->id,
           'sexo'     => 'required|in:masculino,femenino',
       ];
     }

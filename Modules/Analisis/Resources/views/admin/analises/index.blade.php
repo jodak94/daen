@@ -21,6 +21,7 @@
       .picker__select--month{
         padding: 1px;
       }
+      .modal { overflow: auto !important; }
     </style>
 @endpush
 @section('content')
@@ -91,6 +92,7 @@
 @stop
 @include('analisis::admin.analises.partials.modal-plantilla')
 @include('analisis::admin.analises.partials.modal-preconfigurarResultado')
+@include('pacientes::admin.pacientes.partials.modal-add-paciente')
 @section('footer')
     <a data-toggle="modal" data-target="#keyboardShortcutsModal"><i class="fa fa-keyboard-o"></i></a> &nbsp;
 @stop

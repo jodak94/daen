@@ -33,7 +33,10 @@ class Paciente extends Model
     }
 
     public function getCedulaFormatAttribute(){
-      return number_format($this['cedula'], 0, ',', '.');
+      if(isset($this['cedula']) and $this['cedula'] != '')
+        return number_format($this['cedula'], 0, ',', '.');
+      else
+        return '--';
     }
 
     public function getSexoFormatAttribute(){
