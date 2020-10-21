@@ -97,9 +97,7 @@
                   @endif
                   <tr class='determinacion-{{$detalle->determinacion->subseccion->id}}'>
                      <td>{{$detalle->determinacion->titulo}}</td>
-                     @if($detalle->determinacion->trato_especial)
-                       @switch($detalle->determinacion->tipo_trato)
-                         @case ('antibiograma')
+                     @if($detalle->determinacion->trato_especial && $detalle->determinacion->tipo_trato=='antibiograma')
                            <td>
                              <table class='table table-bordered table-hover'>
                                 <tr>
@@ -120,13 +118,46 @@
                              </table>
                              <input type='hidden'  id='ant-{{$detalle->determinacion->id}}' value=':' name=determinacion[{{$detalle->determinacion->id}}]>
                           </td>
-                        @break
-                       @endswitch
-                     @else
+                        @elseif($detalle->determinacion->trato_especial && $detalle->determinacion->tipo_trato=='select')
+                          @php
+                            $options = explode('|', $detalle->determinacion->texto_h);
+                          @endphp
+                          <td>
+                            <select class='form-control valor @php
+                            switch ($detalle->determinacion->tipo_referencia) {
+                              case 'booleano':
+                                echo 'determinacion-select';
+                                break;
+                              case 'reactiva':
+                                echo 'determinacion-select';
+                                break;
+                              case 'rango':
+                                echo 'determinacion-rango';
+                                break;
+                              case 'rango_hasta':
+                                echo 'determinacion-rango';
+                                break;
+                              case 'rango_edad':
+                                echo 'determinacion-rango-edad';
+                                break;
+                              case 'rango_sexo':
+                                echo 'determinacion-rango-sexo';
+                                break;
+                              default:
+                               echo 's';
+                             }
+                            @endphp' name=determinacion[{{$detalle->determinacion->id}}]">
+                              @foreach ($options as $option)
+                                <option value='{{$option}}'>{{$option}}</option>
+                              @endforeach
+                            </select>
+                          </td>
+                        @else
                        @switch ($detalle->determinacion->tipo_referencia)
                          @case ("booleano")
                            <td>
                               <select class='form-control determinacion-select valor' name=determinacion[{{$detalle->determinacion->id}}]>
+                                <option value=''></option>
                                 <option value='Negativo'>Negativo</option>
                                 <option value='Positivo'>Positivo</option>
                               </select>
@@ -135,6 +166,7 @@
                          @case ('reactiva')
                             <td>
                               <select class='form-control valor' name=determinacion[{{$detalle->determinacion->id}}]>
+                                  <option value=''></option>
                                   <option value='No Reactiva'>No Reactiva</option>
                                   <option value='Reactiva'>Reactiva</option>
                               </select>
