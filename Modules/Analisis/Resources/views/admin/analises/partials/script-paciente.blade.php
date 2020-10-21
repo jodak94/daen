@@ -80,6 +80,7 @@
         paciente = ui.item.paciente
         $("#paciente_id").val(ui.item.id)
         $("#buscar-subseccion").prop("disabled", false)
+        $("#buscar-seccion").prop("disabled", false)
         mostrar_paciente(paciente)
       }
     })
