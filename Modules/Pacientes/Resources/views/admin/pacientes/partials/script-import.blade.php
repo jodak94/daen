@@ -40,6 +40,7 @@
                     "<td> <input type='number'  value='"+(paciente.cedula!== null?paciente.cedula:'')+"' data-key='cedula' data-toggle='popover' data-placement='top' data-trigger='hover' data-content='"+(errores.cedula !== undefined?errores.cedula:'')+"' class='form-control "+(errores.cedula !== undefined?'has-error' : '')+"'></td>"+
                     "<td> <input type='text'  value='"+(paciente.fecha_nacimiento!== null?paciente.fecha_nacimiento:'')+"' data-key='fecha_nacimiento' data-toggle='popover' data-placement='top' data-trigger='hover' data-content='"+(errores.fecha_nacimiento !== undefined?errores.fecha_nacimiento:'')+"' class='form-control "+(errores.fecha_nacimiento !== undefined?'has-error' : '')+"'></td>"+
                     "<td> <input type='text'  value='"+(paciente.sexo!== null?paciente.sexo:'')+"' data-key='sexo' data-toggle='popover' data-placement='top' data-trigger='hover' data-content='"+(errores.sexo !== undefined?errores.sexo:'')+"' class='form-control "+(errores.sexo !== undefined?'has-error' : '')+"'></td>"+
+                    "<td> <input type='number'  value='"+(paciente.empresa!== null?paciente.empresa:'')+"' data-key='empresa' data-toggle='popover' data-placement='top' data-trigger='hover' data-content='"+(errores.empresa !== undefined?errores.empresa:'')+"' class='form-control "+(errores.empresa !== undefined?'has-error' : '')+"'></td>"+
                     "<td style='text-align:center;'><i class='glyphicon glyphicon-trash btn btn-danger remove-field'></td>"+
                     "</tr>";
                     $("#table-errors").find('tbody').append(row);
@@ -48,10 +49,14 @@
                 $("#btn-guardar").show();
                 $("[data-toggle=popover]").popover();
                 if(response.pacientes.length > 0 && response.cargados > 0) {
+                    let htext = '';
+                    if(response.pacientes.length > 1){
+                      htext = 's';
+                    }
                     $.alert({
                     type: 'orange',
                     title: 'Atención',
-                    content: 'Se han cargado '+response.cargados+' pacientes nuevos. Pero se encontraron '+response.pacientes.length+' pacientes con errores',
+                    content: 'Se han cargado '+response.cargados+' pacientes nuevos. Pero se encontraron '+response.pacientes.length+' paciente'+htext+' con errores',
                 });
                 }else if(response.pacientes.length > 0 && response.cargados == 0) {
                     $.alert({
@@ -96,6 +101,7 @@
               sexo: $("#"+row_id).find('[data-key=sexo]').val(),
               fecha_nacimiento: $("#"+row_id).find('[data-key=fecha_nacimiento]').val(),
               cedula: $("#"+row_id).find('[data-key=cedula]').val(),
+              empresa: $("#"+row_id).find('[data-key=empresa]').val(),
             }
             pacientes[row_id] = paciente;
             $.ajax({
@@ -109,7 +115,6 @@
                 $("#"+row_id).find('.has-error').popover("disable");
               },
               error: function(error) {
-                console.log("error",JSON.parse(error.responseText));
                 let errorObj = JSON.parse(error.responseText).error;
                 $("#"+row_id).find('.has-error').popover("disable");
                 $("#"+row_id).find('.has-error').removeClass('has-error');

@@ -29,6 +29,9 @@
                   <div class="col-md-3">
                     {!! Form::normalInput('paciente', 'Paciente', $errors) !!}
                   </div>
+                  <div class="col-md-3">
+                    {!! Form::normalInput('empresa', 'Empresa', $errors) !!}
+                  </div>
                 </div>
               </div>
                 <!-- /.box-header -->

@@ -20,6 +20,7 @@
         type: "GET",
         data: function (d){
           d.paciente = $("#paciente").val();
+          d.empresa = $("#empresa").val();
         },
         headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
       },
@@ -53,6 +54,9 @@
     });
     //filtros
     $("#paciente").keyup(function(){
+      table.ajax.reload();
+    });
+    $("#empresa").keyup(function(){
       table.ajax.reload();
     });
   })

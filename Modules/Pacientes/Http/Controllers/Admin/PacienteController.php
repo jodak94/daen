@@ -16,6 +16,7 @@ use \Excel;
 use App\Imports\PacientesImport;
 use Carbon\Carbon;
 use Illuminate\Validation\Rule;
+use Modules\Empresas\Entities\Empresa;
 class PacienteController extends AdminBaseController
 {
     /**
@@ -84,6 +85,11 @@ class PacienteController extends AdminBaseController
       if (isset($re->paciente) && trim($re->paciente) != '')
         $query->where(DB::raw("CONCAT(nombre, ' ', apellido)"), 'like',  '%' . $re->paciente . '%')
          ->orWhere('cedula', 'like', '%' . $re->paciente . '%');
+
+      if(isset($re->empresa) && trim($re->empresa) != '')
+          $query->whereHas('empresa', function($q) use ($re){
+           $q->where('nombre', 'like',  '%' . $re->empresa . '%');
+          });
 
        return $query;
    }
@@ -237,14 +243,17 @@ class PacienteController extends AdminBaseController
                 $errors[] = $error;
                 $pacientes_error[] = $paciente;
               }else {
-                Log::info($paciente["sexo"]);
                 $nuevo_paciente = new Paciente();
                 $nuevo_paciente->nombre = $paciente["nombre"];
                 $nuevo_paciente->apellido = $paciente["apellido"];
                 $nuevo_paciente->sexo = $paciente["sexo"];
                 $nuevo_paciente->fecha_nacimiento = Carbon::createFromFormat('d/m/Y', $paciente['fecha_nacimiento']);
                 $nuevo_paciente->cedula = $paciente["cedula"];
-                $nuevo_paciente->empresa_id = $request->empresa_id;
+                if(isset($paciente['empresa']) and $paciente['empresa'] != ''){
+                  $empresa = Empresa::find($paciente['empresa']);
+                  $nuevo_paciente->empresa_id = $empresa->id;
+                }elseif(isset($request->empresa_id) and $request->empresa_id != '')
+                  $nuevo_paciente->empresa_id = $request->empresa_id;
                 $nuevo_paciente->save();
                 $pacientes_cargados++;
               }
@@ -286,6 +295,12 @@ class PacienteController extends AdminBaseController
             }
             $errors[] = $error;
         }
+        if(isset($data['empresa']) and $data['empresa'] != ''){
+          $empresa = Empresa::find($data['empresa']);
+          if(!isset($empresa)){
+            $errors[0]['empresa'] = 'Error con el código de la empresa';
+          }
+        }
         try {
           Carbon::createFromFormat('d/m/Y', $data['fecha_nacimiento']);
         } catch (\Exception $e) {
@@ -305,7 +320,10 @@ class PacienteController extends AdminBaseController
           $paciente->cedula = $req["cedula"];
           $paciente->fecha_nacimiento = Carbon::createFromFormat('d/m/Y', $req['fecha_nacimiento']);
           $paciente->sexo = $req["sexo"];
-          $paciente->empresa_id = $request->empresa_id;
+          if(isset($req['empresa']) and $req['empresa'] != '')
+            $paciente->empresa_id = $req['empresa'];
+          elseif($request->empresa_id and $request->empresa_id != '')
+            $paciente->empresa_id = $request->empresa_id;
           $paciente->save();
           $pacientes_cargados++;
         }

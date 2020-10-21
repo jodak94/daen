@@ -43,6 +43,7 @@
                                 <td> Cédula</td>
                                 <td> Fecha de Nacimiento</td>
                                 <td> Sexo</td>
+                                <td> Empresa</td>
                             </th>
                         </thead>
                         <tbody>

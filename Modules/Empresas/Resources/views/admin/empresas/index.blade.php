@@ -29,6 +29,7 @@
                         <table class="data-table table table-bordered table-hover">
                             <thead>
                             <tr>
+                                <th>Código</th>
                                 <th>Nombre</th>
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                             </tr>
@@ -37,6 +38,11 @@
                             <?php if (isset($empresas)): ?>
                             <?php foreach ($empresas as $empresa): ?>
                             <tr>
+                                <td>
+                                    <a href="{{ route('admin.empresas.empresa.edit', [$empresa->id]) }}">
+                                        {{ $empresa->id }}
+                                    </a>
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.empresas.empresa.edit', [$empresa->id]) }}">
                                         {{ $empresa->nombre }}
@@ -54,6 +60,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
+                                <th>Código</th>
                                 <th>Nombre</th>
                                 <th>{{ trans('core::core.table.actions') }}</th>
                             </tr>
