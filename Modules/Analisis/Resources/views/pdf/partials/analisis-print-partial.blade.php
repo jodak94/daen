@@ -90,7 +90,7 @@
       @php
         $valores = explode('<br />', nl2br($resultado->valor, '\n'));
       @endphp
-      @if($y + (count($valores) + 1 ) * $y_acu >= $bottom_limit - 1)
+      @if($y + (count($valores) + 1 ) * $y_acu >= $bottom_limit - 0.5)
         <div style="page-break-after: always;"></div>
         @php
           $y = $boxes->titulo_resultado->y;
@@ -148,7 +148,7 @@
     $seccion_actual = $resultado->determinacion->subseccion->seccion->id;
     $subseccion_actual = $resultado->determinacion->subseccion->id;
   @endphp
-  @if($y >= $bottom_limit - 1)
+  @if($y >= $bottom_limit - 0.5)
     @include('analisis::pdf.partials.paciente')
     <div style="page-break-after: always;"></div>
     @php
