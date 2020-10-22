@@ -339,8 +339,8 @@ class AnalisisController extends AdminBaseController
          'fecha' => ['x' => 2, 'y' => 2.8],
          'cod' => ['x' => 7.5, 'y' => 2.8],
          'titulo_resultado' => ['x' => 2, 'y' => 4.7],
-         'resultado' => ['x' => 8.3, 'y' => 4.7],
-         'fuera_rango' => ['x' => 11.2, 'y' => 4.7],
+         'resultado' => ['x' => 9.3, 'y' => 4.7],
+         'fuera_rango' => ['x' => 12.3, 'y' => 4.7],
          'rango_referencia' => ['x' => 13.5, 'y' => 4.7],
        ]));
 
