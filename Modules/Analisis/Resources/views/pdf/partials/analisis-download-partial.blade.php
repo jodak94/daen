@@ -92,7 +92,7 @@
       @php
         $valores = explode('<br />', nl2br($resultado->valor, '\n'));
       @endphp
-      @if($y + (count($valores) + 1 ) * $y_acu >= $bottom_limit - 1)
+      @if($y + (count($valores) + 1 ) * $y_acu >= $bottom_limit - 0.5)
         <div style="page-break-after: always;"></div>
         <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}"  width="100%"/>
         @php
@@ -151,7 +151,7 @@
     $seccion_actual = $resultado->determinacion->subseccion->seccion->id;
     $subseccion_actual = $resultado->determinacion->subseccion->id;
   @endphp
-  @if($y >= $bottom_limit - 1)
+  @if($y >= $bottom_limit - 0.5)
     @include('analisis::pdf.partials.paciente')
     <div style="page-break-after: always;"></div>
     <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}"  width="100%"/>
