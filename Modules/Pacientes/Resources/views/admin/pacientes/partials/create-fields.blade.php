@@ -27,6 +27,10 @@
         <input class="form-control" placeholder="Fecha de Nacimiento" type="date" name="fecha_nacimiento" id="fecha_nacimiento" required>
       </div>
     </div>
+    <div class="col-md-6">
+      <span style="color:white">*</span><br>
+      <label>Edad: </label> <span id="paciente-edad"></span>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-6">
