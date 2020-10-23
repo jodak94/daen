@@ -118,8 +118,15 @@ class AnalisisController extends AdminBaseController
     public function create(Request $request)
     {
         $plantilla = null;
-        if($request->has('plantilla') && $request->plantilla != '')
-          $plantilla = Plantilla::find($request->plantilla);
+        if($request->has('plantilla') && $request->plantilla != ''){
+          $q = "SELECT d.* FROM analisis__seccions s
+          JOIN analisis__subseccions ss ON ss.seccion_id = s.id JOIN analisis__determinacions d ON d.subseccion_id = ss.id
+          WHERE d.id IN (SELECT determinacion_id FROM plantillas__plantilladetalles WHERE plantilla_id = " . $request->plantilla . ")
+          ORDER BY s.orden, ss.orden, d.orden";
+          $dets =  Determinacion::fromQuery($q);
+          $plantilla = new \stdClass();
+          $plantilla->detalles = $dets;
+        }
 
         $dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Biernes', 'Sábado', 'Domingo'];
         return view('analisis::admin.analises.create', compact('plantilla', 'dias'));

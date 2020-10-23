@@ -83,21 +83,21 @@
                   $subseccion_actual = -1;
                 @endphp
                 @foreach ($plantilla->detalles as $detalle)
-                  @if($subseccion_actual != $detalle->determinacion->subseccion->id)
+                  @if($subseccion_actual != $detalle->subseccion->id)
                     <tr class='tr-titulo'>
                       <td colspan='4' style='text-align:center'>
-                        <u>{{$detalle->determinacion->subseccion->titulo}}</u>
+                        <u>{{$detalle->subseccion->titulo}}</u>
                       </td>
                       <td>
-                        <button subId='{{$detalle->determinacion->subseccion->id}}' type='button' class='btn btn-danger btn-flat delete-sub'>
+                        <button subId='{{$detalle->subseccion->id}}' type='button' class='btn btn-danger btn-flat delete-sub'>
                           <i class='fa fa-trash'></i>
                         </button>
                       </td>
                     </tr>
                   @endif
-                  <tr class='determinacion-{{$detalle->determinacion->subseccion->id}}'>
-                     <td>{{$detalle->determinacion->titulo}}</td>
-                     @if($detalle->determinacion->trato_especial && $detalle->determinacion->tipo_trato=='antibiograma')
+                  <tr class='determinacion-{{$detalle->subseccion->id}}'>
+                     <td>{{$detalle->titulo}}</td>
+                     @if($detalle->trato_especial && $detalle->tipo_trato=='antibiograma')
                            <td>
                              <table class='table table-bordered table-hover'>
                                 <tr>
@@ -105,26 +105,26 @@
                                   <td><b>Sensible</b></td>
                                   <td><b>Resistente</b></td>
                                 </tr>
-                                @foreach ($detalle->determinacion->helper as $value)
+                                @foreach ($detalle->helper as $value)
                                   @php
                                     $value = trim($value);
                                   @endphp
                                   <tr>
                                     <td>{{$value}}</td>
-                                    <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='{{$detalle->determinacion->id}}' tipo='sensible' det='{{$value}}'></td>
-                                    <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='{{$detalle->determinacion->id}}' tipo='resistente' det='{{$value}}'></td>
+                                    <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='{{$detalle->id}}' tipo='sensible' det='{{$value}}'></td>
+                                    <td class='center'><input type='checkbox' class='flat-blue antCheck' detid='{{$detalle->id}}' tipo='resistente' det='{{$value}}'></td>
                                   </tr>
                                 @endforeach
                              </table>
-                             <input type='hidden'  id='ant-{{$detalle->determinacion->id}}' value=':' name=determinacion[{{$detalle->determinacion->id}}]>
+                             <input type='hidden'  id='ant-{{$detalle->id}}' value=':' name=determinacion[{{$detalle->id}}]>
                           </td>
-                        @elseif($detalle->determinacion->trato_especial && $detalle->determinacion->tipo_trato=='select')
+                        @elseif($detalle->trato_especial && $detalle->tipo_trato=='select')
                           @php
-                            $options = explode('|', $detalle->determinacion->texto_h);
+                            $options = explode('|', $detalle->texto_h);
                           @endphp
                           <td>
                             <select class='form-control valor @php
-                            switch ($detalle->determinacion->tipo_referencia) {
+                            switch ($detalle->tipo_referencia) {
                               case 'booleano':
                                 echo 'determinacion-select';
                                 break;
@@ -146,17 +146,17 @@
                               default:
                                echo 's';
                              }
-                            @endphp' name=determinacion[{{$detalle->determinacion->id}}]">
+                            @endphp' name=determinacion[{{$detalle->id}}]">
                               @foreach ($options as $option)
                                 <option value='{{$option}}'>{{$option}}</option>
                               @endforeach
                             </select>
                           </td>
                         @else
-                       @switch ($detalle->determinacion->tipo_referencia)
+                       @switch ($detalle->tipo_referencia)
                          @case ("booleano")
                            <td>
-                              <select class='form-control determinacion-select valor' name=determinacion[{{$detalle->determinacion->id}}]>
+                              <select class='form-control determinacion-select valor' name=determinacion[{{$detalle->id}}]>
                                 <option value=''></option>
                                 <option value='Negativo'>Negativo</option>
                                 <option value='Positivo'>Positivo</option>
@@ -165,7 +165,7 @@
                            @break
                          @case ('reactiva')
                             <td>
-                              <select class='form-control valor' name=determinacion[{{$detalle->determinacion->id}}]>
+                              <select class='form-control valor' name=determinacion[{{$detalle->id}}]>
                                   <option value=''></option>
                                   <option value='No Reactiva'>No Reactiva</option>
                                   <option value='Reactiva'>Reactiva</option>
@@ -173,41 +173,41 @@
                             </td>
                            @break;
                          @case ('rango')
-                           <td><input class='form-control determinacion-rango valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
+                           <td><input class='form-control determinacion-rango valor' name=determinacion[{{$detalle->id}}]></td>
                            @break
                          @case ('rango_edad')
-                           <td><input class='form-control determinacion-rango-edad valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
+                           <td><input class='form-control determinacion-rango-edad valor' name=determinacion[{{$detalle->id}}]></td>
                            @break
                          @case ('rango_sexo')
-                           <td><input class='form-control determinacion-rango-sexo valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]></td>
+                           <td><input class='form-control determinacion-rango-sexo valor' name=determinacion[{{$detalle->id}}]></td>
                            @break
                          @default
                            <td>
-                             @if($detalle->determinacion->multiples_lineas)
-                               <textarea class='form-control valor' rows='5' name=determinacion[{{$detalle->determinacion->id}}]></textarea>
+                             @if($detalle->multiples_lineas)
+                               <textarea class='form-control valor' rows='5' name=determinacion[{{$detalle->id}}]></textarea>
                              @else
-                               <input class='form-control valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->determinacion->id}}]>
+                               <input class='form-control valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->id}}]>
                              @endif
                            </td>
                        @endswitch
                      @endif
                     <td>
-                       {{$detalle->determinacion->rango_referencia_format}}
-                       <input type='hidden' class='rango-referencia' value='{{$detalle->determinacion->rango_referencia}}'>
+                       {{$detalle->rango_referencia_format}}
+                       <input type='hidden' class='rango-referencia' value='{{$detalle->rango_referencia}}'>
                     </td>
                     <td class='center'>
-                      @if($detalle->determinacion->tipo_referencia != 'sin_referencia')
-                        <input type='checkbox' class='rango-check flat-blue' id='check-{{$detalle->determinacion->id}}' name=fuera_rango[{{$detalle->determinacion->id}}]>
+                      @if($detalle->tipo_referencia != 'sin_referencia')
+                        <input type='checkbox' class='rango-check flat-blue' id='check-{{$detalle->id}}' name=fuera_rango[{{$detalle->id}}]>
                       @endif
                     </td>
                     <td>
-                        <button subId="{{$detalle->determinacion->subseccion->id}}" type='button' class='btn btn-danger btn-flat delete-det'>
+                        <button subId="{{$detalle->subseccion->id}}" type='button' class='btn btn-danger btn-flat delete-det'>
                           <i class='fa fa-trash'></i>
                         </button>
                     </td>
                   </tr>
                   @php
-                    $subseccion_actual = $detalle->determinacion->subseccion->id;
+                    $subseccion_actual = $detalle->subseccion->id;
                   @endphp
                 @endforeach
               @endif
@@ -236,19 +236,19 @@
                 $ss_actual_id = -1;
               @endphp
               @foreach ($plantilla->detalles as $detalle)
-                @if($ss_actual_id != $detalle->determinacion->subseccion->id)
-                  <tr class="conf-{{$detalle->determinacion->subseccion->id}}">
+                @if($ss_actual_id != $detalle->subseccion->id)
+                  <tr class="conf-{{$detalle->subseccion->id}}">
                     <td style="text-align:center">
-                     {{$detalle->determinacion->subseccion->titulo}}
+                     {{$detalle->subseccion->titulo}}
                    </td>
                     <td class="center">
                       <div class="checkbox">
-                        <input type="checkbox" class="rango-check flat-blue" @if($detalle->mostrar_subtitulo) checked @endif name="mostrar[{{$detalle->determinacion->subseccion->id}}]">
+                        <input type="checkbox" class="rango-check flat-blue" @if($detalle->mostrar_subtitulo) checked @endif name="mostrar[{{$detalle->subseccion->id}}]">
                       </div>
                     </td>
                   </tr>
                   @php
-                    $ss_actual_id = $detalle->determinacion->subseccion->id;
+                    $ss_actual_id = $detalle->subseccion->id;
                   @endphp
                 @endif
               @endforeach
