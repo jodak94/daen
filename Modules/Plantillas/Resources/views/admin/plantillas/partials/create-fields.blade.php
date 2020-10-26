@@ -9,6 +9,9 @@
           <div class="col-md-3">
             {!! Form::normalInput('nombre', 'Nombre de Plantilla', $errors, null, ['required' => true]) !!}
           </div>
+          <div class='col-md-3'><span style='color:white'>*</span>
+            {!! Form:: normalCheckbox('last_name_first', 'Apellido primero al imprimir', $errors) !!}
+          </div>
         </div>
         <div class="row">
           <div class="col-md-4">

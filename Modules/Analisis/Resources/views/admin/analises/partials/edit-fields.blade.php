@@ -11,6 +11,9 @@
       </span>
     </div>
   </div>
+  <div class='col-md-2'><span style='color:white'>*</span>
+    {!! Form:: normalCheckbox('last_name_first', 'Apellido primero al imprimir', $errors, $analisis) !!}
+  </div>
   <div class="col-md-3">
     {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>$analisis->fecha_format],['class'=>'form-control fecha']) !!}
   </div>

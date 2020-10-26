@@ -126,8 +126,8 @@ class AnalisisController extends AdminBaseController
           $dets =  Determinacion::fromQuery($q);
           $plantilla = new \stdClass();
           $plantilla->detalles = $dets;
+          $plantilla->last_name_first = DB::select('SELECT last_name_first FROM plantillas__plantillas WHERE id = ' . $request->plantilla)[0]->last_name_first;
         }
-
         $dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Biernes', 'Sábado', 'Domingo'];
         return view('analisis::admin.analises.create', compact('plantilla', 'dias'));
     }
@@ -160,6 +160,7 @@ class AnalisisController extends AdminBaseController
         DB::beginTransaction();
         $analisis = new Analisis();
         $analisis->paciente_id = $request->paciente_id;
+        $analisis->last_name_first = $request->last_name_first;
         $analisis->created_by = Auth::user()->id;
         $analisis->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha);
         $analisis->save();
@@ -339,15 +340,15 @@ class AnalisisController extends AdminBaseController
         ]));
       if($action == 'print')
       $boxes = json_decode(json_encode([
-         'nombre_paciente' => ['x' => 2, 'y' => 1.2],
-         'edad_paciente' => ['x' => 2, 'y' => 1.6],
-         'cedula_paciente' => ['x' => 2, 'y' => 2],
-         'sexo_paciente' => ['x' => 2, 'y' => 2.4],
-         'fecha' => ['x' => 2, 'y' => 2.8],
+         'nombre_paciente' => ['x' => 2.1, 'y' => 1.2],
+         'edad_paciente' => ['x' => 2.1, 'y' => 1.6],
+         'cedula_paciente' => ['x' => 2.1, 'y' => 2],
+         'sexo_paciente' => ['x' => 2.1, 'y' => 2.4],
+         'fecha' => ['x' => 2.1, 'y' => 2.8],
          'cod' => ['x' => 7.5, 'y' => 2.8],
-         'titulo_resultado' => ['x' => 2, 'y' => 4.7],
-         'resultado' => ['x' => 8.4, 'y' => 4.7],
-         'fuera_rango' => ['x' => 11.2, 'y' => 4.7],
+         'titulo_resultado' => ['x' => 2.1, 'y' => 4.7],
+         'resultado' => ['x' => 9.1, 'y' => 4.7],
+         'fuera_rango' => ['x' => 11.8, 'y' => 4.7],
          'rango_referencia' => ['x' => 14.3, 'y' => 4.7],
        ]));
 
