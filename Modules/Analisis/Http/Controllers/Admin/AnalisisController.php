@@ -119,8 +119,9 @@ class AnalisisController extends AdminBaseController
     {
         $plantilla = null;
         if($request->has('plantilla') && $request->plantilla != ''){
-          $q = "SELECT d.* FROM analisis__seccions s
+          $q = "SELECT d.*, pd.mostrar_subtitulo FROM analisis__seccions s
           JOIN analisis__subseccions ss ON ss.seccion_id = s.id JOIN analisis__determinacions d ON d.subseccion_id = ss.id
+          JOIN plantillas__plantilladetalles pd on pd.determinacion_id = d.id
           WHERE d.id IN (SELECT determinacion_id FROM plantillas__plantilladetalles WHERE plantilla_id = " . $request->plantilla . ")
           ORDER BY s.orden, ss.orden, d.orden";
           $dets =  Determinacion::fromQuery($q);
