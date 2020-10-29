@@ -59,6 +59,7 @@ class PlantillaController extends AdminBaseController
       try{
         $plantilla = new Plantilla();
         $plantilla->nombre = $request->nombre;
+        $plantilla->last_name_first = $request->last_name_first;
         $plantilla->save();
         $orden = DB::select('
           select d.id from analisis__seccions s
@@ -114,6 +115,7 @@ class PlantillaController extends AdminBaseController
         try{
           $plantilla = new Plantilla();
           $plantilla->nombre = $request->nombre;
+          $plantilla->last_name_first = $request->last_name_first;
           $plantilla->created_at = $plantilla_to_remove->created_at;
           $plantilla->save();
           $orden = DB::select('

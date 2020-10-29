@@ -48,7 +48,7 @@
 
   {{-- -------------RESULTADOS-------------- --}}
   @php
-    $ajuste_x = (strlen($resultado->valor)/2)/10;
+    $ajuste_x = 0;
     if($resultado->fuera_rango)
       $x_resultado = $boxes->fuera_rango->x;
     else

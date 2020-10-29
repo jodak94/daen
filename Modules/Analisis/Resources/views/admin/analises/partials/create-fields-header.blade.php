@@ -11,6 +11,15 @@
       </span>
     </div>
   </div>
+  @if(isset($plantilla))
+    <div class='col-md-2'><span style='color:white'>*</span>
+      {!! Form:: normalCheckbox('last_name_first', 'Apellido primero al imprimir', $errors, $plantilla) !!}
+    </div>
+  @else
+    <div class='col-md-2'><span style='color:white'>*</span>
+      {!! Form:: normalCheckbox('last_name_first', 'Apellido primero al imprimir', $errors) !!}
+    </div>
+  @endif
   <div class="col-md-3">
     {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>Carbon\Carbon::now()->format('d/m/Y')],['class'=>'form-control fecha']) !!}
   </div>

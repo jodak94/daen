@@ -11,7 +11,7 @@ class Analisis extends Model
     protected $table = 'analisis__analises';
     public $translatedAttributes = [];
     protected $fillable = [];
-    protected $appends = ['paciente_nombre', 'creado_por', 'fecha_format'];
+    protected $appends = ['paciente_nombre', 'creado_por', 'fecha_format', 'paciente_nombre_print_format'];
 
     public function paciente(){
       return $this->belongsTo('Modules\Pacientes\Entities\Paciente');
@@ -36,5 +36,12 @@ class Analisis extends Model
     public function getFechaFormatAttribute(){
       $date = Carbon::parse($this->fecha);
       return $date->format('d/m/Y');
+    }
+
+    public function getPacienteNombrePrintFormatAttribute(){
+      if($this['last_name_first'])
+        return $this->paciente()->first()->apellido . ', ' . $this->paciente()->first()->nombre;
+
+      return $this->paciente()->first()->nombre . ' ' . $this->paciente()->first()->apellido;
     }
 }
