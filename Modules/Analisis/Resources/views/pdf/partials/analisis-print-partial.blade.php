@@ -39,6 +39,23 @@
         $y += $y_acu;
       @endphp --}}
     @endif
+    @php
+      $dc = $analisis->resultados()->whereHas('determinacion' , function($q) use ($resultado){
+        $q->where('subseccion_id', $resultado->determinacion->subseccion->id);
+      })->get()->count();
+
+      if($dc < 10 && ($dc * $y_acu) + $y >= $bottom_limit - 0.5 )
+        $bj = true;
+      else
+        $bj = false;
+    @endphp
+    @if($bj)
+      <div style="page-break-after: always;"></div>
+      @include('analisis::pdf.partials.paciente')
+      @php
+        $y = $boxes->titulo_resultado->y;
+      @endphp
+    @endif
     <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><u>{{$resultado->determinacion->subseccion->titulo}}</u></div>
     @php
       $y += $y_acu
