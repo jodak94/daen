@@ -148,7 +148,7 @@
     $seccion_actual = $resultado->determinacion->subseccion->seccion->id;
     $subseccion_actual = $resultado->determinacion->subseccion->id;
   @endphp
-  @if($y >= $bottom_limit - 0.5 && $rkey < count($analisis->resultados))
+  @if($y >= $bottom_limit - 0.5 && $rkey < count($analisis->resultados) - 1)
     <div style="page-break-after: always;"></div>
     @include('analisis::pdf.partials.paciente')
     @php
