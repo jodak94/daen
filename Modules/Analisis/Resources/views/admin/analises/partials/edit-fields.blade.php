@@ -192,20 +192,20 @@
                           </td>
                          @break;
                        @case ('rango')
-                         <td><input class='form-control determinacion-rango valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
+                         <td><input autocomplete='off' class='form-control determinacion-rango valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                          @break
                        @case ('rango_edad')
-                         <td><input class='form-control determinacion-rango-edad valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
+                         <td><input autocomplete='off' class='form-control determinacion-rango-edad valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                          @break
                        @case ('rango_sexo')
-                         <td><input class='form-control determinacion-rango-sexo valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
+                         <td><input autocomplete='off' class='form-control determinacion-rango-sexo valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                          @break
                        @default
                          <td>
                            @if($resultado->determinacion->multiples_lineas)
                              <textarea class='form-control valor' rows='5' name=determinacion[{{$resultado->determinacion->id}}]>{{trim($resultado->valor)}}</textarea>
                            @else
-                             <input class='form-control valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]>
+                             <input autocomplete='off' class='form-control valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]>
                            @endif
                          </td>
                     @endswitch

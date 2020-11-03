@@ -38,13 +38,22 @@
     $(".table").on('keydown', '.valor', function(event){
       if($(this).is("textarea"))
         return;
-      if(event.keyCode == 9 || event.keyCode == 13){
+      if(event.keyCode == 9 || event.keyCode == 13 || event.keyCode == 40){
         event.preventDefault();
         if(!$(this).closest("tr").is(":last-child")){
           let nextTr = $(this).closest('tr').next('tr');
           if(nextTr.hasClass('tr-titulo'))
             nextTr = nextTr.next('tr')
           nextTr.find('.valor').focus()
+        }
+      }
+      if(event.keyCode == 38){
+        event.preventDefault();
+        if(!$(this).closest("tr").is(":first-child")){
+          let prevTr = $(this).closest('tr').prev('tr');
+          if(prevTr.hasClass('tr-titulo') && !prevTr.is(":first-child"))
+            prevTr = prevTr.prev('tr')
+          prevTr.find('.valor').focus()
         }
       }
       if(event.keyCode == 13 && $(this).closest("tr").is(":last-child"))
@@ -257,22 +266,22 @@
                   +  "</td>"
             break;
           case 'rango':
-            html += "<td><input class='form-control determinacion-rango valor' name=determinacion["+det.id+"]></td>"
+            html += "<td><input autocomplete='off' class='form-control determinacion-rango valor' name=determinacion["+det.id+"]></td>"
             break;
           case 'rango_hasta':
-            html += "<td><input class='form-control determinacion-rango valor' hasta='true' name=determinacion["+det.id+"]></td>"
+            html += "<td><input autocomplete='off' class='form-control determinacion-rango valor' hasta='true' name=determinacion["+det.id+"]></td>"
             break;
           case 'rango_edad':
-            html += "<td><input class='form-control determinacion-rango-edad valor' name=determinacion["+det.id+"]></td>"
+            html += "<td><input autocomplete='off' class='form-control determinacion-rango-edad valor' name=determinacion["+det.id+"]></td>"
             break;
           case 'rango_sexo':
-            html += "<td><input class='form-control determinacion-rango-sexo valor' name=determinacion["+det.id+"]></td>"
+            html += "<td><input autocomplete='off' class='form-control determinacion-rango-sexo valor' name=determinacion["+det.id+"]></td>"
             break;
           default:
             if(det.multiples_lineas)
               html += "<td><textarea class='form-control valor' name=determinacion["+det.id+"] rows='5'></textarea></td>"
             else
-              html += "<td><input class='form-control valor' name=determinacion["+det.id+"]></td>"
+              html += "<td><input autocomplete='off' class='form-control valor' name=determinacion["+det.id+"]></td>"
         }
       }
       html
