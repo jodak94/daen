@@ -127,6 +127,7 @@
           echo ('<div class="'.$action.' texto-ref" style="position: absolute;left: '.$boxes->rango_referencia->x.'cm;top: '.$y.'cm">'.$linea.'</div>');
           $y += $y_acu;
         }
+        $y -= $y_acu;
       @endphp
     @endif
   @else

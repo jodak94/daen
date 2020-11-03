@@ -37,9 +37,9 @@
   {{-- -------------SUBSECCIONES------------- --}}
   @if($subseccion_actual != $resultado->determinacion->subseccion->id && $resultado->mostrar_subtitulo)
     @if($seccion_actual == $resultado->determinacion->subseccion->seccion->id)
-      @php
+      {{-- @php
         $y += $y_acu;
-      @endphp
+      @endphp --}}
     @endif
     <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><u>{{$resultado->determinacion->subseccion->titulo}}</u></div>
     @php
@@ -130,6 +130,7 @@
           echo ('<div class="'.$action.'" style="position: absolute;left: '.$boxes->rango_referencia->x.'cm;top: '.$y.'cm">'.$linea.'</div>');
           $y += $y_acu;
         }
+        $y -= $y_acu;
       @endphp
     @endif
   @else
@@ -151,10 +152,10 @@
     $seccion_actual = $resultado->determinacion->subseccion->seccion->id;
     $subseccion_actual = $resultado->determinacion->subseccion->id;
   @endphp
-  @if($y >= $bottom_limit - 0.5)
-    @include('analisis::pdf.partials.paciente')
+  @if($y >= $bottom_limit - 0.5 && $rkey < count($analisis->resultados) - 1)
     <div style="page-break-after: always;"></div>
     <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}"  width="100%"/>
+    @include('analisis::pdf.partials.paciente')
     @php
       $y = $boxes->titulo_resultado->y;
     @endphp
