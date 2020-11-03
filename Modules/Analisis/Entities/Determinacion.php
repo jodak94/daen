@@ -37,7 +37,7 @@ class Determinacion extends Model
     public function getRangoReferenciaFormatAttribute(){
       if(!isset($this['rango_referencia']))
       return '';
-      if($this['rango_referencia'][0] == '0' && $this['tipo_referencia'] == 'rango'){//0-10
+      if($this['rango_referencia'][0] == '0' && $this['rango_referencia'][1] == '-' && $this['tipo_referencia'] == 'rango'){//0-10
         $rango = explode('-', $this['rango_referencia']);
         $rango[0] = 'Inferior a';
         return 'Inferior a ' . $rango[1];
