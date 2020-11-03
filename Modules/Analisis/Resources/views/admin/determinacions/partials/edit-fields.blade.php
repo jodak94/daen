@@ -19,6 +19,9 @@
       <label>Texto Referencia</label>
       <textarea name="texto_ref" class='form-control valor' rows='5'>{{$determinacion->texto_ref}}</textarea>
     </div>
+    <div class="col-md-3">
+      {!! Form::normalInput('unidad_medida', 'Unidad de Medida', $errors, $determinacion) !!}
+    </div>
   </div>
   <div class="row">
     <div class="col-md-3">

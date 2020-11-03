@@ -136,13 +136,13 @@
     @if(strpos($resultado->determinacion->rango_referencia_format, '|'))
       @php
         $rangos = explode('|', $resultado->determinacion->rango_referencia_format);
-        echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.' cm;top:  '.$y.' cm">'.$rangos[0] . ' ' . $resultado->determinacion->unidad_medida.'</div>');
+        echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.' cm;top:  '.$y.' cm">'.$rangos[0] . ' ' . (isset($resultado->determinacion->rango_referencia) ? $resultado->determinacion->unidad_medida : '') . '</div>');
         $y += $y_acu;
-        echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.' cm;top:  '.$y.' cm">'.$rangos[1] . ' ' . $resultado->determinacion->unidad_medida.'</div>');
+        echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.' cm;top:  '.$y.' cm">'.$rangos[1] . ' ' . (isset($resultado->determinacion->rango_referencia) ? $resultado->determinacion->unidad_medida : '') .'</div>');
         $y += 0.1;
       @endphp
     @else
-      <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->rango_referencia_format . ' ' . $resultado->determinacion->unidad_medida}} </div>
+      <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->rango_referencia_format . ' ' . (isset($resultado->determinacion->rango_referencia) ? $resultado->determinacion->unidad_medida : '')}} </div>
     @endif
   @endif
   {{-- ------------!RESULTADOS-------------- --}}

@@ -19,6 +19,9 @@
       <label>Texto Referencia</label>
       <textarea name="texto_ref" class='form-control valor' rows='5'></textarea>
     </div>
+    <div class="col-md-3">
+      {!! Form::normalInput('unidad_medida', 'Unidad de Medida', $errors) !!}
+    </div>
   </div>
   <div class="row">
     <div class="col-md-3">
@@ -44,9 +47,6 @@
     </div>
     <div class="col-md-2">
       {!! Form::normalInput('rango_referencia_superior', 'Superior', $errors) !!}
-    </div>
-    <div class="col-md-2">
-      {!! Form::normalInput('unidad_medida', 'Unidad de Medida', $errors) !!}
     </div>
   </div>
 </div>

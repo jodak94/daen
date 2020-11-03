@@ -51,13 +51,6 @@
            +'    <input placeholder="Rango de referencia" name="rango_referencia_superior" type="text"  class="form-control" value="'+values[1]+'">'
            +'  </div>'
            +'</div>'
-          html
-           +='<div class="col-md-2">'
-            +'  <div class="form-group ">'
-            +'    <label for="unidad_medida">Unidad de Medida</label>'
-            +'    <input placeholder="Unidad de Medida" name="unidad_medida" type="text" id="unidad_medida" class="form-control" value="'+unidad_medida+'">'
-            +'  </div>'
-            +'</div>'
             $("#rango-titulo-container").show();
           break;
         case 'rango_sexo':
@@ -89,13 +82,6 @@
             +'    <input placeholder="Rango de referencia" name="rango_referencia_masculino_superior" type="text"  class="form-control" value="'+values[3]+'">'
             +'  </div>'
             +'</div>'
-          html
-            +='<div class="col-md-2">'
-            +'  <div class="form-group ">'
-            +'    <label for="unidad_medida">Unidad de Medida</label>'
-            +'    <input placeholder="Unidad de Medida" name="unidad_medida" type="text" id="unidad_medida" class="form-control" value="'+unidad_medida+'">'
-            +'  </div>'
-            +'</div>'
             $("#rango-titulo-container").show();
             break;
         case 'rango_edad':
@@ -125,13 +111,6 @@
             +'  <div class="form-group ">'
             +'    <label for="rango_referencia">Niños - Superior</label>'
             +'    <input placeholder="Rango de referencia" name="rango_referencia_ninhos_superior" type="text"  class="form-control" value="'+values[3]+'">'
-            +'  </div>'
-            +'</div>'
-          html
-            +='<div class="col-md-2">'
-            +'  <div class="form-group ">'
-            +'    <label for="unidad_medida">Unidad de Medida</label>'
-            +'    <input placeholder="Unidad de Medida" name="unidad_medida" type="text" id="unidad_medida" class="form-control" value="'+unidad_medida+'">'
             +'  </div>'
             +'</div>'
             $("#rango-titulo-container").show();
