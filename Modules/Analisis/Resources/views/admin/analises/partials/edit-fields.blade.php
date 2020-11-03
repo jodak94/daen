@@ -167,7 +167,7 @@
                         }
                        @endphp' name=determinacion[{{$resultado->determinacion->id}}]">
                          @foreach ($options as $option)
-                           <option @if($resultado->valor == $option) selected @endif value='{{$option}}'>{{$option}}</option>
+                           <option @if(trim($resultado->valor) == trim($option)) selected @endif value='{{$option}}'>{{$option}}</option>
                          @endforeach
                        </select>
                      </td>
