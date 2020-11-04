@@ -124,6 +124,26 @@
                 +'</div>'
                 $("#rango-titulo-container").show();
               break;
+            case 'no_aglutina_dil_1:20':
+              html
+                ='<div class="col-md-2">'
+                +'  <div class="form-group ">'
+                +'    <label for="rango_referencia">No aglutina dil 1:20</label>'
+                +'    <input placeholder="Rango de referencia" name="rango_referencia" type="text" value="No aglutina dil 1:20" class="form-control" readonly>'
+                +'  </div>'
+                +'</div>'
+                $("#rango-titulo-container").show();
+              break;
+            case 'negativo_dil_1:20':
+              html
+                ='<div class="col-md-2">'
+                +'  <div class="form-group ">'
+                +'    <label for="rango_referencia">Negativo dil 1:20</label>'
+                +'    <input placeholder="Rango de referencia" name="rango_referencia" type="text" value="Negativo dil 1:20" class="form-control" readonly>'
+                +'  </div>'
+                +'</div>'
+                $("#rango-titulo-container").show();
+              break;
             case 'sin_referencia':
               $("#rango-titulo-container").hide();
               break;

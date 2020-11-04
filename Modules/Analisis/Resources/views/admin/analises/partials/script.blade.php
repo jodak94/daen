@@ -131,7 +131,7 @@
     })
 
     $(".table").on('change', '.determinacion-select', function(event){
-      let val = $(this).val().replace(' ', '_').toLowerCase();
+      let val = $(this).val().replaceAll(' ', '_').toLowerCase();
       let ref = $(this).parent().parent().find('.rango-referencia').val();
       let dom = $(this).parent().parent().find('.rango-check')[0];
       if(val == ''){
@@ -315,6 +315,10 @@
       case 'booleano':
         return 'determinacion-select';
       case 'reactiva':
+        return 'determinacion-select';
+      case 'no_aglutina_dil_1:20':
+        return 'determinacion-select';
+      case 'negativo_dil_1:20':
         return 'determinacion-select';
       case 'rango':
         return 'determinacion-rango';

@@ -20,6 +20,8 @@ class Determinacion extends Model
       'rango_sexo' => 'Rango considerando sexo',
       'booleano' => 'Positivo / Negativo',
       'reactiva' => 'Reactivo / No Reactivo',
+      'no_aglutina_dil_1:20' => 'No aglutina dil 1:20',
+      'negativo_dil_1:20' => 'Negativo dil 1:20',
       'sin_referencia' => '--'
     ];
 
@@ -48,7 +50,7 @@ class Determinacion extends Model
         return 'Superior a ' . $rango[0];
       }
 
-      if($this['tipo_referencia'] == 'reactiva' || $this['tipo_referencia'] == 'booleano'){//Reactiva  No reactiva
+      if($this['tipo_referencia'] == 'reactiva' || $this['tipo_referencia'] == 'booleano' || $this['tipo_referencia'] == 'no_aglutina_dil_1:20' || $this['tipo_referencia'] == 'negativo_dil_1:20'){//Reactiva  No reactiva
         return ucfirst(str_replace('_', ' ', $this['rango_referencia']));
       }
 
@@ -105,6 +107,7 @@ class Determinacion extends Model
 
         return $rango;
       }
+
       return $this['rango_referencia'];
     }
 
