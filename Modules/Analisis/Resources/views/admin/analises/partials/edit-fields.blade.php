@@ -171,6 +171,41 @@
                          @endforeach
                        </select>
                      </td>
+                   @elseif($resultado->determinacion->trato_especial && $resultado->determinacion->tipo_trato=='multi_select')
+                     @php
+                       $options = explode('|', $resultado->determinacion->texto_h);
+                     @endphp
+                     <td>
+                       <select class='form-control valor multi-select @php
+                       switch ($resultado->determinacion->tipo_referencia) {
+                         case 'booleano':
+                           echo 'determinacion-select';
+                           break;
+                         case 'reactiva':
+                           echo 'determinacion-select';
+                           break;
+                         case 'rango':
+                           echo 'determinacion-rango';
+                           break;
+                         case 'rango_hasta':
+                           echo 'determinacion-rango';
+                           break;
+                         case 'rango_edad':
+                           echo 'determinacion-rango-edad';
+                           break;
+                         case 'rango_sexo':
+                           echo 'determinacion-rango-sexo';
+                           break;
+                         default:
+                          echo 's';
+                        }
+                       @endphp'  detid='{{$resultado->determinacion->id}}' multiple='multiple'>
+                         @foreach ($options as $option)
+                           <option @if($option != '' and strpos(trim($resultado->valor), trim($option)) !== false) selected @endif value='{{$option}}'>{{$option}}</option>
+                         @endforeach
+                       </select>
+                       <input type='hidden' value="{{$resultado->valor}}" id='multi-{{$resultado->determinacion->id}}' name=determinacion[{{$resultado->determinacion->id}}]>
+                     </td>
                    @else
                      @switch ($resultado->determinacion->tipo_referencia)
                        @case ("booleano")

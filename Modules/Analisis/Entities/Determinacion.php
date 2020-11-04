@@ -30,6 +30,7 @@ class Determinacion extends Model
       null => '--',
       'antibiograma' => 'Antibiograma',
       'select' => 'Selección',
+      'multi_select' => 'Multi Selección',
       'bhcg' => 'Bhcg'
     ];
 

@@ -1,5 +1,6 @@
 <script>
   $(document).ready(function(){
+    $('.multi-select').select2();
     $("#buscar-subseccion").autocomplete({
       source: '{{route('admin.analisis.subseccion.search_ajax')}}',
       select: function( event, ui){
@@ -247,6 +248,17 @@
              }
         html += " </select>"
              +  "</td>"
+      }else if(det.trato_especial && det.tipo_trato=='multi_select'){
+       let options = det.texto_h.split("|");
+         html += "<td>"
+              +  " <select class='form-control valor multi-select "+ getRefClass(det.tipo_referencia) +"' detid='"+det.id+"' multiple='multiple'>";
+              for(var i = 0; i < options.length; i++){
+                html += "<option value='"+options[i]+"'>"+options[i]+"</option>";
+              }
+         html += " </select>"
+              +  "<input type='hidden' name=determinacion["+det.id+"] id='multi-"+det.id+"'>"
+              +  "</td>";
+
       }else{
         switch (det.tipo_referencia) {
           case 'booleano':
@@ -304,7 +316,7 @@
           +"  </td>"
           +"</tr>"
       $("#analisisBody").append(html)
-
+      $('.multi-select').select2();
       $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({
           checkboxClass: 'icheckbox_flat-blue',
           radioClass: 'iradio_flat-blue'
@@ -367,4 +379,14 @@
         +"</tr>"
     return html;
   }
+
+  $(".table").on('change', '.multi-select', function(event){
+    console.log("CHANGE")
+    let val = '';
+    let sep = '';
+    $.each($(this).select2('data'), function(i, value){
+      val += (i?'\n':'') + value.text
+    })
+    $("#multi-"+$(this).attr('detid')).val(val);
+  });
 </script>

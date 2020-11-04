@@ -71,7 +71,7 @@
     else
       $x_resultado = $boxes->resultado->x;
 
-    if($resultado->determinacion->multiples_lineas)
+    if($resultado->determinacion->multiples_lineas && $resultado->determinacion->tipo_trato != 'multi_select')
       $x_ajustada = $boxes->titulo_resultado->x + 1;
     else
       $x_ajustada = $x_resultado - $ajuste_x;
@@ -116,7 +116,9 @@
       @endif
       <div class="{{$action}}" style="position: absolute;left: {{$boxes->titulo_resultado->x}} cm;top: {{$y}}cm">{{$resultado->determinacion->titulo}}</div>
       <div class="{{$action}}" style="position: absolute;left: {{$x_ajustada}} cm;top: {{$y}} cm">
-      <br>
+      @if($resultado->determinacion->tipo_trato != 'multi_select')
+        <br>
+      @endif
       @foreach ($valores as $value)
         {{$value}} <br>
         @php
@@ -124,7 +126,11 @@
         @endphp
       @endforeach
       @php
-        $y += $y_acu
+        if($resultado->determinacion->tipo_trato != 'multi_select')
+          $y -= $y_acu;
+        else {
+          $y += $y_acu:
+        }
       @endphp
     </div>
     @else

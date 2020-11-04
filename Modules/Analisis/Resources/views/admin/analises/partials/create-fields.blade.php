@@ -57,10 +57,10 @@
         @if(!isset($plantilla))
           <div class="row">
             <div class="col-md-4">
-                {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null, ['disabled' => true]) !!}
+                {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null, ['disabled' => false]) !!}
             </div>
             <div class="col-md-4 col-md-offset-1">
-                {!! Form::normalInput('buscar-seccion', 'Agregar Grupo', $errors, null, ['disabled' => true]) !!}
+                {!! Form::normalInput('buscar-seccion', 'Agregar Grupo', $errors, null, ['disabled' => false]) !!}
             </div>
           </div>
         @endif
@@ -151,6 +151,41 @@
                                 <option value='{{$option}}'>{{$option}}</option>
                               @endforeach
                             </select>
+                          </td>
+                        @elseif($detalle->trato_especial && $detalle->tipo_trato=='multi_select')
+                          @php
+                            $options = explode('|', $detalle->texto_h);
+                          @endphp
+                          <td>
+                            <select class='form-control valor multi-select @php
+                            switch ($detalle->tipo_referencia) {
+                              case 'booleano':
+                                echo 'determinacion-select';
+                                break;
+                              case 'reactiva':
+                                echo 'determinacion-select';
+                                break;
+                              case 'rango':
+                                echo 'determinacion-rango';
+                                break;
+                              case 'rango_hasta':
+                                echo 'determinacion-rango';
+                                break;
+                              case 'rango_edad':
+                                echo 'determinacion-rango-edad';
+                                break;
+                              case 'rango_sexo':
+                                echo 'determinacion-rango-sexo';
+                                break;
+                              default:
+                               echo 's';
+                             }
+                            @endphp'  detid='{{$detalle->id}}' multiple='multiple'>
+                              @foreach ($options as $option)
+                                <option value='{{$option}}'>{{$option}}</option>
+                              @endforeach
+                            </select>
+                            <input type='hidden' id='multi-{{$detalle->id}}' name=determinacion[{{$detalle->id}}]>
                           </td>
                         @else
                        @switch ($detalle->tipo_referencia)

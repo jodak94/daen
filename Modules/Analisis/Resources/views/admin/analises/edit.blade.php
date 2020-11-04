@@ -12,6 +12,7 @@
   {!! Theme::style('vendor/pickadate/css/classic.css') !!}
   {!! Theme::style('vendor/pickadate/css/classic.date.css') !!}
   {!! Theme::style('vendor/pickadate/css/classic.time.css') !!}
+  {!! Theme::style('vendor/select2/dist/css/select2.min.css') !!}
   <style>
     .input-error{
       background-color: #d73925;
@@ -34,6 +35,10 @@
     }
     .picker__select--month{
       padding: 1px;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice{
+      background-color: #3c8dbc;
+      border: 1px solid #3c8dbc;
     }
   </style>
 @endpush
@@ -84,6 +89,7 @@
     {!! Theme::script('vendor/pickadate/js/picker.js') !!}
     {!! Theme::script('vendor/pickadate/js/picker.date.js') !!}
     {!! Theme::script('vendor/pickadate/js/picker.time.js') !!}
+    {!! Theme::script('vendor/select2/dist/js/select2.min.js') !!}
     <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
     @include('analisis::admin.analises.partials.script-paciente')
     @include('analisis::admin.analises.partials.script')
