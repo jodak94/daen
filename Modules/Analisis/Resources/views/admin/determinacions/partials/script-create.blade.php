@@ -144,6 +144,16 @@
                 +'</div>'
                 $("#rango-titulo-container").show();
               break;
+            case 'clase_o':
+              html
+                ='<div class="col-md-2">'
+                +'  <div class="form-group ">'
+                +'    <label for="rango_referencia">Clase "O"</label>'
+                +'    <input placeholder="Rango de referencia" name="rango_referencia" type="text" value=\'Clase "O"\' class="form-control" readonly>'
+                +'  </div>'
+                +'</div>'
+                $("#rango-titulo-container").show();
+              break;
             case 'sin_referencia':
               $("#rango-titulo-container").hide();
               break;

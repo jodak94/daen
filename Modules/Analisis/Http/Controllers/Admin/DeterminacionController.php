@@ -169,6 +169,8 @@ class DeterminacionController extends AdminBaseController
           case 'sin_referencia':
             $request['rango_referencia'] = null;
             break;
+          case 'clase_o':
+            $request['rango_referencia'] = 'clase_o';
           default:
             $request['rango_referencia'] = strtolower(str_replace(' ', '_', $request->rango_referencia));
             break;

@@ -132,6 +132,8 @@
 
     $(".table").on('change', '.determinacion-select', function(event){
       let val = $(this).val().replaceAll(' ', '_').toLowerCase();
+      if(val == 'clase_"o"')
+        val = 'clase_o';
       let ref = $(this).parent().parent().find('.rango-referencia').val();
       let dom = $(this).parent().parent().find('.rango-check')[0];
       if(val == ''){
@@ -319,6 +321,8 @@
       case 'no_aglutina_dil_1:20':
         return 'determinacion-select';
       case 'negativo_dil_1:20':
+        return 'determinacion-select';
+      case 'clase_o':
         return 'determinacion-select';
       case 'rango':
         return 'determinacion-rango';
