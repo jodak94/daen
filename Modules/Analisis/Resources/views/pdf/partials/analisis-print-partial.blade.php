@@ -129,7 +129,7 @@
         if($resultado->determinacion->tipo_trato != 'multi_select')
           $y -= $y_acu;
         else {
-          $y += $y_acu:
+          $y += $y_acu;
         }
       @endphp
     </div>

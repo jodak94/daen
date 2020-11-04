@@ -57,10 +57,13 @@
         @if(!isset($plantilla))
           <div class="row">
             <div class="col-md-4">
-                {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null, ['disabled' => false]) !!}
+              {!! Form::normalInput('buscar-seccion', 'Agregar Grupo', $errors, null, ['disabled' => true]) !!}
             </div>
-            <div class="col-md-4 col-md-offset-1">
-                {!! Form::normalInput('buscar-seccion', 'Agregar Grupo', $errors, null, ['disabled' => false]) !!}
+            <div class="col-md-4">
+              {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null, ['disabled' => true]) !!}
+            </div>
+            <div class="col-md-4">
+              {!! Form::normalInput('buscar-determinacion', 'Agregar Determinación', $errors, null, ['disabled' => true]) !!}
             </div>
           </div>
         @endif

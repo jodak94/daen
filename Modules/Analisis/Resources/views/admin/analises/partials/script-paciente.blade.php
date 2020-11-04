@@ -57,8 +57,9 @@
             paciente = data.paciente
             $("#addPaciente").modal('hide');
             $("#paciente_id").val(data.paciente.id)
-            $("#buscar-subseccion").prop("disabled", false)
             $("#buscar-seccion").prop("disabled", false)
+            $("#buscar-subseccion").prop("disabled", false)
+            $("#buscar-determinacion").prop("disabled", false)
             mostrar_paciente(paciente)
           }
           $("#spin").hide();
@@ -80,8 +81,9 @@
       select: function( event, ui){
         paciente = ui.item.paciente
         $("#paciente_id").val(ui.item.id)
-        $("#buscar-subseccion").prop("disabled", false)
         $("#buscar-seccion").prop("disabled", false)
+        $("#buscar-subseccion").prop("disabled", false)
+        $("#buscar-determinacion").prop("disabled", false)
         mostrar_paciente(paciente)
       }
     })

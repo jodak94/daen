@@ -209,11 +209,21 @@ class DeterminacionController extends AdminBaseController
 
     public function ordenar(Request $request){
       $c = 0;
-      Log::info($request->determinaciones);
       foreach ($request->determinaciones as $id) {
         DB::table('analisis__determinacions')->where('id', $id)->update(['orden' => $c]);
         $c++;
       }
       return response()->json(['error' => false, 'message' => 'Orden establecido correctamente']);
+    }
+
+    public function search_ajax(Request $request){
+      $det = Determinacion::select('analisis__determinacions.*', DB::raw("CONCAT(analisis__determinacions.titulo, ' - ', ss.titulo) as value"))
+        ->join('analisis__subseccions as ss', 'analisis__determinacions.subseccion_id', '=', 'ss.id')
+        ->with(['subseccion' => function($q){
+          $q->select('id', 'titulo', 'mostrar');
+        }])
+        ->where('analisis__determinacions.titulo', 'like', '%'.$request->term.'%')->take(8)->get()->toArray();
+
+      return response()->json($det);
     }
 }

@@ -78,7 +78,13 @@
       <div class="box-body">
         <div class="row">
           <div class="col-md-4">
-            {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null) !!}
+            {!! Form::normalInput('buscar-seccion', 'Agregar Grupo', $errors, null, ['disabled' => false]) !!}
+          </div>
+          <div class="col-md-4">
+            {!! Form::normalInput('buscar-subseccion', 'Agregar Título', $errors, null, ['disabled' => false]) !!}
+          </div>
+          <div class="col-md-4">
+              {!! Form::normalInput('buscar-determinacion', 'Agregar Determinación', $errors, null, ['disabled' => false]) !!}
           </div>
         </div>
       </div>
@@ -100,7 +106,7 @@
             <tbody id="analisisBody">
               @foreach ($analisis->resultados as $resultado)
                 @if($subseccion_actual != $resultado->determinacion->subseccion->id)
-                  <tr class='tr-titulo'>
+                  <tr class='tr-titulo tr-subid-{{$resultado->determinacion->subseccion->id}}' id="tr-subid-{{$resultado->determinacion->subseccion->id}}">
                     <td colspan='4' style='text-align:center'>
                       <u>{{$resultado->determinacion->subseccion->titulo}}</u>
                     </td>

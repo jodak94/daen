@@ -187,6 +187,10 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'uses' => 'DeterminacionController@ordenar',
         'middleware' => 'can:analisis.determinacions.ordenar'
     ]);
+    $router->get('determinacions/search_ajax', [
+        'as' => 'admin.analisis.determinacion.search_ajax',
+        'uses' => 'DeterminacionController@search_ajax',
+    ]);
     $router->bind('resultado', function ($id) {
         return app('Modules\Analisis\Repositories\ResultadoRepository')->find($id);
     });
