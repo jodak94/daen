@@ -29,7 +29,7 @@
         $("#analisisTable").show()
         if(!$('#tr-subid-' + ui.item.subseccion_id).length){
           var html = trTitulo(ui.item.subseccion.titulo, ui.item.subseccion_id);
-          var confHtml = trConfiguracion(ui.item.subseccion.titulo, ui.item.subseccion.titulo, ui.item.subseccion.mostrar)
+          var confHtml = trConfiguracion(ui.item.subseccion.titulo, ui.item.subseccion.id, ui.item.subseccion.mostrar)
           $("#configuracionBody").append(confHtml)
           $("#analisisBody").append(html)
         }
