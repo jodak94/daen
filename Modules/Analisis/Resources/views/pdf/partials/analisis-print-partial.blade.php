@@ -21,9 +21,9 @@
       @endphp
     @endif
     @if($y != $boxes->titulo_resultado->y)
-      @php
+      {{-- @php
       $y += $y_acu + $ajuste_y;
-      @endphp
+      @endphp --}}
     @endif
     <div class="{{$action}} tituloS" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><b>{{$resultado->determinacion->subseccion->seccion->titulo}}</b></div>
     @php
