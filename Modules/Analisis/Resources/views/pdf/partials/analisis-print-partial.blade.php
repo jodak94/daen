@@ -3,7 +3,7 @@
   $y = $boxes->titulo_resultado->y;
   $seccion_actual = -1;
   $subseccion_actual = -1;
-  $bottom_limit = 25;
+  $bottom_limit = 25.5;
 @endphp
 @foreach ($analisis->resultados as $rkey => $resultado){{--Por cada resultado--}}
   {{-- --------------SECCIONES-------------- --}}
