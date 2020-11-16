@@ -6,6 +6,7 @@ use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Log;
 use DB;
+use Carbon\Carbon;
 class Determinacion extends Model
 {
 
@@ -115,6 +116,28 @@ class Determinacion extends Model
       }
 
       return $this['rango_referencia'];
+    }
+
+    public function getRangoReferenciaFormatAttributeSexoEdad($paciente){
+      if($this['tipo_referencia'] == 'rango_sexo'){
+        if($paciente->sexo == 'femenino'){
+          $rango = substr($this['rango_referencia_format'], 0, strpos($this['rango_referencia_format'], '|'));
+          return $rango;
+        }else{
+          $rango = substr($this['rango_referencia_format'], strpos($this['rango_referencia_format'], '|') + 1, strlen($this['rango_referencia_format']));
+          return $rango;
+        }
+      }
+      if($this['tipo_referencia'] == 'rango_edad'){
+        $age = Carbon::parse($paciente->fecha_nacimiento)->age;
+        if($age < 15){
+          $rango = substr($this['rango_referencia_format'], 0, strpos($this['rango_referencia_format'], '|'));
+          return $rango;
+        }else{
+          $rango = substr($this['rango_referencia_format'], strpos($this['rango_referencia_format'], '|') + 1, strlen($this['rango_referencia_format']));
+          return $rango;
+        }
+      }
     }
 
     public function getHelperAttribute(){

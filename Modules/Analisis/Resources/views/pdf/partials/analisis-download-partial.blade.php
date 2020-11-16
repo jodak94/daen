@@ -157,7 +157,9 @@
       @endphp
     @endif
   @else
-    @if(strpos($resultado->determinacion->rango_referencia_format, '|'))
+    @if($resultado->determinacion->tipo_referencia == 'rango_sexo' || $resultado->determinacion->tipo_referencia == 'rango_edad')
+      <div class="{{$action}}" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->getRangoReferenciaFormatAttributeSexoEdad($analisis->paciente) . ' ' . (isset($resultado->determinacion->rango_referencia) ? $resultado->determinacion->unidad_medida : '')}}</div
+    @elseif(strpos($resultado->determinacion->rango_referencia_format, '|'))
       @php
         $rangos = explode('|', $resultado->determinacion->rango_referencia_format);
         echo ('<div class="'.$action.'" style="position: absolute;left:  '.$boxes->rango_referencia->x.' cm;top:  '.$y.' cm">'.$rangos[0] . ' ' . (isset($resultado->determinacion->rango_referencia) ? $resultado->determinacion->unidad_medida : '') . '</div>');
