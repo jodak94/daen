@@ -314,9 +314,12 @@
           html += "<td><input autocomplete='off' class='form-control determinacion-rango-sexo valor' name=determinacion["+det.id+"]></td>"
           break;
         default:
-          if(det.multiples_lineas)
-            html += "<td><textarea class='form-control valor' name=determinacion["+det.id+"] rows='5'></textarea></td>"
-          else
+          if(det.multiples_lineas){
+            html += "<td><textarea class='form-control valor' name=determinacion["+det.id+"] rows='5'>"
+            if(det.texto_por_defecto != null)
+              html += det.texto_por_defecto
+            html += "</textarea></td>";
+          }else
             html += "<td><input autocomplete='off' class='form-control valor' name=determinacion["+det.id+"]></td>"
       }
     }

@@ -120,8 +120,8 @@
         <br>
       @endif
       @foreach ($valores as $value)
-        {{$value}} <br>
         @php
+          echo($value . " <br>");
           $y += $y_acu
         @endphp
       @endforeach
