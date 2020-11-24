@@ -129,11 +129,11 @@
         @endphp
       @endforeach
       @php
-        if($resultado->determinacion->tipo_trato != 'multi_select')
-          $y -= $y_acu;
-        else {
-          $y += $y_acu;
-        }
+      if($resultado->determinacion->tipo_trato == 'multi_select')
+        $y -= $y_acu;
+      // else {
+        // $y += $y_acu;
+      // }
       @endphp
     </div>
     @else
