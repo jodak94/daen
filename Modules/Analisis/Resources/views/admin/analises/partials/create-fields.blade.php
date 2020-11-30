@@ -222,7 +222,7 @@
                          @default
                            <td>
                              @if($detalle->multiples_lineas)
-                               <textarea class='form-control valor' rows='5' name=determinacion[{{$detalle->id}}]></textarea>
+                               <textarea class='form-control valor' rows='5' name=determinacion[{{$detalle->id}}]>@if($detalle->texto_por_defecto != null){{$detalle->texto_por_defecto}} @endif</textarea>
                              @else
                                <input class='form-control valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->id}}]>
                              @endif
