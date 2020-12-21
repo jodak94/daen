@@ -1,4 +1,4 @@
-<img src="{{ public_path($analisis->resultados[0]->determinacion->subseccion->seccion->background)}}"  width="100%"/>
+<img src="{{ public_path($analisis->resultados[0]->determinacion->subseccion->seccion->background)}}" class='img-bg' width="100%"/>
 @include('analisis::pdf.partials.paciente')
 @php
   $y = $boxes->titulo_resultado->y;

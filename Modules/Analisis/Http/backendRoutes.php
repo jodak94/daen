@@ -51,6 +51,14 @@ $router->group(['prefix' =>'/analisis'], function (Router $router) {
         'uses' => 'AnalisisController@destroy',
         'middleware' => 'can:analisis.analises.destroy'
     ]);
+    $router->get('analises/generar-informe', [
+        'as' => 'admin.analisis.analisis.generate_informe',
+        'uses' => 'AnalisisController@generate_informe'
+    ]);
+    $router->post('analises/generar-informe', [
+        'as' => 'admin.analisis.analisis.post_generate_informe',
+        'uses' => 'AnalisisController@post_generate_informe'
+    ]);
     $router->bind('seccion', function ($id) {
         return app('Modules\Analisis\Repositories\SeccionRepository')->find($id);
     });

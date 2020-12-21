@@ -435,4 +435,20 @@ class AnalisisController extends AdminBaseController
       $edit = true;
       return view('analisis::admin.analises.edit', compact('analisis', 'edit'));
     }
+
+    public function generate_informe(){
+      return view('analisis::admin.analises.generar_informe');
+    }
+
+    public function post_generate_informe(Request $request){
+      $analisis = Analisis::find($request->analisis_id);
+      $action = 'download';
+      $boxes = $this->obtener_boxes($action);
+      $fotos = $request->fotos;
+      // dd($fotos);
+      $pdf = PDF::loadView('analisis::pdf.informe',compact('analisis','boxes','action', 'fotos'));
+      $pdf->setPaper('A4', 'portrait');
+      return $pdf->download($analisis->paciente->cedula.'.pdf');
+
+    }
 }
