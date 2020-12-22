@@ -1,3 +1,4 @@
+
 @include('analisis::pdf.partials.paciente')
 @php
   $y = $boxes->titulo_resultado->y;
@@ -10,6 +11,7 @@
   @if($seccion_actual != $resultado->determinacion->subseccion->seccion->id){{--Si es nueva seccion--}}
     @if($resultado->determinacion->subseccion->seccion->salto_pagina && $rkey != 0){{--Si la seccion va en una pagina aparte--}}
       <div style="page-break-after: always;"></div>
+
       @php
         $y = $boxes->titulo_resultado->y;
         $ajuste_y = 0.4; //Posible bug
@@ -109,6 +111,7 @@
       @endphp
       @if($y + (count($valores) + 1 ) * $y_acu >= $bottom_limit - 0.5)
         <div style="page-break-after: always;"></div>
+
         @php
           $y = $boxes->titulo_resultado->y;
         @endphp
@@ -176,6 +179,7 @@
   @endphp
   @if($y >= $bottom_limit - 0.5 && $rkey < count($analisis->resultados) - 1)
     <div style="page-break-after: always;"></div>
+    
     @include('analisis::pdf.partials.paciente')
     @php
       $y = $boxes->titulo_resultado->y;

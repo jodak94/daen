@@ -34,14 +34,17 @@
             d.fecha_desde = $("#fecha_desde").val();
             d.fecha_hasta = $("#fecha_hasta").val();
             d.cont_diario = $("#cont").val();
+            d.empresa = $("#empresa").val();
         },
         headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
       },
       columns:[
+        { data: 'id', name: 'id' },
         { data: 'paciente_nombre', name: 'paciente_nombre' },
         { data: 'fecha_format', name: 'fecha_format' },
         { data: 'creado_por', name: 'creado_por' },
         { data: 'cont_diario', name: 'cont_diario' },
+        { data: 'empresa', name: 'empresa' },
         { data: 'acciones', name: 'acciones' },
       ],
       columnDefs: [
@@ -67,6 +70,9 @@
     });
     //filtros
     $("#paciente").keyup(function(){
+        table.ajax.reload();
+    });
+    $("#empresa").keyup(function(){
         table.ajax.reload();
     });
     $(".fecha_filter").change(function(){

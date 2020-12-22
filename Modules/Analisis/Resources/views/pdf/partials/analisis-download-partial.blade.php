@@ -4,17 +4,17 @@
   $y = $boxes->titulo_resultado->y;
   $seccion_actual = -1;
   $subseccion_actual = -1;
-  $bottom_limit = 25;
+  $bottom_limit = 25.5;
 @endphp
 @foreach ($analisis->resultados as $rkey => $resultado){{--Por cada resultado--}}
   {{-- --------------SECCIONES-------------- --}}
   @if($seccion_actual != $resultado->determinacion->subseccion->seccion->id){{--Si es nueva seccion--}}
     @if($resultado->determinacion->subseccion->seccion->salto_pagina && $rkey != 0){{--Si la seccion va en una pagina aparte--}}
       <div style="page-break-after: always;"></div>
-      <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}"  width="100%"/>
+      <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}"  width="100%" class='img-bg'/>
       @php
         $y = $boxes->titulo_resultado->y;
-        //$ajuste_y = 0.4; //Posible bug
+        $ajuste_y = 0.4; //Posible bug
       @endphp
       @include('analisis::pdf.partials.paciente')
     @else
@@ -23,13 +23,13 @@
       @endphp
     @endif
     @if($y != $boxes->titulo_resultado->y)
-      @php
+      {{-- @php
       $y += $y_acu + $ajuste_y;
-      @endphp
+      @endphp --}}
     @endif
     <div class="{{$action}} tituloS" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><b>{{$resultado->determinacion->subseccion->seccion->titulo}} </b></div>
     @php
-    $y += $y_acu;
+      $y += $y_acu;
     @endphp
   @endif
   {{-- -------------!SECCIONES-------------- --}}
@@ -60,7 +60,7 @@
     @endif
     <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm"><u>{{$resultado->determinacion->subseccion->titulo}}</u></div>
     @php
-      $y += $y_acu + 0.1;
+      $y += $y_acu;
     @endphp
   @endif
   {{-- -------------!SUBSECCIONES------------- --}}
@@ -78,7 +78,7 @@
     else
       $x_ajustada = $x_resultado - $ajuste_x;
   @endphp
-  @if($resultado->determinacion->tipo_trato ==  'antibiograma')
+  @if($resultado->determinacion->tipo_trato == 'antibiograma')
     <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x}}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
     @php
       $y += $y_acu
@@ -111,7 +111,7 @@
       @endphp
       @if($y + (count($valores) + 1 ) * $y_acu >= $bottom_limit - 0.5)
         <div style="page-break-after: always;"></div>
-        <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}"  width="100%"/>
+        <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}"  width="100%" class='img-bg'/>
         @php
           $y = $boxes->titulo_resultado->y;
         @endphp
@@ -119,9 +119,9 @@
       @endif
       <div class="{{$action}}" style="position: absolute;left: {{$boxes->titulo_resultado->x}} cm;top: {{$y}}cm">{{$resultado->determinacion->titulo}}</div>
       <div class="{{$action}}" style="position: absolute;left: {{$x_ajustada}} cm;top: {{$y}} cm">
-        @if($resultado->determinacion->tipo_trato != 'multi_select')
-          <br>
-        @endif
+      @if($resultado->determinacion->tipo_trato != 'multi_select')
+        <br>
+      @endif
       @foreach ($valores as $value)
         @php
           echo($value . " <br>");
@@ -129,11 +129,11 @@
         @endphp
       @endforeach
       @php
-      if($resultado->determinacion->tipo_trato == 'multi_select')
-        $y -= $y_acu;
-      // else {
-        // $y += $y_acu;
-      // }
+        if($resultado->determinacion->tipo_trato == 'multi_select')
+          $y -= $y_acu;
+        // else {
+          // $y += $y_acu;
+        // }
       @endphp
     </div>
     @else
@@ -150,7 +150,7 @@
       @php
       $lineas = explode('|', $resultado->determinacion->texto_ref);
         foreach ($lineas as $linea) {
-          echo ('<div class="'.$action.'" style="position: absolute;left: '.$boxes->rango_referencia->x.'cm;top: '.$y.'cm">'.$linea.'</div>');
+          echo ('<div class="'.$action.' texto-ref" style="position: absolute;left: '.$boxes->rango_referencia->x.'cm;top: '.$y.'cm">'.$linea.'</div>');
           $y += $y_acu;
         }
         $y -= $y_acu;
@@ -179,7 +179,7 @@
   @endphp
   @if($y >= $bottom_limit - 0.5 && $rkey < count($analisis->resultados) - 1)
     <div style="page-break-after: always;"></div>
-    <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}"  width="100%"/>
+    <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}"  width="100%" class='img-bg'/>
     @include('analisis::pdf.partials.paciente')
     @php
       $y = $boxes->titulo_resultado->y;

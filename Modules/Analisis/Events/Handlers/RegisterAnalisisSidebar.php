@@ -46,14 +46,6 @@ class RegisterAnalisisSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                    /* append */
               );
           });
-          $group->item("Informes", function (Item $item) {
-              $item->icon('fa fa-file-text');
-              $item->weight(100);
-              $item->route('admin.analisis.analisis.generate_informe');
-              $item->authorize(
-                   /* append */
-              );
-          });
         });
 
         $menu->group(trans('core::sidebar.content'), function (Group $group) {

@@ -43,17 +43,20 @@
             <div class="box box-primary">
                 <div class="box-header">
                   <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       {!! Form::normalInput('paciente', 'Paciente', $errors) !!}
+                    </div>
+                    <div class="col-md-2">
+                      {!! Form::normalInput('empresa', 'Empresa', $errors) !!}
+                    </div>
+                    <div class="col-md-2">
+                      {!! Form::normalInput('cont', 'Código', $errors) !!}
                     </div>
                     <div class="col-md-3">
                         {!! Form::normalInput('fecha_desde', 'Fecha desde', $errors,(object)['fecha_desde'=>$from],['class'=>'form-control fecha_filter','id'=>'fecha_desde']) !!}
                     </div>
                     <div class="col-md-3">
                         {!! Form::normalInput('fecha_hasta', 'Fecha hasta', $errors,(object)['fecha_hasta'=>$to],['class'=>'form-control fecha_filter','id'=>'fecha_hasta']) !!}
-                    </div>
-                    <div class="col-md-3">
-                      {!! Form::normalInput('cont', 'Código', $errors) !!}
                     </div>
                   </div>
                 </div>
@@ -63,10 +66,12 @@
                       <table class="data-table table table-bordered table-hover">
                           <thead>
                           <tr>
+                              <th>ID</th>
                               <th>Paciente</th>
                               <th>Fecha</th>
                               <th>Creado Por</th>
                               <th>Código</th>
+                              <th>Empresa</th>
                               <th>Acciones</th>
                           </tr>
                           </thead>
@@ -74,10 +79,12 @@
 
                           </tbody>
                           <tfoot>
+                            <th>ID</th>
                             <th>Paciente</th>
                             <th>Fecha</th>
                             <th>Creado Por</th>
                             <th>Código</th>
+                            <th>Empresa</th>
                             <th>Acciones</th>
                           </tfoot>
                       </table>

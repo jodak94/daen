@@ -22,6 +22,7 @@ use Modules\Plantillas\Entities\Plantilla;
 use lepiaf\SerialPort\SerialPort;
 use lepiaf\SerialPort\Parser\SeparatorParser;
 use lepiaf\SerialPort\Configure\TTYConfigure;
+use Storage;
 
 class AnalisisController extends AdminBaseController
 {
@@ -80,6 +81,9 @@ class AnalisisController extends AdminBaseController
             $html .=  '</div>';
             return $html;
           })
+          ->addColumn('empresa', function($analisis){
+            return $analisis->paciente->empresa_format;
+          })
           ->rawColumns(['acciones'])
           ->make(true);
       $data = $object->getData(true);
@@ -93,6 +97,14 @@ class AnalisisController extends AdminBaseController
            $q->where(DB::raw("CONCAT(nombre, ' ', apellido)"), 'like',  '%' . $re->paciente . '%')
               ->orWhere('cedula', 'like', '%' . $re->paciente . '%');
          });
+
+      if(isset($re->empresa) && trim($re->empresa) != ''){
+        $query->whereHas('paciente', function($q) use ($re){
+          $q->whereHas('empresa', function($qe) use ($re) {
+            $qe->where('nombre', 'like', '%' . $re->empresa . '%' );
+          });
+        });
+      }
 
       if (isset($re->fecha_desde) && trim($re->fecha_desde) != '')
          $query->whereDate('fecha', '>=', $this->fechaFormat($re->fecha_desde) );
@@ -435,20 +447,31 @@ class AnalisisController extends AdminBaseController
       $edit = true;
       return view('analisis::admin.analises.edit', compact('analisis', 'edit'));
     }
+    //
+    // public function generate_informe(){
+      // return view('analisis::admin.analises.generar_informe');
+    // }
 
-    public function generate_informe(){
-      return view('analisis::admin.analises.generar_informe');
+    public function generate_informe(Request $request){
+        $pdir = '/Users/USUARIO/repo/daen/public/isepol';
+        $folders = scandir($pdir. '/fotos');
+        unset($folders[0]);
+        unset($folders[1]);
+        foreach ($folders as $folder) {
+          if($folder != '.' && $folder != '..'){
+            $fotos = scandir($pdir.'/fotos/'.$folder);
+            unset($fotos[0]);
+            unset($fotos[1]);
+            $analisis = Analisis::find($folder);
+            $dir = 'isepol\\fotos\\' . $folder . '\\';
+            $action = 'download';
+            $boxes = $this->obtener_boxes($action);
+            $pdf = PDF::loadView('analisis::pdf.informe',compact('analisis','boxes','action', 'dir', 'fotos'));
+            $pdf->setPaper('A4', 'portrait');
+            Storage::put('public/isepol/procesados/'.$analisis->paciente->cedula.'.pdf', $pdf->output());
+          }
+        }
+        dd("GENERA2");
     }
 
-    public function post_generate_informe(Request $request){
-      $analisis = Analisis::find($request->analisis_id);
-      $action = 'download';
-      $boxes = $this->obtener_boxes($action);
-      $fotos = $request->fotos;
-      // dd($fotos);
-      $pdf = PDF::loadView('analisis::pdf.informe',compact('analisis','boxes','action', 'fotos'));
-      $pdf->setPaper('A4', 'portrait');
-      return $pdf->download($analisis->paciente->cedula.'.pdf');
-
-    }
 }
