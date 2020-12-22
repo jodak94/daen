@@ -13,9 +13,10 @@ class Api
      * @param  \Closure  $next
      * @return mixed
      */
-    private $token = "token";
+    private $token = "25e5807a7da0425800105c06b65f7c29";
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        if($request->token == $this->token)
+          return $next($request);
     }
 }
