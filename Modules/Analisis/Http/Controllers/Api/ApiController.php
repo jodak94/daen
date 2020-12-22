@@ -13,7 +13,17 @@ class ApiController
     public function getResultado(Request $request){
       if($request->token != '25e5807a7da0425800105c06b65f7c29')
         return '301';
-      $analisis = Analisis::where('id', '=', $request->analisis_id)->with(['resultados' => function ($q) { $q->with(['determinacion']);}, 'paciente'])->get();
+      $analisis = Analisis::where('id', '=', $request->analisis_id)->with(
+        [
+          'resultados' => function ($q) {
+            $q->with(['determinacion' => function($qd) {
+              $qd->with(['subseccion' => function($qs) {
+                $qs->with(['seccion']);
+              }]);
+            }]);
+          },
+          'paciente'
+        ])->get();
       if(isset($analisis))
         return $analisis;
     }
@@ -27,7 +37,7 @@ class ApiController
       $pdf->setPaper('A4', 'portrait');
       return $pdf->download('Analisis-'.$analisis->paciente->cedula.'.pdf');
 
-      //return response()->json(['error' => false, 'pdf' => 'PDF']);
+      // return response()->json(['error' => false, 'pdf' => 'PDF']);
     }
 
     public function obtener_boxes($action){
