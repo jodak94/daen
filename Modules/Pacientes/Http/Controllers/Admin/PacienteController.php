@@ -91,7 +91,7 @@ class PacienteController extends AdminBaseController
            $q->where('nombre', 'like',  '%' . $re->empresa . '%');
           });
 
-       return $query;
+       return $query->orderBy('apellido');
    }
 
     /**
