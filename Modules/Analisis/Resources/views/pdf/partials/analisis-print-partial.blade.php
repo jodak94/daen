@@ -139,8 +139,10 @@
     @else
       <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
       <div class="{{$action}}" style="position: absolute;left: {{ $x_ajustada}}cm;top: {{ $y }}cm">
-        {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}
-      </div>
+         @if($resultado->valor != '.')
+          {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}
+         @endif 
+   </div>
     @endif
   @endif
   @if(isset($resultado->determinacion->texto_ref))
