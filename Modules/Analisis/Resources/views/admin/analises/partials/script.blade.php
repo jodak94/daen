@@ -341,7 +341,7 @@
             html += "</textarea></td>";
           }else{
             html += "<td><input autocomplete='off' class='form-control valor"
-            if(clh != null)Q
+            if(clh != null)
             html += "' name=determinacion["+det.id+"] "
             if(idh != null)
               html += "id='"+idh+"'";
