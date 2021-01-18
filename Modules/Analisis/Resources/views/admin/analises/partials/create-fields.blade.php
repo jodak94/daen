@@ -228,13 +228,13 @@
                             </td>
                            @break;
                          @case ('rango')
-                           <td><input @if(isset($idh)) id='{{$idh}}' @endif class='form-control determinacion-rango valor' name=determinacion[{{$detalle->id}}]></td>
+                           <td><input @if(isset($idh)) id='{{$idh}}' @endif class='form-control determinacion-rango valor @if(isset($clh)) {{$clh}} @endif' name=determinacion[{{$detalle->id}}]></td>
                            @break
                          @case ('rango_edad')
                            <td><input class='form-control determinacion-rango-edad valor' name=determinacion[{{$detalle->id}}]></td>
                            @break
                          @case ('rango_sexo')
-                           <td><input class='form-control determinacion-rango-sexo valor' name=determinacion[{{$detalle->id}}]></td>
+                           <td><input @if(isset($idh)) id='{{$idh}}' @endif class='form-control determinacion-rango-sexo valor @if(isset($clh)) {{$clh}} @endif' name=determinacion[{{$detalle->id}}]></td>
                            @break
                          @default
                            <td>

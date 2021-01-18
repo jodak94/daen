@@ -318,7 +318,11 @@
                 +  "</td>"
           break;
         case 'rango':
-          html += "<td><input autocomplete='off' class='form-control determinacion-rango valor'"
+          html += "<td><input autocomplete='off' class='form-control determinacion-rango valor "
+
+          if(clh != null)
+              html += " " + clh
+          html += "'"    
           if(idh != null)
             html += " id='" + idh + "'";
           html += " name=determinacion["+det.id+"]></td>"
@@ -331,7 +335,14 @@
           html += "<td><input autocomplete='off' class='form-control determinacion-rango-edad valor' name=determinacion["+det.id+"]></td>"
           break;
         case 'rango_sexo':
-          html += "<td><input autocomplete='off' class='form-control determinacion-rango-sexo valor' name=determinacion["+det.id+"]></td>"
+          html += "<td><input autocomplete='off' class='form-control determinacion-rango-sexo valor "
+          
+          if(clh != null)
+              html += " " + clh
+          html += "'"    
+          if(idh != null)
+            html += " id='" + idh + "'";
+          html += " name=determinacion["+det.id+"]></td>"
           break;
         default:
           if(det.multiples_lineas){

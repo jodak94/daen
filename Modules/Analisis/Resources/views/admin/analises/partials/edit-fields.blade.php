@@ -250,13 +250,13 @@
                           </td>
                          @break;
                        @case ('rango')
-                         <td><input @if(isset($idh)) id='{{$idh}}' @endif  autocomplete='off' class='form-control determinacion-rango valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
+                         <td><input @if(isset($idh)) id='{{$idh}}' @endif  autocomplete='off' class='form-control determinacion-rango valor @if(isset($clh)) {{$clh}} @endif' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                          @break
                        @case ('rango_edad')
                          <td><input autocomplete='off' class='form-control determinacion-rango-edad valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                          @break
                        @case ('rango_sexo')
-                         <td><input autocomplete='off' class='form-control determinacion-rango-sexo valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
+                         <td><input @if(isset($idh)) id='{{$idh}}' @endif autocomplete='off' class='form-control determinacion-rango-sexo valor @if(isset($clh)) {{$clh}} @endif' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                          @break
                        @default
                          <td>
