@@ -240,11 +240,11 @@
         clh += 'chcm ';
       if(det.titulo == 'Hemoglobina' || det.titulo == 'Globulos Rojos')
         clh += 'hcm';
-      if(det.titulo == 'Hemoglobina' || det.titulo == 'Hematocrito' || det.titulo == 'Globulos Rojos' || subTitulo == 'Índices Hematimetricos')
+      if(det.titulo == 'Hemoglobina' || det.titulo == 'Hematocrito' || det.titulo == 'Globulos Rojos' || subTitulo == 'Índices Hematimétricos')
         idh = det.titulo.split(' ').join('_').toLowerCase();
       if(clh == '')
         clh = null;
-      if(subTitulo == 'Índices Hematimetricos')
+      if(subTitulo == 'Índices Hematimétricos')
         idh = det.titulo.split('.').join('').toLowerCase();
       agregarDeterminacion(det, subid, false, clh, idh)
     })

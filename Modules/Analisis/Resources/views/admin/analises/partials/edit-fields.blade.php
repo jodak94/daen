@@ -115,11 +115,11 @@
                     if($resultado->determinacion->titulo == 'Hemoglobina' || $resultado->determinacion->titulo == 'Globulos Rojos')
                       $clh .= 'hcm';
                     
-                    if($resultado->determinacion->titulo == 'Hemoglobina' || $resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Globulos Rojos' || $resultado->determinacion->subseccion->titulo == 'Índices Hematimetricos')
+                    if($resultado->determinacion->titulo == 'Hemoglobina' || $resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Globulos Rojos' || $resultado->determinacion->subseccion->titulo == 'Índices Hematimétricos')
                       $idh = strtolower(str_replace(' ', '_', $resultado->determinacion->titulo)); 
                     if($clh == '')
                       $clh = null;
-                    if($resultado->determinacion->subseccion->titulo == 'Índices Hematimetricos')
+                    if($resultado->determinacion->subseccion->titulo == 'Índices Hematimétricos')
                       $idh = strtolower(str_replace('.', '', $resultado->determinacion->titulo)); 
                   @endphp 
                 @if($subseccion_actual != $resultado->determinacion->subseccion->id)
