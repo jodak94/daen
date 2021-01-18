@@ -234,13 +234,13 @@
     $.each(determinaciones, function(index, det){
       idh = null;
       clh = '';
-      if(det.titulo == 'Hematocrito' || det.titulo == 'Globulos Rojos')
+      if(det.titulo == 'Hematocrito' || det.titulo == 'Glóbulos Rojos')
         clh += 'vcm ';
       if(det.titulo == 'Hematocrito' || det.titulo == 'Hemoglobina')
         clh += 'chcm ';
-      if(det.titulo == 'Hemoglobina' || det.titulo == 'Globulos Rojos')
+      if(det.titulo == 'Hemoglobina' || det.titulo == 'Glóbulos Rojos')
         clh += 'hcm';
-      if(det.titulo == 'Hemoglobina' || det.titulo == 'Hematocrito' || det.titulo == 'Globulos Rojos' || subTitulo == 'Índices Hematimétricos')
+      if(det.titulo == 'Hemoglobina' || det.titulo == 'Hematocrito' || det.titulo == 'Glóbulos Rojos' || subTitulo == 'Índices Hematimétricos')
         idh = det.titulo.split(' ').join('_').toLowerCase();
       if(clh == '')
         clh = null;

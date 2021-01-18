@@ -108,14 +108,14 @@
                  @php
                     $clh = '';
                     $idh = null;
-                    if($resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Globulos Rojos')
+                    if($resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Glóbulos Rojos')
                       $clh .= 'vcm ';
                     if($resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Hemoglobina')
                       $clh .= 'chcm ';
-                    if($resultado->determinacion->titulo == 'Hemoglobina' || $resultado->determinacion->titulo == 'Globulos Rojos')
+                    if($resultado->determinacion->titulo == 'Hemoglobina' || $resultado->determinacion->titulo == 'Glóbulos Rojos')
                       $clh .= 'hcm';
                     
-                    if($resultado->determinacion->titulo == 'Hemoglobina' || $resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Globulos Rojos' || $resultado->determinacion->subseccion->titulo == 'Índices Hematimétricos')
+                    if($resultado->determinacion->titulo == 'Hemoglobina' || $resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Glóbulos Rojos' || $resultado->determinacion->subseccion->titulo == 'Índices Hematimétricos')
                       $idh = strtolower(str_replace(' ', '_', $resultado->determinacion->titulo)); 
                     if($clh == '')
                       $clh = null;
