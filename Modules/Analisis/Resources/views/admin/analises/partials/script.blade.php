@@ -240,11 +240,11 @@
         clh += 'chcm ';
       if(det.titulo == 'Hemoglobina' || det.titulo == 'Globulos Rojos')
         clh += 'hcm';
-      if(det.titulo == 'Hemoglobina' || det.titulo == 'Hematocrito' || det.titulo == 'Globulos Rojos' || subTitulo == 'Indices Hematimetricos')
+      if(det.titulo == 'Hemoglobina' || det.titulo == 'Hematocrito' || det.titulo == 'Globulos Rojos' || subTitulo == 'Índices Hematimetricos')
         idh = det.titulo.split(' ').join('_').toLowerCase();
       if(clh == '')
         clh = null;
-      if(subTitulo == 'Indices Hematimetricos')
+      if(subTitulo == 'Índices Hematimetricos')
         idh = det.titulo.split('.').join('').toLowerCase();
       agregarDeterminacion(det, subid, false, clh, idh)
     })
@@ -341,8 +341,7 @@
             html += "</textarea></td>";
           }else{
             html += "<td><input autocomplete='off' class='form-control valor"
-            if(clh != null)
-              html += " " + clh;
+            if(clh != null)Q
             html += "' name=determinacion["+det.id+"] "
             if(idh != null)
               html += "id='"+idh+"'";
