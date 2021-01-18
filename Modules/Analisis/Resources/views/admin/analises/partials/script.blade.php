@@ -456,6 +456,7 @@
     if(hema > 0 && gr > 0){
       let val = (hema * 10) / ( Math.floor(gr/1000000 * 10) / 10 )
       $('#vcm').val(val.toFixed(1));
+      $('#vcm').keyup();
     }
   })
   $(".table").on('keyup', '.chcm', function(event){
@@ -466,6 +467,7 @@
     if(hema > 0 && hema > 0){
       let val = (hemo * 100) / hema
       $('#chcm').val(val.toFixed(1));
+      $('#chcm').keyup();
     }
   })
   $(".table").on('keyup', '.hcm', function(event){
@@ -474,6 +476,7 @@
     if(hemo > 0 && gr > 0){
       let val = (hemo * 10) / ( Math.floor(gr/1000000 * 10) / 10 )
       $('#hcm').val(val.toFixed(1));
+      $('#hcm').keyup();
     }
   })
 

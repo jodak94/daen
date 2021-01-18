@@ -89,18 +89,18 @@
                   @php
                     $clh = '';
                     $idh = null;
-                    if($detalle->titulo == 'Hematocrito' || $detalle->titulo == 'Globulos Rojos')
+                    if($detalle->titulo == 'Hematocrito' || $detalle->titulo == 'Glóbulos Rojos')
                       $clh .= 'vcm ';
                     if($detalle->titulo == 'Hematocrito' || $detalle->titulo == 'Hemoglobina')
                       $clh .= 'chcm ';
-                    if($detalle->titulo == 'Hemoglobina' || $detalle->titulo == 'Globulos Rojos')
+                    if($detalle->titulo == 'Hemoglobina' || $detalle->titulo == 'Glóbulos Rojos')
                       $clh .= 'hcm';
                     
-                    if($detalle->titulo == 'Hemoglobina' || $detalle->titulo == 'Hematocrito' || $detalle->titulo == 'Globulos Rojos' || $detalle->subseccion->titulo == 'Indices Hematimetricos')
+                    if($detalle->titulo == 'Hemoglobina' || $detalle->titulo == 'Hematocrito' || $detalle->titulo == 'Glóbulos Rojos' || $detalle->subseccion->titulo == 'Índices Hematimétricos')
                       $idh = strtolower (str_replace(' ', '_', $detalle->titulo)); 
                     if($clh == '')
                       $clh = null;
-                    if($detalle->subseccion->titulo == 'Indices Hematimetricos')
+                    if($detalle->subseccion->titulo == 'Índices Hematimétricos')
                       $idh = strtolower (str_replace('.', '', $detalle->titulo)); 
                   @endphp  
                   @if($subseccion_actual != $detalle->subseccion->id)
