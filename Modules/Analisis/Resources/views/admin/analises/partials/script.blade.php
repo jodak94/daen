@@ -94,7 +94,7 @@
           $('#'+dom.id).iCheck('uncheck');
         }
       }else{
-        if(parseFloat(val) <= parseFloat(rango[0]) || parseFloat(val) > parseFloat(rango[1])){
+        if(parseFloat(val) < parseFloat(rango[0]) || parseFloat(val) > parseFloat(rango[1])){
           $('#'+dom.id).iCheck('check');
         }else{
           $('#'+dom.id).iCheck('uncheck');
