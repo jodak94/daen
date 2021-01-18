@@ -342,6 +342,7 @@
           }else{
             html += "<td><input autocomplete='off' class='form-control valor"
             if(clh != null)
+              html += " " + clh
             html += "' name=determinacion["+det.id+"] "
             if(idh != null)
               html += "id='"+idh+"'";
@@ -451,7 +452,7 @@
 
   $(".table").on('keyup', '.vcm', function(event){
     let hema = $('#hematocrito').val();
-    let gr = $('#globulos_rojos').val();
+    let gr = $('#glóbulos_rojos').val();
     if(hema > 0 && gr > 0){
       let val = (hema * 10) / ( Math.floor(gr/1000000 * 10) / 10 )
       $('#vcm').val(val.toFixed(1));
@@ -469,7 +470,7 @@
   })
   $(".table").on('keyup', '.hcm', function(event){
     let hemo = $('#hemoglobina').val();
-    let gr = $('#globulos_rojos').val();
+    let gr = $('#glóbulos_rojos').val();
     if(hemo > 0 && gr > 0){
       let val = (hemo * 10) / ( Math.floor(gr/1000000 * 10) / 10 )
       $('#hcm').val(val.toFixed(1));
