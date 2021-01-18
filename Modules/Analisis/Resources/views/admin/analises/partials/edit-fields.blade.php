@@ -105,6 +105,23 @@
             @endphp
             <tbody id="analisisBody">
               @foreach ($analisis->resultados as $resultado)
+                 @php
+                    $clh = '';
+                    $idh = null;
+                    if($resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Globulos Rojos')
+                      $clh .= 'vcm ';
+                    if($resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Hemoglobina')
+                      $clh .= 'chcm ';
+                    if($resultado->determinacion->titulo == 'Hemoglobina' || $resultado->determinacion->titulo == 'Globulos Rojos')
+                      $clh .= 'hcm';
+                    
+                    if($resultado->determinacion->titulo == 'Hemoglobina' || $resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Globulos Rojos' || $resultado->determinacion->subseccion->titulo == 'Indices Hematimetricos')
+                      $idh = strtolower(str_replace(' ', '_', $resultado->determinacion->titulo)); 
+                    if($clh == '')
+                      $clh = null;
+                    if($resultado->determinacion->subseccion->titulo == 'Indices Hematimetricos')
+                      $idh = strtolower(str_replace('.', '', $resultado->determinacion->titulo)); 
+                  @endphp 
                 @if($subseccion_actual != $resultado->determinacion->subseccion->id)
                   <tr class='tr-titulo tr-subid-{{$resultado->determinacion->subseccion->id}}' id="tr-subid-{{$resultado->determinacion->subseccion->id}}">
                     <td colspan='4' style='text-align:center'>
@@ -233,7 +250,7 @@
                           </td>
                          @break;
                        @case ('rango')
-                         <td><input autocomplete='off' class='form-control determinacion-rango valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
+                         <td><input @if(isset($idh)) id='{{$idh}}' @endif  autocomplete='off' class='form-control determinacion-rango valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
                          @break
                        @case ('rango_edad')
                          <td><input autocomplete='off' class='form-control determinacion-rango-edad valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]></td>
@@ -246,7 +263,7 @@
                            @if($resultado->determinacion->multiples_lineas)
                              <textarea class='form-control valor' rows='5' name=determinacion[{{$resultado->determinacion->id}}]>{{trim($resultado->valor)}}</textarea>
                            @else
-                             <input autocomplete='off' class='form-control valor' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]>
+                             <input @if(isset($idh)) id='{{$idh}}' @endif autocomplete='off' class='form-control valor @if(isset($clh)) {{$clh}} @endif' value="{{$resultado->valor}}" name=determinacion[{{$resultado->determinacion->id}}]>
                            @endif
                          </td>
                     @endswitch

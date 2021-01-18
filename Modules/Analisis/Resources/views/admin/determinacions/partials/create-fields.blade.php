@@ -29,7 +29,7 @@
     <div class="col-md-2">
       <label>Obs.</label><br>
       <ul>
-        <li>{{'<i>'}} = cursiva</xmp></li>
+        <li>{{'<i>'}} = cursiva</li>
         <li>{{'<b>'}} = negrita</li>
         <li>{{'<u>'}} = subrayado</li>
         <li>Para delimitar usar {{'</i>'}}</li>

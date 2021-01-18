@@ -227,14 +227,30 @@
   function agregarSubseccion(determinaciones, subTitulo, subid, mostrarTitulo){
     var html = trTitulo(subTitulo, subid);
     var confHtml = trConfiguracion(subTitulo, subid, mostrarTitulo)
+    var idh = null;
+    var clh = null;
     $("#configuracionBody").append(confHtml)
     $("#analisisBody").append(html)
     $.each(determinaciones, function(index, det){
-      agregarDeterminacion(det, subid)
+      idh = null;
+      clh = '';
+      if(det.titulo == 'Hematocrito' || det.titulo == 'Globulos Rojos')
+        clh += 'vcm ';
+      if(det.titulo == 'Hematocrito' || det.titulo == 'Hemoglobina')
+        clh += 'chcm ';
+      if(det.titulo == 'Hemoglobina' || det.titulo == 'Globulos Rojos')
+        clh += 'hcm';
+      if(det.titulo == 'Hemoglobina' || det.titulo == 'Hematocrito' || det.titulo == 'Globulos Rojos' || subTitulo == 'Indices Hematimetricos')
+        idh = det.titulo.split(' ').join('_').toLowerCase();
+      if(clh == '')
+        clh = null;
+      if(subTitulo == 'Indices Hematimetricos')
+        idh = det.titulo.split('.').join('').toLowerCase();
+      agregarDeterminacion(det, subid, false, clh, idh)
     })
   }
-
-  function agregarDeterminacion(det, subid, withSub = false){
+ 
+  function agregarDeterminacion(det, subid, withSub = false, clh = null, idh = null){
     html
         ="<tr class='determinacion-"+subid+"'>"
         +"  <td>"+det.titulo+"</td>"
@@ -302,7 +318,11 @@
                 +  "</td>"
           break;
         case 'rango':
-          html += "<td><input autocomplete='off' class='form-control determinacion-rango valor' name=determinacion["+det.id+"]></td>"
+          html += "<td><input autocomplete='off' class='form-control determinacion-rango valor'"
+          if(idh != null)
+            html += " id='" + idh + "'";
+          html += " name=determinacion["+det.id+"]></td>"
+          
           break;
         case 'rango_hasta':
           html += "<td><input autocomplete='off' class='form-control determinacion-rango valor' hasta='true' name=determinacion["+det.id+"]></td>"
@@ -319,8 +339,16 @@
             if(det.texto_por_defecto != null)
               html += det.texto_por_defecto
             html += "</textarea></td>";
-          }else
-            html += "<td><input autocomplete='off' class='form-control valor' name=determinacion["+det.id+"]></td>"
+          }else{
+            html += "<td><input autocomplete='off' class='form-control valor"
+            if(clh != null)
+              html += " " + clh;
+            html += "' name=determinacion["+det.id+"] "
+            if(idh != null)
+              html += "id='"+idh+"'";
+            html += '></td>';
+
+          }
       }
     }
     html
@@ -421,4 +449,36 @@
     })
     $("#multi-"+$(this).attr('detid')).val(val);
   });
+
+  $(".table").on('keyup', '.vcm', function(event){
+    let hema = $('#hematocrito').val();
+    let gr = $('#globulos_rojos').val();
+    if(hema > 0 && gr > 0){
+      let val = (hema * 10) / ( Math.floor(gr/1000000 * 10) / 10 )
+      $('#vcm').val(val.toFixed(1));
+    }
+  })
+  $(".table").on('keyup', '.chcm', function(event){
+    let hemo = $('#hemoglobina').val();
+    let hema = $('#hematocrito').val();
+   
+    
+    if(hema > 0 && hema > 0){
+      let val = (hemo * 100) / hema
+      $('#chcm').val(val.toFixed(1));
+    }
+  })
+  $(".table").on('keyup', '.hcm', function(event){
+    let hemo = $('#hemoglobina').val();
+    let gr = $('#globulos_rojos').val();
+    if(hemo > 0 && gr > 0){
+      let val = (hemo * 10) / ( Math.floor(gr/1000000 * 10) / 10 )
+      $('#hcm').val(val.toFixed(1));
+    }
+  })
+
+  function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+  }
 </script>

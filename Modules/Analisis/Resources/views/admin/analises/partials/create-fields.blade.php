@@ -86,6 +86,23 @@
                   $subseccion_actual = -1;
                 @endphp
                 @foreach ($plantilla->detalles as $detalle)
+                  @php
+                    $clh = '';
+                    $idh = null;
+                    if($detalle->titulo == 'Hematocrito' || $detalle->titulo == 'Globulos Rojos')
+                      $clh .= 'vcm ';
+                    if($detalle->titulo == 'Hematocrito' || $detalle->titulo == 'Hemoglobina')
+                      $clh .= 'chcm ';
+                    if($detalle->titulo == 'Hemoglobina' || $detalle->titulo == 'Globulos Rojos')
+                      $clh .= 'hcm';
+                    
+                    if($detalle->titulo == 'Hemoglobina' || $detalle->titulo == 'Hematocrito' || $detalle->titulo == 'Globulos Rojos' || $detalle->subseccion->titulo == 'Indices Hematimetricos')
+                      $idh = strtolower (str_replace(' ', '_', $detalle->titulo)); 
+                    if($clh == '')
+                      $clh = null;
+                    if($detalle->subseccion->titulo == 'Indices Hematimetricos')
+                      $idh = strtolower (str_replace('.', '', $detalle->titulo)); 
+                  @endphp  
                   @if($subseccion_actual != $detalle->subseccion->id)
                     <tr class='tr-titulo'>
                       <td colspan='4' style='text-align:center'>
@@ -211,7 +228,7 @@
                             </td>
                            @break;
                          @case ('rango')
-                           <td><input class='form-control determinacion-rango valor' name=determinacion[{{$detalle->id}}]></td>
+                           <td><input @if(isset($idh)) id='{{$idh}}' @endif class='form-control determinacion-rango valor' name=determinacion[{{$detalle->id}}]></td>
                            @break
                          @case ('rango_edad')
                            <td><input class='form-control determinacion-rango-edad valor' name=determinacion[{{$detalle->id}}]></td>
@@ -224,7 +241,7 @@
                              @if($detalle->multiples_lineas)
                                <textarea class='form-control valor' rows='5' name=determinacion[{{$detalle->id}}]>@if($detalle->texto_por_defecto != null){{$detalle->texto_por_defecto}} @endif</textarea>
                              @else
-                               <input class='form-control valor' value="{{$detalle->valor}}" name=determinacion[{{$detalle->id}}]>
+                               <input @if(isset($idh)) id='{{$idh}}' @endif class='form-control valor @if(isset($clh)) {{$clh}} @endif'  value="{{$detalle->valor}}" name=determinacion[{{$detalle->id}}]>
                              @endif
                            </td>
                        @endswitch

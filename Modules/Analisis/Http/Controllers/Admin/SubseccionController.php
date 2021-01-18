@@ -122,7 +122,8 @@ class SubseccionController extends AdminBaseController
         ->with(['determinacion' => function($q){
           $q->orderBy('orden');
         }])
-        ->where('titulo', 'like', '%'.$request->term.'%')->take(5)->get()->toArray();
+        ->where('titulo', 'like', '%'.$request->term.'%')
+        ->where('titulo', '!=', 'Indices Hematimetricos')->take(5)->get()->toArray();
 
       return response()->json($sub);
     }

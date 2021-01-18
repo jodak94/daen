@@ -217,12 +217,14 @@ class DeterminacionController extends AdminBaseController
     }
 
     public function search_ajax(Request $request){
+      Log::info('aca');
       $det = Determinacion::select('analisis__determinacions.*', DB::raw("CONCAT(analisis__determinacions.titulo, ' - ', ss.titulo) as value"))
         ->join('analisis__subseccions as ss', 'analisis__determinacions.subseccion_id', '=', 'ss.id')
         ->with(['subseccion' => function($q){
           $q->select('id', 'titulo', 'mostrar');
         }])
-        ->where('analisis__determinacions.titulo', 'like', '%'.$request->term.'%')->take(8)->get()->toArray();
+        ->where('analisis__determinacions.titulo', 'like', '%'.$request->term.'%')
+        ->where('ss.titulo', '!=', 'Indices Hematimetricos')->take(8)->get()->toArray();
 
       return response()->json($det);
     }
