@@ -40,6 +40,10 @@
       background-color: #3c8dbc;
       border: 1px solid #3c8dbc;
     }
+    .leucoError{
+      background-color: #dd4b39;
+      color: white;
+    }
   </style>
 @endpush
 @section('content')
@@ -90,6 +94,7 @@
     {!! Theme::script('vendor/pickadate/js/picker.date.js') !!}
     {!! Theme::script('vendor/pickadate/js/picker.time.js') !!}
     {!! Theme::script('vendor/select2/dist/js/select2.min.js') !!}
+    <script src="{{ asset('js/jquery.number.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('themes/adminlte/js/vendor/jquery-ui-1.10.3.min.js') }}"></script>
     @include('analisis::admin.analises.partials.script-paciente')
     @include('analisis::admin.analises.partials.script')

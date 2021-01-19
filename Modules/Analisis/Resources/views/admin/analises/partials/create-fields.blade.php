@@ -94,15 +94,23 @@
                     if($detalle->titulo == 'Hematocrito' || $detalle->titulo == 'Hemoglobina')
                       $clh .= 'chcm ';
                     if($detalle->titulo == 'Hemoglobina' || $detalle->titulo == 'Glóbulos Rojos')
-                      $clh .= 'hcm';
-                    
+                      $clh .= 'hcm ';
+
                     if($detalle->titulo == 'Hemoglobina' || $detalle->titulo == 'Hematocrito' || $detalle->titulo == 'Glóbulos Rojos' || $detalle->subseccion->titulo == 'Índices Hematimétricos')
-                      $idh = strtolower (str_replace(' ', '_', $detalle->titulo)); 
+                      $idh = (str_replace(' ', '_', $detalle->titulo));
+
+                    if($detalle->subseccion->titulo == 'Índices Hematimétricos')
+                      $idh = strtolower (str_replace('.', '', $detalle->titulo));
+
+                    if($detalle->subseccion->titulo == 'Formula Leucocitaria Relativa')
+                        $clh = 'checkFormulaLeuco leucoError';
+
+                    if($detalle->titulo == 'Glóbulos Rojos' || $detalle->titulo == 'Glóbulos Blancos')
+                      $clh .= 'number_format';
+
                     if($clh == '')
                       $clh = null;
-                    if($detalle->subseccion->titulo == 'Índices Hematimétricos')
-                      $idh = strtolower (str_replace('.', '', $detalle->titulo)); 
-                  @endphp  
+                  @endphp
                   @if($subseccion_actual != $detalle->subseccion->id)
                     <tr class='tr-titulo'>
                       <td colspan='4' style='text-align:center'>

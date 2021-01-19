@@ -113,15 +113,23 @@
                     if($resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Hemoglobina')
                       $clh .= 'chcm ';
                     if($resultado->determinacion->titulo == 'Hemoglobina' || $resultado->determinacion->titulo == 'Glóbulos Rojos')
-                      $clh .= 'hcm';
-                    
+                      $clh .= 'hcm ';
+
                     if($resultado->determinacion->titulo == 'Hemoglobina' || $resultado->determinacion->titulo == 'Hematocrito' || $resultado->determinacion->titulo == 'Glóbulos Rojos' || $resultado->determinacion->subseccion->titulo == 'Índices Hematimétricos')
-                      $idh = strtolower(str_replace(' ', '_', $resultado->determinacion->titulo)); 
+                      $idh = (str_replace(' ', '_', $resultado->determinacion->titulo));
+
+                    if($resultado->determinacion->subseccion->titulo == 'Formula Leucocitaria Relativa')
+                          $clh = 'checkFormulaLeuco';
+                    if($resultado->determinacion->subseccion->titulo == 'Índices Hematimétricos')
+                      $idh = strtolower(str_replace('.', '', $resultado->determinacion->titulo));
+
+                    if($resultado->determinacion->titulo == 'Glóbulos Rojos' || $resultado->determinacion->titulo == 'Glóbulos Blancos')
+                      $clh .= 'number_format';
+
                     if($clh == '')
                       $clh = null;
-                    if($resultado->determinacion->subseccion->titulo == 'Índices Hematimétricos')
-                      $idh = strtolower(str_replace('.', '', $resultado->determinacion->titulo)); 
-                  @endphp 
+
+                  @endphp
                 @if($subseccion_actual != $resultado->determinacion->subseccion->id)
                   <tr class='tr-titulo tr-subid-{{$resultado->determinacion->subseccion->id}}' id="tr-subid-{{$resultado->determinacion->subseccion->id}}">
                     <td colspan='4' style='text-align:center'>

@@ -239,17 +239,22 @@
       if(det.titulo == 'Hematocrito' || det.titulo == 'Hemoglobina')
         clh += 'chcm ';
       if(det.titulo == 'Hemoglobina' || det.titulo == 'Glóbulos Rojos')
-        clh += 'hcm';
+        clh += 'hcm ';
       if(det.titulo == 'Hemoglobina' || det.titulo == 'Hematocrito' || det.titulo == 'Glóbulos Rojos' || subTitulo == 'Índices Hematimétricos')
-        idh = det.titulo.split(' ').join('_').toLowerCase();
-      if(clh == '')
-        clh = null;
+        idh = det.titulo.split(' ').join('_');
       if(subTitulo == 'Índices Hematimétricos')
         idh = det.titulo.split('.').join('').toLowerCase();
+      if(subTitulo == 'Formula Leucocitaria Relativa')
+        clh = 'checkFormulaLeuco leucoError'
+      if(det.titulo == 'Glóbulos Rojos' || det.titulo == 'Glóbulos Blancos')
+        clh += 'number_format'
+      if(clh == '')
+        clh = null;
       agregarDeterminacion(det, subid, false, clh, idh)
+      $(".number_format").number( true , 0 );
     })
   }
- 
+
   function agregarDeterminacion(det, subid, withSub = false, clh = null, idh = null){
     html
         ="<tr class='determinacion-"+subid+"'>"
@@ -322,11 +327,11 @@
 
           if(clh != null)
               html += " " + clh
-          html += "'"    
+          html += "'"
           if(idh != null)
             html += " id='" + idh + "'";
           html += " name=determinacion["+det.id+"]></td>"
-          
+
           break;
         case 'rango_hasta':
           html += "<td><input autocomplete='off' class='form-control determinacion-rango valor' hasta='true' name=determinacion["+det.id+"]></td>"
@@ -336,10 +341,10 @@
           break;
         case 'rango_sexo':
           html += "<td><input autocomplete='off' class='form-control determinacion-rango-sexo valor "
-          
+
           if(clh != null)
               html += " " + clh
-          html += "'"    
+          html += "'"
           if(idh != null)
             html += " id='" + idh + "'";
           html += " name=determinacion["+det.id+"]></td>"
@@ -462,8 +467,8 @@
   });
 
   $(".table").on('keyup', '.vcm', function(event){
-    let hema = $('#hematocrito').val();
-    let gr = $('#glóbulos_rojos').val();
+    let hema = $('#Hematocrito').val();
+    let gr = $('#Glóbulos_Rojos').val();
     if(hema > 0 && gr > 0){
       let val = (hema * 10) / ( Math.floor(gr/1000000 * 10) / 10 )
       $('#vcm').val(val.toFixed(1));
@@ -471,10 +476,10 @@
     }
   })
   $(".table").on('keyup', '.chcm', function(event){
-    let hemo = $('#hemoglobina').val();
-    let hema = $('#hematocrito').val();
-   
-    
+    let hemo = $('#Hemoglobina').val();
+    let hema = $('#Hematocrito').val();
+
+
     if(hema > 0 && hema > 0){
       let val = (hemo * 100) / hema
       $('#chcm').val(val.toFixed(1));
@@ -482,8 +487,8 @@
     }
   })
   $(".table").on('keyup', '.hcm', function(event){
-    let hemo = $('#hemoglobina').val();
-    let gr = $('#glóbulos_rojos').val();
+    let hemo = $('#Hemoglobina').val();
+    let gr = $('#Glóbulos_Rojos').val();
     if(hemo > 0 && gr > 0){
       let val = (hemo * 10) / ( Math.floor(gr/1000000 * 10) / 10 )
       $('#hcm').val(val.toFixed(1));
@@ -495,4 +500,17 @@
     var multiplier = Math.pow(10, precision || 0);
     return Math.round(value * multiplier) / multiplier;
   }
+
+  $(".table").on('keyup', '.checkFormulaLeuco', function(event){
+    let count = 0;
+    $(".checkFormulaLeuco").each(function(  ) {
+      count += parseInt($(this).val());
+    });
+    if(count != 100)
+      $(".checkFormulaLeuco").addClass('leucoError')
+    else
+      $(".checkFormulaLeuco").removeClass('leucoError')
+  })
+
+  $(".number_format").number( true , 0 );
 </script>
