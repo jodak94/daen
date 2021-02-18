@@ -77,7 +77,7 @@
           $y += $y_acu;
         @endphp
       @else
-        {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida }}
+        {{is_numeric($resultado->valor) ? $resultado->valor . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor}}
       @endif
     </div>
   @endif

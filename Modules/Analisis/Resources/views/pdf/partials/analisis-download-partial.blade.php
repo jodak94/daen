@@ -139,7 +139,7 @@
     @else
       <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
       <div class="{{$action}}" style="position: absolute;left: {{ $x_ajustada}}cm;top: {{ $y }}cm">
-        {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}
+        {{is_numeric($resultado->valor) ? $resultado->valor . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor}}
       </div>
     @endif
   @endif

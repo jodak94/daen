@@ -140,8 +140,8 @@
       <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
       <div class="{{$action}}" style="position: absolute;left: {{ $x_ajustada}}cm;top: {{ $y }}cm">
          @if($resultado->valor != '.')
-          {{$resultado->valor . ' ' . $resultado->determinacion->unidad_medida}}
-         @endif 
+          {{is_numeric($resultado->valor) ? $resultado->valor . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor}}
+         @endif
    </div>
     @endif
   @endif
@@ -181,7 +181,7 @@
   @endphp
   @if($y >= $bottom_limit - 0.5 && $rkey < count($analisis->resultados) - 1)
     <div style="page-break-after: always;"></div>
-    
+
     @include('analisis::pdf.partials.paciente')
     @php
       $y = $boxes->titulo_resultado->y;
