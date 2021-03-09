@@ -14,11 +14,14 @@
   <div class='col-md-2'><span style='color:white'>*</span>
     {!! Form:: normalCheckbox('last_name_first', 'Apellido primero al imprimir', $errors, $analisis) !!}
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>$analisis->fecha_format],['class'=>'form-control fecha']) !!}
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     {!! Form::normalInput('cont_diario', 'Código', $errors, $analisis) !!}
+  </div>
+  <div class="col-md-2">
+    {!! Form::normalInput('precio', 'Precio (Gs.)', $errors, $analisis, ['class' => 'form-control number_format_2']) !!}
   </div>
 </div>
 <div class="row" id="paciente-box">

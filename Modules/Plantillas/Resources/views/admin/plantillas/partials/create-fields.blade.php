@@ -12,6 +12,9 @@
           <div class='col-md-3'><span style='color:white'>*</span>
             {!! Form:: normalCheckbox('last_name_first', 'Apellido primero al imprimir', $errors) !!}
           </div>
+          <div class="col-md-2">
+            {!! Form::normalInput('precio', 'Precio (Gs.)', $errors, null, ['class' => 'form-control number_format_2']) !!}
+          </div>
         </div>
         <div class="row">
           <div class="col-md-4">

@@ -1,5 +1,6 @@
 <script>
   $(document).ready(function(){
+    $(".number_format_2").number( true , 0, ',', '.' );
     $("#buscar-seccion").autocomplete({
       source: '{{route('admin.analisis.seccion.search_ajax')}}',
       select: function( event, ui){

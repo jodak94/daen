@@ -1,5 +1,6 @@
 <script>
   $(document).ready(function(){
+    $(".number_format_2").number( true , 0, ',', '.' );
     $('.multi-select').select2();
     $("#buscar-subseccion").autocomplete({
       source: '{{route('admin.analisis.subseccion.search_ajax')}}',
@@ -46,6 +47,7 @@
       }
       $(this).closest('tr').remove()
     })
+
     $("#analisisBody").on('click', '.delete-sub', function(){
       $(".determinacion-"+$(this).attr('subId')).remove()
       // $(this).closest('tr').remove()

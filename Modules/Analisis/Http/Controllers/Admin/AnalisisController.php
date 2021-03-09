@@ -139,7 +139,9 @@ class AnalisisController extends AdminBaseController
           $dets =  Determinacion::fromQuery($q);
           $plantilla = new \stdClass();
           $plantilla->detalles = $dets;
-          $plantilla->last_name_first = DB::select('SELECT last_name_first FROM plantillas__plantillas WHERE id = ' . $request->plantilla)[0]->last_name_first;
+          $obj = DB::select('SELECT last_name_first, precio FROM plantillas__plantillas WHERE id = ' . $request->plantilla)[0];
+          $plantilla->last_name_first = $obj->last_name_first;
+          $plantilla->precio = $obj->precio;
         }
         $dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Biernes', 'Sábado', 'Domingo'];
         return view('analisis::admin.analises.create', compact('plantilla', 'dias'));
@@ -176,6 +178,8 @@ class AnalisisController extends AdminBaseController
         $analisis->last_name_first = $request->last_name_first;
         $analisis->created_by = Auth::user()->id;
         $analisis->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha);
+        if(isset($request->precio))
+          $analisis->precio = $request->precio;
         $analisis->save();
         $orden = DB::select('
         select d.id from analisis__seccions s

@@ -20,10 +20,13 @@
       {!! Form:: normalCheckbox('last_name_first', 'Apellido primero al imprimir', $errors) !!}
     </div>
   @endif
-  <div class="col-md-3">
+  <div class="col-md-2">
     {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>Carbon\Carbon::now()->format('d/m/Y')],['class'=>'form-control fecha']) !!}
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     {!! Form::normalInput('cont_diario', 'Código', $errors) !!}
+  </div>
+  <div class="col-md-2">
+    {!! Form::normalInput('precio', 'Precio (Gs.)', $errors, isset($plantilla) ? $plantilla : null, ['class' => 'form-control number_format_2']) !!}
   </div>
 </div>
