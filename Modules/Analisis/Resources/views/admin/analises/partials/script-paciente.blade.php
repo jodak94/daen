@@ -22,7 +22,7 @@
       let fecha_nacimiento = $("#fecha_nacimiento").val();
       let cedula = $("#cedula").val();
       let empresa_id = $("#empresa_id").val()
-      if(nombre == '' || apellido == '' || fecha_nacimiento == '' ){
+      if(nombre == '' || apellido == '' || fecha_nacimiento == '' || cedula == ''){
         $.toast({
           heading: 'Error',
           text: 'Faltan completar campos',
@@ -47,8 +47,15 @@
         },
         success: function(data){
           if(data.error){
-            $("#error").show();
-            $("#error_message").html(data.message);
+            //$("#error").show();
+            //$("#error_message").html(data.message);
+            $.toast({
+              heading: 'Error',
+              text: data.message,
+              showHideTransition: 'slide',
+              icon:'error',
+              position: 'top-right'
+            })
           }else{
             let np = data.paciente.nombre + ' ' + data.paciente.apellido
             if(data.paciente.cedula)
