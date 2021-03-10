@@ -119,7 +119,7 @@ class PacienteController extends AdminBaseController
     }
 
     public function store_ajax(Request $request){
-      if(isset($request->ci) and $request->ci != '' and count(Paciente::where('cedula', $request->cedula)->get()))
+      if(isset($request->cedula) and $request->cedula != '' and count(Paciente::where('cedula', $request->cedula)->get()))
         return response()->json(['error' => true, 'message' => 'Ya existe un paciente con esa cedula']);
       $paciente = new Paciente();
       $paciente->nombre = $request->nombre;
