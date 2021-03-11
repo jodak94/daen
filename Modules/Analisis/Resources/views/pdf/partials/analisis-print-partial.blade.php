@@ -22,6 +22,29 @@
         $ajuste_y = 0;
       @endphp
     @endif
+
+    @php  //Pasar toda la sección si una parte pasa a la siguiente hoja
+      $ss = array_column(DB::select('SELECT DISTINCT(s.id) FROM analisis__resultados r
+      JOIN analisis__determinacions d ON r.determinacion_id = d.id
+      JOIN analisis__subseccions s ON d.subseccion_id = s.id
+      WHERE analisis_id = '. $analisis->id .' AND s.seccion_id = '. $resultado->determinacion->subseccion->seccion->id), 'id');
+      $dc = $analisis->resultados()->whereHas('determinacion' , function($q) use ($ss){
+        $q->whereIn('subseccion_id', $ss);
+      })->get()->count() + count($ss);
+
+      if((($dc * $y_acu) + $y) >= $bottom_limit - 0.5 && $y > $boxes->titulo_resultado->y)
+        $bj = true;
+      else
+        $bj = false;
+    @endphp
+    @if($bj)
+      <div style="page-break-after: always;"></div>
+      @include('analisis::pdf.partials.paciente')
+      @php
+        $y = $boxes->titulo_resultado->y;
+      @endphp
+    @endif
+
     @if($y != $boxes->titulo_resultado->y)
       {{-- @php
       $y += $y_acu + $ajuste_y;
