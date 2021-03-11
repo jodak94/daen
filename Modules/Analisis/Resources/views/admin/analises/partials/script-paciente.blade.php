@@ -22,7 +22,7 @@
       let fecha_nacimiento = $("#fecha_nacimiento").val();
       let cedula = $("#cedula").val();
       let empresa_id = $("#empresa_id").val()
-      if(nombre == '' || apellido == '' || fecha_nacimiento == '' || cedula == ''){
+      if(nombre == '' || apellido == '' || fecha_nacimiento == ''){
         $.toast({
           heading: 'Error',
           text: 'Faltan completar campos',
