@@ -44,7 +44,7 @@
         $y = $boxes->titulo_resultado->y;
       @endphp
     @endif
-    
+
     @if($y != $boxes->titulo_resultado->y)
       {{-- @php
       $y += $y_acu + $ajuste_y;
@@ -209,3 +209,32 @@
     @endphp
   @endif
 @endforeach
+{{-- Firma --}}
+@if($y >= $bottom_limit - 2.5 && $rkey < count($analisis->resultados) - 1)
+  <div style="page-break-after: always;"></div>
+  <img src="{{ public_path($resultado->determinacion->subseccion->seccion->background)}}"  width="100%" class='img-bg'/>
+  @include('analisis::pdf.partials.paciente')
+  @php
+    $y = $boxes->titulo_resultado->y + 2;
+  @endphp
+@else
+  @php
+    $y = $y + 1;
+  @endphp
+@endif
+
+<div style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">
+  <img src="{{ public_path('/img/firma_lujan.png')}}" class='firma' width="100px"/>
+</div>
+@php
+  $y = $y + $y_acu + 1.6;
+@endphp
+<div class="sello" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">
+  <b>Bioq. Ma. Luján Enciso Dacak</b>
+</div>
+@php
+  $y += 0.4;
+@endphp
+<div class="sello" style="position: absolute;left: {{ $boxes->rango_referencia->x + 0.8}}cm;top: {{ $y }}cm">
+  <b>Reg. Prof. Nº 2600</b>
+</div>

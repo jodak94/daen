@@ -24,6 +24,11 @@
   text-transform: uppercase;
   text-decoration: underline;
 }
+.sello{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px!important;
+
+}
 .margin-top{
   @if($action == 'preview')
     margin-top: 0.4cm;
