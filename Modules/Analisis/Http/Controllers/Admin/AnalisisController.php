@@ -363,7 +363,7 @@ class AnalisisController extends AdminBaseController
          'sexo_paciente' => ['x' => 1.1, 'y' => 2.4],
          'fecha' => ['x' => 1.1, 'y' => 2.8],
          'cod' => ['x' => 6, 'y' => 2.8],
-         'titulo_resultado' => ['x' => 1.6, 'y' => 4.7],
+         'titulo_resultado' => ['x' => 1.1, 'y' => 4.7],
          'resultado' => ['x' => 7.3, 'y' => 4.7],
          'fuera_rango' => ['x' => 9.9, 'y' => 4.7],
          'rango_referencia' => ['x' => 12.8, 'y' => 4.7],
