@@ -34,7 +34,11 @@ class Paciente extends Model
 
     public function getCedulaFormatAttribute(){
       if(isset($this['cedula']) and $this['cedula'] != '')
-        return number_format($this['cedula'], 0, ',', '.');
+        if(is_numeric($this['cedula']))
+          return number_format($this['cedula'], 0, ',', '.');
+        else {
+          return $this['cedula'];
+        }
       else
         return '--';
     }
