@@ -339,7 +339,7 @@ class AnalisisController extends AdminBaseController
            'cod' => ['x' => 9, 'y' => 3.8],
            'titulo_resultado' => ['x' => 1.9, 'y' => 5.6],
            'resultado' => ['x' => 11.5, 'y' => 7.5],
-           'fuera_rango' => ['x' => 14.8, 'y' => 7.5],
+           'fuera_rango' => ['x' => 14.3, 'y' => 7.5],
            'rango_referencia' => ['x' => 17, 'y' => 7.5],
          ]));
       if($action == 'download')
