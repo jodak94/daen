@@ -366,7 +366,7 @@ class AnalisisController extends AdminBaseController
          'titulo_resultado' => ['x' => 0.8, 'y' => 4.7],
          'resultado' => ['x' => 7.3, 'y' => 4.7],
          'fuera_rango' => ['x' => 10, 'y' => 4.7],
-         'rango_referencia' => ['x' => 12.5, 'y' => 4.7],
+         'rango_referencia' => ['x' => 12.6, 'y' => 4.7],
        ]));
 
        return $boxes;
