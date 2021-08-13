@@ -22,7 +22,7 @@
         $ajuste_y = 0;
       @endphp
     @endif
-
+{{--
     @php  //Pasar toda la sección si una parte pasa a la siguiente hoja
       $ss = array_column(DB::select('SELECT DISTINCT(s.id) FROM analisis__resultados r
       JOIN analisis__determinacions d ON r.determinacion_id = d.id
@@ -43,7 +43,7 @@
       @php
         $y = $boxes->titulo_resultado->y;
       @endphp
-    @endif
+    @endif --}}
 
     @if($y != $boxes->titulo_resultado->y)
       {{-- @php
