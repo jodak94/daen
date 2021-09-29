@@ -54,10 +54,10 @@ class Determinacion extends Model
       }
 
 
-      if($this['tipo_referencia'] == 'rango'){
-        $r = explode('-', $this['rango_referencia']);
-        return number_format($r[0]) . ' - ' . number_format($r[1]);
-      }
+      // if($this['tipo_referencia'] == 'rango'){
+      //   $r = explode('-', $this['rango_referencia']);
+      //   return number_format($r[0]) . ' - ' . number_format($r[1]);
+      // }
 
       if($this['tipo_referencia'] == 'reactiva' || $this['tipo_referencia'] == 'booleano' || $this['tipo_referencia'] == 'no_aglutina_dil_1:20' || $this['tipo_referencia'] == 'negativo_dil_1:20' || $this['tipo_referencia'] == 'clase_"o"'){//Reactiva  No reactiva
         return ucfirst(str_replace('_', ' ', $this['rango_referencia']));
