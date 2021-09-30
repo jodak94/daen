@@ -127,6 +127,7 @@ class DeterminacionController extends AdminBaseController
     {
         $subsecciones = Subseccion::all()->pluck('titulo', 'id')->toArray();
         switch ($determinacion->tipo_referencia) {
+          case 'rango_hasta':
           case 'rango':
             $rango = explode('-', $determinacion->rango_referencia);
             break;
@@ -144,6 +145,7 @@ class DeterminacionController extends AdminBaseController
         $determinacion->rango = $rango;
         $tipos_refs = Determinacion::$tipos_refs;
         $tipos_tratos = Determinacion::$tipos_tratos;
+        // dd($determinacion->unidad_medida);
         return view('analisis::admin.determinacions.edit', compact('determinacion', 'subsecciones', 'tipos_refs', 'tipos_tratos'));
     }
 
@@ -217,7 +219,6 @@ class DeterminacionController extends AdminBaseController
     }
 
     public function search_ajax(Request $request){
-      Log::info('aca');
       $det = Determinacion::select('analisis__determinacions.*', DB::raw("CONCAT(analisis__determinacions.titulo, ' - ', ss.titulo) as value"))
         ->join('analisis__subseccions as ss', 'analisis__determinacions.subseccion_id', '=', 'ss.id')
         ->with(['subseccion' => function($q){

@@ -36,6 +36,7 @@
       if(unidad_medida == undefined)
         unidad_medida = '';
       switch (val) {
+        case 'rango_hasta':
         case 'rango':
           html
             ='<div class="col-md-2">'

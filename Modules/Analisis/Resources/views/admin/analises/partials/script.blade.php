@@ -506,7 +506,9 @@
   $(".table").on('keyup', '.checkFormulaLeuco', function(event){
     let count = 0;
     $(".checkFormulaLeuco").each(function(  ) {
-      count += parseInt($(this).val());
+      if(!isNaN(parseInt($(this).val())) ){
+        count += parseInt($(this).val());
+      }
     });
     if(count != 100)
       $(".checkFormulaLeuco").addClass('leucoError')

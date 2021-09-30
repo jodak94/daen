@@ -19,14 +19,11 @@ class Resultado extends Model
       if(is_numeric($this->attributes['valor'])){
         $dec = 1;
         $remove = ".0";
-        Log::info($this->determinacion->titulo);
-        Log::info(strpos($this->determinacion->titulo, 'Bilirrubina'));
-        if(strpos($this->determinacion->titulo, 'Bilirrubina') !== false){
-          $dec = 2;
+        if($this->determinacion->cantidad_decimales == 2){
           $remove = "";
         }
 
-        return str_replace($remove, "", (string)number_format($this->attributes['valor'], $dec));
+        return str_replace($remove, "", (string)number_format($this->attributes['valor'], $this->determinacion->cantidad_decimales));
       }
 
       return $this->attributes['valor'];

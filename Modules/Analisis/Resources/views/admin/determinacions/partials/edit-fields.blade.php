@@ -3,15 +3,17 @@
     <div class="col-md-2">
       {!! Form::normalInput('titulo', 'Título', $errors, $determinacion) !!}
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       {!! Form:: normalSelect('subseccion_id', 'Subsección', $errors, $subsecciones, $determinacion) !!}
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       {!! Form:: normalSelect('tipo_referencia', 'Tipo de Rango de referencia', $errors, $tipos_refs, $determinacion) !!}
     </div>
-
     <div class="col-md-2">
       {!! Form::normalInput('unidad_medida', 'Unidad de Medida', $errors, $determinacion) !!}
+    </div>
+    <div class="col-md-2">
+      {!! Form::normalInput('cantidad_decimales', 'Cantidad Decimales', $errors, $determinacion) !!}
     </div>
     <div class="col-md-2">
       <label style="color:white">lineas</label>
