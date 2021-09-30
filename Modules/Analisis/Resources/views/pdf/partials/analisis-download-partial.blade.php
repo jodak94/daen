@@ -162,7 +162,7 @@
     @else
       <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
       <div class="{{$action}}" style="position: absolute;left: {{ $x_ajustada}}cm;top: {{ $y }}cm">
-        {{is_numeric($resultado->valor) ? $resultado->valor . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor}}
+        {{is_numeric(str_replace (',', '', $resultado->valor)) ? $resultado->valor . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor}}
       </div>
     @endif
   @endif

@@ -22,7 +22,7 @@
         $ajuste_y = 0;
       @endphp
     @endif
-{{-- 
+{{--
     @php  //Pasar toda la sección si una parte pasa a la siguiente hoja
       $ss = array_column(DB::select('SELECT DISTINCT(s.id) FROM analisis__resultados r
       JOIN analisis__determinacions d ON r.determinacion_id = d.id
@@ -163,7 +163,7 @@
       <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
       <div class="{{$action}}" style="position: absolute;left: {{ $x_ajustada}}cm;top: {{ $y }}cm">
          @if($resultado->valor != '.')
-          {{is_numeric($resultado->valor) ? $resultado->valor . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor}}
+          {{is_numeric(str_replace (',', '', $resultado->valor)) ? $resultado->valor . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor}}
          @endif
    </div>
     @endif
