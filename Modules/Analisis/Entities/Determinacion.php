@@ -45,19 +45,13 @@ class Determinacion extends Model
       if($this['rango_referencia'][0] == '0' && $this['rango_referencia'][1] == '-' && $this['tipo_referencia'] == 'rango'){//0-10
         $rango = explode('-', $this['rango_referencia']);
         $rango[0] = 'Inferior a';
-        return 'Inferior a ' . number_format($rango[1]);
+        return 'Inferior a ' . $rango[1];
       }
 
       if($this['rango_referencia'][strlen($this['rango_referencia']) - 1] == '∞' && $this['tipo_referencia'] == 'rango'){//10-x
         $rango = explode('-', $this['rango_referencia']);
-        return 'Superior a ' . number_format($rango[0]);
+        return 'Superior a ' . $rango[0];
       }
-
-
-      // if($this['tipo_referencia'] == 'rango'){
-      //   $r = explode('-', $this['rango_referencia']);
-      //   return number_format($r[0]) . ' - ' . number_format($r[1]);
-      // }
 
       if($this['tipo_referencia'] == 'reactiva' || $this['tipo_referencia'] == 'booleano' || $this['tipo_referencia'] == 'no_aglutina_dil_1:20' || $this['tipo_referencia'] == 'negativo_dil_1:20' || $this['tipo_referencia'] == 'clase_"o"'){//Reactiva  No reactiva
         return ucfirst(str_replace('_', ' ', $this['rango_referencia']));
@@ -69,29 +63,29 @@ class Determinacion extends Model
 
       if($this['rango_referencia'][0] == '0' && $this['tipo_referencia'] == 'rango_hasta'){//Hasta 10
         $rango = explode('-', $this['rango_referencia']);
-        return 'Hasta ' . number_format($rango[1]);
+        return 'Hasta ' . $rango[1];
       }
       if($this['tipo_referencia'] == 'rango_sexo'){
         $rango_tmp = explode('|', preg_replace("/[^0-9\-|.∞]/", "", $this['rango_referencia']));
         $rango = '';
         $r = explode('-', $rango_tmp[0]);
         if($r[0] == '0')
-          $rango .= 'Fem. Inferior a ' . number_format($r[1]);
+          $rango .= 'Fem. Inferior a ' . $r[1];
         else{
           if($r[1] == '∞')
-            $rango .= 'Fem. superior a ' . number_format($r[0]);
+            $rango .= 'Fem. superior a ' . $r[0];
           else
-            $rango .= 'Fem. ' . number_format($r[0]) . ' - ' . number_format($r[1]);
+            $rango .= 'Fem. ' . $r[0] . ' - ' . $r[1];
         }
         $rango .= ' | ';
         $r = explode('-', $rango_tmp[1]);
         if($r[0] == '0')
-          $rango .= 'Masc. Inferior a ' . number_format($r[1]);
+          $rango .= 'Masc. Inferior a ' . $r[1];
         else{
           if($r[1] == '∞')
-            $rango .= 'Masc. superior a ' . number_format($r[0]);
+            $rango .= 'Masc. superior a ' . $r[0];
           else
-            $rango .= 'Masc. ' . number_format($r[0]) . ' - ' . number_format($r[1]);
+            $rango .= 'Masc. ' . $r[0] . ' - ' . $r[1];
         }
         return $rango;
       }
@@ -101,22 +95,22 @@ class Determinacion extends Model
         $rango = '';
         $r = explode('-', $rango_tmp[0]);
         if($r[0] == '0')
-          $rango .= 'Niños Inferior a ' . number_format($r[1]);
+          $rango .= 'Niños Inferior a ' . $r[1];
         else
           if($r[1] == '∞')
-            $rango .= 'Niños superior a ' . number_format($r[0]);
+            $rango .= 'Niños superior a ' . $r[0];
           else
-            $rango .= 'Niños ' . number_format($r[0]) . ' - ' . number_format($r[1]);
+            $rango .= 'Niños ' . $r[0] . ' - ' . $r[1];
 
         $rango .= ' | ';
         $r = explode('-', $rango_tmp[1]);
         if($r[0] == '0')
-          $rango .= 'Adultos Inferior a ' . number_format($r[1]);
+          $rango .= 'Adultos Inferior a ' . $r[1];
         else
           if($r[1] == '∞')
-            $rango .= 'Adultos superior a ' . number_format($r[0]);
+            $rango .= 'Adultos superior a ' . $r[0];
           else
-            $rango .= 'Adultos ' . number_format($r[0]) . ' - ' . number_format($r[1]);
+            $rango .= 'Adultos ' . $r[0] . ' - ' . $r[1];
 
         return $rango;
       }
