@@ -16,7 +16,7 @@ class Resultado extends Model
 
     public function getValorAttribute(){
       if(is_numeric($this->attributes['valor'])){
-        return number_format($this->attributes['valor'], 2);
+        return (float) $this->attributes['valor'];
       }
 
       return $this->attributes['valor'];
