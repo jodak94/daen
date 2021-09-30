@@ -83,6 +83,7 @@
     $(".table").on('keyup', '.determinacion-rango', function(event){
       let val = $(this).val()
       let rango = $(this).parent().parent().find('.rango-referencia').val();
+      rango = rango.replace(/[^\d.-]/g,'');
       rango = rango.split('-')
       let dom = $(this).parent().parent().find('.rango-check')[0];
       if(val == ''){
@@ -248,7 +249,7 @@
         idh = det.titulo.split('.').join('').toLowerCase();
       if(subTitulo == 'Formula Leucocitaria Relativa')
         clh = 'checkFormulaLeuco leucoError'
-      if(det.titulo == 'Glóbulos Rojos' || det.titulo == 'Glóbulos Blancos')
+      if(det.titulo == 'Glóbulos Rojos' || det.titulo == 'Glóbulos Blancos' || det.titulo == 'Recuento de Plaquetas')
         clh += 'number_format'
       if(clh == '')
         clh = null;
