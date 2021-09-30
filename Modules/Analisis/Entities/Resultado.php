@@ -16,7 +16,7 @@ class Resultado extends Model
 
     public function getValorAttribute(){
       if(is_numeric($this->attributes['valor'])){
-        return str_replace(".00", "", (string)number_format($this->attributes['valor'], 1));  
+        return str_replace(".0", "", (string)number_format($this->attributes['valor'], 1));  
       }
 
       return $this->attributes['valor'];
