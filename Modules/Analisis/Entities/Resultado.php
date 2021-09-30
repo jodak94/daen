@@ -12,7 +12,7 @@ class Resultado extends Model
 
     public function determinacion(){
       return $this->belongsTo('Modules\Analisis\Entities\Determinacion');
-    }7*
+    }
 
     public function getValorAttribute(){
       if(is_numeric($this->attributes['valor'])){
