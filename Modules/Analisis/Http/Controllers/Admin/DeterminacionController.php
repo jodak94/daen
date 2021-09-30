@@ -131,10 +131,10 @@ class DeterminacionController extends AdminBaseController
             $rango = explode('-', $determinacion->rango_referencia);
             break;
           case 'rango_sexo':
-            $rango =  explode('-', str_replace('|', '-', preg_replace('/[^0-9\-|.]/', '', $determinacion->rango_referencia)));
+            $rango =  explode('-', str_replace('|', '-', preg_replace('/[^0-9\-|.,]/', '', $determinacion->rango_referencia)));
             break;
           case 'rango_edad':
-            $rango =  explode('-', str_replace('|', '-', preg_replace('/[^0-9\-|.]/', '', $determinacion->rango_referencia)));
+            $rango =  explode('-', str_replace('|', '-', preg_replace('/[^0-9\-|.,]/', '', $determinacion->rango_referencia)));
             break;
           case 'sin_referencia':
             $rango = null;

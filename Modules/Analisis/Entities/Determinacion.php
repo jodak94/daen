@@ -66,7 +66,7 @@ class Determinacion extends Model
         return 'Hasta ' . $rango[1];
       }
       if($this['tipo_referencia'] == 'rango_sexo'){
-        $rango_tmp = explode('|', preg_replace("/[^0-9\-|.∞]/", "", $this['rango_referencia']));
+        $rango_tmp = explode('|', preg_replace("/[^0-9\-|.∞,]/", "", $this['rango_referencia']));
         $rango = '';
         $r = explode('-', $rango_tmp[0]);
         if($r[0] == '0')
@@ -91,7 +91,7 @@ class Determinacion extends Model
       }
 
       if($this['tipo_referencia'] == 'rango_edad'){
-        $rango_tmp = explode('|', preg_replace("/[^0-9\-|.]/", "", $this['rango_referencia']));
+        $rango_tmp = explode('|', preg_replace("/[^0-9\-|.∞,]/", "", $this['rango_referencia']));
         $rango = '';
         $r = explode('-', $rango_tmp[0]);
         if($r[0] == '0')
