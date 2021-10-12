@@ -224,7 +224,7 @@
 @endif
 
 <div style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">
-  <img src="{{ public_path('/img/firma_lujan.png')}}" class='firma' width="100px"/>
+  <img src="{{ public_path('/img/firma_lujan_t.png')}}" class='firma' width="100px"/>
 </div>
 @php
   $y = $y + $y_acu + 1.6;
