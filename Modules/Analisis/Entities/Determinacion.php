@@ -75,7 +75,7 @@ class Determinacion extends Model
           if($r[1] == '∞')
             $rango .= 'Fem. superior a ' . $r[0];
           else
-            $rango .= 'Fem. ' . $r[0] . ' - ' . $r[1];
+            $rango .= 'F. ' . $r[0] . ' - ' . $r[1];
         }
         $rango .= ' | ';
         $r = explode('-', $rango_tmp[1]);
@@ -85,7 +85,7 @@ class Determinacion extends Model
           if($r[1] == '∞')
             $rango .= 'Masc. superior a ' . $r[0];
           else
-            $rango .= 'Masc. ' . $r[0] . ' - ' . $r[1];
+            $rango .= 'M. ' . $r[0] . ' - ' . $r[1];
         }
         return $rango;
       }
