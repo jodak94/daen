@@ -102,7 +102,9 @@
       $x_ajustada = $x_resultado - $ajuste_x;
   @endphp
   @if($resultado->determinacion->tipo_trato == 'antibiograma')
-    <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x}}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
+    @if($resultado->determinacion->titulo != '.')
+      <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x}}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
+    @endif
     @php
       $y += $y_acu
     @endphp
@@ -140,7 +142,9 @@
         @endphp
         @include('analisis::pdf.partials.paciente')
       @endif
-      <div class="{{$action}}" style="position: absolute;left: {{$boxes->titulo_resultado->x}} cm;top: {{$y}}cm">{{$resultado->determinacion->titulo}}</div>
+      @if($resultado->determinacion->titulo != '.')
+        <div class="{{$action}}" style="position: absolute;left: {{$boxes->titulo_resultado->x}} cm;top: {{$y}}cm">{{$resultado->determinacion->titulo}}</div>
+      @endif
       <div class="{{$action}}" style="position: absolute;left: {{$x_ajustada}} cm;top: {{$y}} cm">
       @if($resultado->determinacion->tipo_trato != 'multi_select')
         <br>
@@ -160,9 +164,13 @@
       @endphp
     </div>
     @else
-      <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
+      @if($resultado->determinacion->titulo != '.')
+        <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x }}cm;top: {{ $y }}cm">{{$resultado->determinacion->titulo}}</div>
+      @endif
       <div class="{{$action}}" style="position: absolute;left: {{ $x_ajustada}}cm;top: {{ $y }}cm">
-        {{is_numeric(str_replace (',', '', $resultado->valor)) ? $resultado->valor . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor}}
+        @if($resultado->valor != '.')
+          {{is_numeric(str_replace (',', '', $resultado->valor)) ? $resultado->valor . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor}}
+        @endif
       </div>
     @endif
   @endif
