@@ -99,6 +99,30 @@
             }
         });
      });
+
+     $('.data-table').on('click', '.descargar', function(){
+       let id = $(this).attr('analisis')
+       $("#analisis_id").val(id);
+       $("#passwordDescargar").val('');
+       $("#passwordDescargar").val('');
+       $('#descargarModal').modal('show')
+     })
+
+     $("#descargarModalSubmit").on('click', function(){
+       let firma = $("select[name='firma']").val();
+       let pass = $('#passwordDescargar').val();
+       let id = $('#analisis_id').val();
+       if(pass == 'admdaen')
+        location.href = '{{route("admin.analisis.analisis.exportar")}}?action=download&analisis_id=' + id + '&firma=' + firma;
+       else
+         $.toast({
+           heading: 'Error',
+           text: 'Contraseña incorrecta',
+           showHideTransition: 'slide',
+           icon:'error',
+           position: 'top-right'
+         })
+     })
   })
 
   var create_url = '{{ route('admin.analisis.analisis.create') }}';

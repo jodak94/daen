@@ -18,9 +18,6 @@
     {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>$analisis->fecha_format],['class'=>'form-control fecha']) !!}
   </div>
   <div class="col-md-2">
-    {!! Form:: normalSelect('firma', "Firma", $errors, ['lujan' => 'Bioq. Ma. Luján Enciso Dacak', 'margarita' => 'Dra. Margarita Dacak'], $analisis) !!}
-  </div>
-  <div class="col-md-1">
     {!! Form::normalInput('cont_diario', 'Código', $errors, $analisis) !!}
   </div>
   <div class="col-md-2">

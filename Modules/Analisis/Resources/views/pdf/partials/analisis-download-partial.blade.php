@@ -243,14 +243,14 @@
   @endphp
 @endif
 @php
-if($analisis->firma == 'lujan'){
+if($firma == 'lujan'){
   $img = '/img/firma_lujan_t.png';
   $sello1 = 'Bioq. Ma. Luján Enciso Dacak';
-  $sello2 = 'Reg. Prof. Nº 2600';
+  $sello2 = 'Reg. Prof. Nº 536';
   $x2 = $x2 = $boxes->rango_referencia->x + 0.8;
   $y2 = 1.6;
 }
-if($analisis->firma == 'margarita'){
+if($firma == 'margarita'){
   $img = '/img/firma_ma_t.png';
   $sello1 = 'Dra. Margarita Dacak';
   $sello2 = 'Reg. Prof. Nº 2600';

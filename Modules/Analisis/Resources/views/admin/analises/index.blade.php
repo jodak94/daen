@@ -98,6 +98,7 @@
     @include('core::partials.delete-modal')
 @stop
 @include('analisis::admin.analises.partials.modal-plantilla')
+@include('analisis::admin.analises.partials.modal-descargar')
 @include('analisis::admin.analises.partials.modal-preconfigurarResultado')
 @include('pacientes::admin.pacientes.partials.modal-add-paciente')
 @section('footer')

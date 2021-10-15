@@ -63,9 +63,9 @@ class AnalisisController extends AdminBaseController
                 <a id="analisis_'.$analisis->id.'" href="javascript:void(0)" class="preview btn btn-default btn-flat" title="Vista Previa">
                   <i class="fa fa-search"></i>
                 </a>
-                <a  href="'.$download_route.'" class="btn btn-default btn-flat" title="Descargar">
+                <button class="btn btn-default btn-flat descargar" title="Descargar"  analisis="' . $analisis->id . '">
                   <i class="fa fa-download"></i>
-                </a>
+                </button>
                 <a href="'.$print_route.'" class="btn btn-default btn-flat" title="Imprimir" target="_blank">
                   <i class="fa fa-print"></i>
                 </a>
@@ -175,7 +175,7 @@ class AnalisisController extends AdminBaseController
         DB::beginTransaction();
         $analisis = new Analisis();
         $analisis->paciente_id = $request->paciente_id;
-        $analisis->firma = $request->firma;
+        // $analisis->firma = $request->firma;
         $analisis->last_name_first = $request->last_name_first;
         $analisis->created_by = Auth::user()->id;
         $analisis->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha);
@@ -313,7 +313,8 @@ class AnalisisController extends AdminBaseController
         $action = $request->action;
         $boxes = $this->obtener_boxes($action);
         if($action == 'download') {
-            $pdf = PDF::loadView('analisis::pdf.analisis',compact('analisis','boxes','action'));
+            $firma = $request->firma;
+            $pdf = PDF::loadView('analisis::pdf.analisis',compact('analisis','boxes','action', 'firma'));
             $pdf->setPaper('A4', 'portrait');
             return $pdf->download('Analisis-'.$analisis->paciente->cedula.'.pdf');
         }else {

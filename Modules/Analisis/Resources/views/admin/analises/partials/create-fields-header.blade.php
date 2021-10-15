@@ -24,9 +24,6 @@
     {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>Carbon\Carbon::now()->format('d/m/Y')],['class'=>'form-control fecha']) !!}
   </div>
   <div class="col-md-2">
-    {!! Form:: normalSelect('firma', "Firma", $errors, ['lujan' => 'Bioq. Ma. Luján Enciso Dacak', 'margarita' => 'Dra. Margarita Dacak']) !!}
-  </div>
-  <div class="col-md-1">
     {!! Form::normalInput('cont_diario', 'Código', $errors) !!}
   </div>
   <div class="col-md-2">
