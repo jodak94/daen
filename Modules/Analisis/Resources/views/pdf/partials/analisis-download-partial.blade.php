@@ -246,14 +246,14 @@
 if($firma == 'lujan'){
   $img = '/img/firma_lujan_t.png';
   $sello1 = 'Bioq. Ma. Luján Enciso Dacak';
-  $sello2 = 'Reg. Prof. Nº 536';
+  $sello2 = 'Reg. Prof. Nº 2600';
   $x2 = $x2 = $boxes->rango_referencia->x + 0.8;
   $y2 = 1.6;
 }
 if($firma == 'margarita'){
   $img = '/img/firma_ma_t.png';
   $sello1 = 'Dra. Margarita Dacak';
-  $sello2 = 'Reg. Prof. Nº 2600';
+  $sello2 = 'Reg. Prof. Nº 536';
   $x2 = $boxes->rango_referencia->x + 0.2;
   $y2 = 1.2;
 }
