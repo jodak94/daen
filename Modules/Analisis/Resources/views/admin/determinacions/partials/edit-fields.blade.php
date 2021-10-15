@@ -13,7 +13,7 @@
       {!! Form::normalInput('unidad_medida', 'Unidad de Medida', $errors, $determinacion) !!}
     </div>
     <div class="col-md-2">
-      {!! Form::normalInput('cantidad_decimales', 'Cantidad Decimales', $errors, $determinacion) !!}
+      {!! Form::normalInput('cantidad_decimales', 'Cantidad de decimales', $errors, $determinacion) !!}
     </div>
     <div class="col-md-2">
       <label style="color:white">lineas</label>

@@ -7,6 +7,10 @@
   $bottom_limit = 25.5;
 @endphp
 @foreach ($analisis->resultados as $rkey => $resultado){{--Por cada resultado--}}
+  @php
+    if(strpos($resultado->determinacion->titulo, 'SARS-CoV-2'))
+        $covid = true;
+  @endphp
   {{-- --------------SECCIONES-------------- --}}
   @if($seccion_actual != $resultado->determinacion->subseccion->seccion->id){{--Si es nueva seccion--}}
     @if($resultado->determinacion->subseccion->seccion->salto_pagina && $rkey != 0){{--Si la seccion va en una pagina aparte--}}
@@ -217,6 +221,14 @@
     @endphp
   @endif
 @endforeach
+@if(isset($covid) && $covid)
+  <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x}}cm;top: {{ $bottom_limit }}cm; font-size:10px">
+    *Las muestras son derivadas y procesadas en ORTEGABIOLAB en convenio con DAEN lab, autorizado
+    por la Dirección de Registro, Habilitación y Control - LCSP.<br>
+    * The samples are derived and processed in ORTEGABIOLAB in an agreement with DAEN lab, authorized
+    by the Directorate of Registration, Authorization and Control - LCSP.
+  </div>
+@endif
 {{-- Firma --}}
 @if($y >= $bottom_limit - 2.5 && $rkey < count($analisis->resultados) - 1)
   <div style="page-break-after: always;"></div>
