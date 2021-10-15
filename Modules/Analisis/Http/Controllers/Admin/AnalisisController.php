@@ -175,6 +175,7 @@ class AnalisisController extends AdminBaseController
         DB::beginTransaction();
         $analisis = new Analisis();
         $analisis->paciente_id = $request->paciente_id;
+        $analisis->firma = $request->firma;
         $analisis->last_name_first = $request->last_name_first;
         $analisis->created_by = Auth::user()->id;
         $analisis->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha);

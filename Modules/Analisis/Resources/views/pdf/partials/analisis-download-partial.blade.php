@@ -242,19 +242,34 @@
     $y = $y + 1;
   @endphp
 @endif
-
+@php
+if($analisis->firma == 'lujan'){
+  $img = '/img/firma_lujan_t.png';
+  $sello1 = 'Bioq. Ma. Luján Enciso Dacak';
+  $sello2 = 'Reg. Prof. Nº 2600';
+  $x2 = $x2 = $boxes->rango_referencia->x + 0.8;
+  $y2 = 1.6;
+}
+if($analisis->firma == 'margarita'){
+  $img = '/img/firma_ma_t.png';
+  $sello1 = 'Dra. Margarita Dacak';
+  $sello2 = 'Reg. Prof. Nº 2600';
+  $x2 = $boxes->rango_referencia->x + 0.2;
+  $y2 = 1.2;
+}
+@endphp
 <div style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">
-  <img src="{{ public_path('/img/firma_lujan_t.png')}}" class='firma' width="100px"/>
+  <img src="{{ public_path($img)}}" class='firma' width="100px"/>
 </div>
 @php
-  $y = $y + $y_acu + 1.6;
+  $y = $y + $y_acu + $y2;
 @endphp
 <div class="sello" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">
-  <b>Bioq. Ma. Luján Enciso Dacak</b>
+  <b>{{$sello1}}</b>
 </div>
 @php
   $y += 0.4;
 @endphp
-<div class="sello" style="position: absolute;left: {{ $boxes->rango_referencia->x + 0.8}}cm;top: {{ $y }}cm">
-  <b>Reg. Prof. Nº 2600</b>
+<div class="sello" style="position: absolute;left: {{ $x2}}cm;top: {{ $y }}cm">
+  <b>{{$sello2}}</b>
 </div>

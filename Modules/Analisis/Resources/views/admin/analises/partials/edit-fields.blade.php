@@ -1,5 +1,5 @@
 <div class="row" style="margin-bottom: 20px">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <label for="paciente_id">Paciente</label>
     <div class="input-group ">
       <input placeholder="Ingresar Nombre o Cédula" name="paciente_id" type="text" id="buscar-paciente" class="form-control" value="{{$analisis->paciente->nombre . ' ' . $analisis->paciente->apellido . '. CI:' . $analisis->paciente->cedula}}">
@@ -18,6 +18,9 @@
     {!! Form::normalInput('fecha', 'Fecha', $errors,(object)['fecha'=>$analisis->fecha_format],['class'=>'form-control fecha']) !!}
   </div>
   <div class="col-md-2">
+    {!! Form:: normalSelect('firma', "Firma", $errors, ['lujan' => 'Bioq. Ma. Luján Enciso Dacak', 'margarita' => 'Dra. Margarita Dacak'], $analisis) !!}
+  </div>
+  <div class="col-md-1">
     {!! Form::normalInput('cont_diario', 'Código', $errors, $analisis) !!}
   </div>
   <div class="col-md-2">
