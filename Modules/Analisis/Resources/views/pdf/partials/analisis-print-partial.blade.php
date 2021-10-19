@@ -222,7 +222,7 @@
   @endif
 @endforeach
 @if(isset($covid) && $covid)
-  <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x}}cm;top: {{ $bottom_limit -2 }}cm; font-size:10px">
+  <div class="{{$action}}" style="position: absolute;left: {{ $boxes->titulo_resultado->x}}cm;top: {{ $bottom_limit - 1 }}cm; font-size:9px">
     *Las muestras son derivadas y procesadas en ORTEGABIOLAB en convenio con DAEN lab, autorizado
     por la Dirección de Registro, Habilitación y Control - LCSP.<br>
     * The samples are derived and processed in ORTEGABIOLAB in an agreement with DAEN lab, authorized
