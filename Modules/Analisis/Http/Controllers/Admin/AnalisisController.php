@@ -359,12 +359,12 @@ class AnalisisController extends AdminBaseController
         ]));
       if($action == 'print')
       $boxes = json_decode(json_encode([
-         'nombre_paciente' => ['x' => 0.8, 'y' => 1.2],
-         'edad_paciente' => ['x' => 0.8, 'y' => 1.6],
-         'cedula_paciente' => ['x' => 0.8, 'y' => 2],
-         'sexo_paciente' => ['x' => 0.8, 'y' => 2.4],
-         'fecha' => ['x' => 0.8, 'y' => 2.8],
-         'cod' => ['x' => 6, 'y' => 2.8],
+         'nombre_paciente' => ['x' => 2.3, 'y' => 1.2],
+         'edad_paciente' => ['x' => 2.3, 'y' => 1.6],
+         'cedula_paciente' => ['x' => 2.3, 'y' => 2],
+         'sexo_paciente' => ['x' => 2.3, 'y' => 2.4],
+         'fecha' => ['x' => 2.3, 'y' => 2.8],
+         'cod' => ['x' => 7.5, 'y' => 2.8],
          'titulo_resultado' => ['x' => 0.8, 'y' => 4.7],
          'resultado' => ['x' => 7.3, 'y' => 4.7],
          'fuera_rango' => ['x' => 10, 'y' => 4.7],
