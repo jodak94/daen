@@ -173,7 +173,7 @@
       @endif
       <div class="{{$action}}" style="position: absolute;left: {{ $x_ajustada}}cm;top: {{ $y }}cm">
          @if($resultado->valor != '.')
-           @if(strpos($resultado->determinacion->titulo, 'SARS-CoV-2'))
+           @if(strpos($resultado->determinacion->titulo, 'SARS-CoV-2')  !== false)
              <span style="font-size: 13px">{{$resultado->valor}}</span>
            @else
              {{is_numeric(str_replace (',', '', $resultado->valor)) ? $resultado->valor . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor}}
