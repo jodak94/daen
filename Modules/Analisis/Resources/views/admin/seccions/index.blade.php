@@ -133,6 +133,7 @@
                 "sort": true,
                 "info": true,
                 "autoWidth": true,
+                "pageLength": 100,
                 "language": {
                     "url": '<?php echo Module::asset("core:js/vendor/datatables/{$locale}.json") ?>'
                 }
