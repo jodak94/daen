@@ -111,6 +111,10 @@ class DeterminacionController extends AdminBaseController
             break;
         }
         $request['orden'] = count(Determinacion::where('subseccion_id', $request->subseccion_id)->get());
+
+        if(!isset($request->cantidad_decimales));
+          $request['cantidad_decimales'] = 1;
+
         $this->determinacion->create($request->all());
 
         return redirect()->route('admin.analisis.determinacion.index')

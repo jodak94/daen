@@ -1,7 +1,7 @@
 <div class="box-body">
   <div class="row">
     <div class="col-md-2">
-      {!! Form::normalInput('titulo', 'Título', $errors) !!}
+      {!! Form::normalInput('titulo', 'Título', $errors, null, ['required' => true]) !!}
     </div>
     <div class="col-md-2">
       {!! Form:: normalSelect('subseccion_id', 'Subsección', $errors, $subsecciones) !!}
