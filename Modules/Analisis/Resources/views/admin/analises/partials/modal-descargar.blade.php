@@ -10,7 +10,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            {!! Form:: normalSelect('firma', "Firma", $errors, ['lujan' => 'Bioq. Ma. Luján Enciso Dacak', 'margarita' => 'Dra. Margarita Dacak']) !!}
+            {!! Form:: normalSelect('firma', "Firma", $errors, ['lujan' => 'Bioq. Ma. Luján Enciso Dacak', 'margarita' => 'Dra. Margarita Dacak', 'sin_firma' => 'Sin Firma']) !!}
           </div>
           <div class="col-md-12">
             {!! Form::normalInputOfType('password', 'passwordDescargar', 'Contraseña', $errors) !!}

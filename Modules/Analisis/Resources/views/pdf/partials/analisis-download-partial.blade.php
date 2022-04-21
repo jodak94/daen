@@ -259,18 +259,20 @@ if($firma == 'margarita'){
   $y2 = 1.2;
 }
 @endphp
-<div style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">
-  <img src="{{ public_path($img)}}" class='firma' width="100px"/>
-</div>
-@php
-  $y = $y + $y_acu + $y2;
-@endphp
-<div class="sello" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">
-  <b>{{$sello1}}</b>
-</div>
-@php
-  $y += 0.4;
-@endphp
-<div class="sello" style="position: absolute;left: {{ $x2}}cm;top: {{ $y }}cm">
-  <b>{{$sello2}}</b>
-</div>
+@if($firma != 'sin_firma')
+  <div style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">
+    <img src="{{ public_path($img)}}" class='firma' width="100px"/>
+  </div>
+  @php
+    $y = $y + $y_acu + $y2;
+  @endphp
+  <div class="sello" style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">
+    <b>{{$sello1}}</b>
+  </div>
+  @php
+    $y += 0.4;
+  @endphp
+  <div class="sello" style="position: absolute;left: {{ $x2}}cm;top: {{ $y }}cm">
+    <b>{{$sello2}}</b>
+  </div>
+@endif
