@@ -112,7 +112,7 @@
        let firma = $("select[name='firma']").val();
        let pass = $('#passwordDescargar').val();
        let id = $('#analisis_id').val();
-       if(pass == 'admdaen')
+       if(pass == 'admdaen' || firma == 'sin_firma')
         location.href = '{{route("admin.analisis.analisis.exportar")}}?action=download&analisis_id=' + id + '&firma=' + firma;
        else
          $.toast({
