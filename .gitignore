@@ -13,5 +13,4 @@ npm-debug.log
 yarn-error.log
 .idea/
 .php_cs.cache
-composer.lock
 node_modules/
