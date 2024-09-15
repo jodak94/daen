@@ -316,7 +316,8 @@ class AnalisisController extends AdminBaseController
             $firma = $request->firma;
             $pdf = PDF::loadView('analisis::pdf.analisis',compact('analisis','boxes','action', 'firma'));
             $pdf->setPaper('A4', 'portrait');
-            return $pdf->download('Analisis-'.$analisis->paciente->cedula.'.pdf');
+            $nombre_pdf = $analisis->paciente->nombre.'_'.$analisis->paciente->apellido;
+            return $pdf->download('Analisis-'.str_replace(' ', '_', $nombre_pdf).'.pdf');
         }else {
             if($action == 'print') {
                 $pdf = PDF::loadView('analisis::pdf.analisis',compact('analisis','boxes','action'));
