@@ -102,9 +102,6 @@
 
      $('.data-table').on('click', '.descargar', function(){
        let id = $(this).attr('analisis')
-       location.href = '{{route("admin.analisis.analisis.exportar")}}?action=download&analisis_id=' + id + '&firma=' + 'sin_firma';
-       return;
-       
        $("#analisis_id").val(id);
        $("#passwordDescargar").val('');
        $("#passwordDescargar").val('');
