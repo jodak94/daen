@@ -258,6 +258,13 @@ if($firma == 'margarita'){
   $x2 = $boxes->rango_referencia->x + 0.2;
   $y2 = 1.2;
 }
+if($firma == 'karen'){
+  $img = '/img/firma_karen_t.png';
+  $sello1 = 'Bioq. Karen Lopez Espinola';
+  $sello2 = 'Reg. Prof. Nº 4464';
+  $x2 = $boxes->rango_referencia->x + 0.2;
+  $y2 = 1.2;
+}
 @endphp
 @if($firma != 'sin_firma')
   <div style="position: absolute;left: {{ $boxes->rango_referencia->x }}cm;top: {{ $y }}cm">
