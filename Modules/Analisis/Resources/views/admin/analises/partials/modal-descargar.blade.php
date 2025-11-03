@@ -13,7 +13,7 @@
             {!! Form:: normalSelect('firma', "Firma", $errors, [
               'lujan' => 'Bioq. Ma. Luján Enciso Dacak', 
               'margarita' => 'Dra. Margarita Dacak', 
-              'karen' => 'Bioq. Karen Lopez Espinola'
+              'karen' => 'Bioq. Karen Lopez Espinola',
               'sin_firma' => 'Sin Firma']) !!}
           </div>
           <div class="col-md-12">
