@@ -2,6 +2,7 @@
 
 return [
     'list resource' => 'List informes',
+    'list reportes resource' => 'List reportes',
     'create resource' => 'Create informes',
     'edit resource' => 'Edit informes',
     'destroy resource' => 'Destroy informes',

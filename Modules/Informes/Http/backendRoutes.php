@@ -27,6 +27,22 @@ $router->group(['prefix' =>'/informes'], function (Router $router) {
         'uses' => 'InformeController@exportAnual',
         'middleware' => 'can:informes.informes.index'
     ]);
+
+    $router->get('reportes', [
+        'as' => 'admin.informes.reporte.index',
+        'uses' => 'ReporteController@index',
+        'middleware' => 'can:informes.reportes.index'
+    ]);
+    $router->get('reportes/pacientes-fuera-de-rango', [
+        'as' => 'admin.informes.reporte.pacientesFueraDeRango',
+        'uses' => 'ReporteController@pacientesFueraDeRango',
+        'middleware' => 'can:informes.reportes.index'
+    ]);
+    $router->get('reportes/pacientes-fuera-de-rango/pdf', [
+        'as' => 'admin.informes.reporte.pacientesFueraDeRangoPdf',
+        'uses' => 'ReporteController@pacientesFueraDeRangoPdf',
+        'middleware' => 'can:informes.reportes.index'
+    ]);
 // append
 
 });

@@ -15,6 +15,10 @@ class Resultado extends Model
       return $this->belongsTo('Modules\Analisis\Entities\Determinacion');
     }
 
+    public function analisis(){
+      return $this->belongsTo('Modules\Analisis\Entities\Analisis');
+    }
+
     public function getValorAttribute(){
       if(is_numeric($this->attributes['valor'])){
         $dec = 1;

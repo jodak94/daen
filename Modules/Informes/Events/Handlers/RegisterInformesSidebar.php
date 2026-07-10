@@ -46,6 +46,14 @@ class RegisterInformesSidebar implements \Maatwebsite\Sidebar\SidebarExtender
               );
 // append
           });
+          $group->item(trans('Reportes'), function (Item $item) {
+              $item->icon('fa fa-file-pdf-o');
+              $item->weight(12);
+              $item->route('admin.informes.reporte.index');
+              $item->authorize(
+                 $this->auth->hasAccess('informes.reportes.index')
+              );
+          });
       });
 
         return $menu;
