@@ -32,4 +32,18 @@ class Resultado extends Model
 
       return $this->attributes['valor'];
     }
+
+    //Formato Paraguay para el PDF de impresion: punto para miles, coma para decimales
+    public function getValorImpresionAttribute(){
+      if(is_numeric($this->attributes['valor'])){
+        $dec = $this->determinacion->cantidad_decimales;
+        $valor = number_format($this->attributes['valor'], $dec, ',', '.');
+        if($dec == 1)
+          $valor = preg_replace('/,0$/', '', $valor);
+
+        return $valor;
+      }
+
+      return $this->attributes['valor'];
+    }
 }
