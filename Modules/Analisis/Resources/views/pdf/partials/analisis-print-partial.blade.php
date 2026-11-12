@@ -136,7 +136,7 @@
   @else
     @if($resultado->determinacion->multiples_lineas)
       @php
-        $valores = explode('<br />', nl2br($resultado->valor_impresion, '\n'));
+        $valores = explode('<br />', nl2br($resultado->valor, '\n'));
       @endphp
       @if($y + (count($valores) + 1 ) * $y_acu >= $bottom_limit - 0.5)
         <div style="page-break-after: always;"></div>
@@ -176,7 +176,7 @@
            @if(strpos($resultado->determinacion->titulo, 'SARS-CoV-2')  !== false)
              <span style="font-size: 13px">{{$resultado->valor}}</span>
            @else
-             {{is_numeric(str_replace (',', '', $resultado->getAttributes()['valor'])) ? $resultado->valor_impresion . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor_impresion}}
+             {{is_numeric(str_replace (',', '', $resultado->valor)) ? $resultado->valor . ' ' . $resultado->determinacion->unidad_medida : $resultado->valor}}
            @endif
          @endif
        </div>

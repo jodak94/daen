@@ -310,9 +310,6 @@ class AnalisisController extends AdminBaseController
 
     public function export_to_pdf(Request $request) {
         $analisis = Analisis::find($request->analisis_id);
-        //Al editar un analisis se crea uno nuevo y se borra el anterior, los links con el id viejo ya no sirven
-        if(!$analisis)
-          abort(404, 'El análisis no existe o fue modificado. Actualice la página e intente de nuevo.');
         $action = $request->action;
         $boxes = $this->obtener_boxes($action);
         if($action == 'download') {
