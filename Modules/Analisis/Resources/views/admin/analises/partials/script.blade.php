@@ -249,7 +249,7 @@
         idh = det.titulo.split('.').join('').toLowerCase();
       if(subTitulo == 'Formula Leucocitaria Relativa')
         clh = 'checkFormulaLeuco leucoError'
-      if(det.titulo == 'Glóbulos Rojos' || det.titulo == 'Glóbulos Blancos' || det.titulo == 'Recuento de Plaquetas')
+      if(det.titulo == 'Glóbulos Rojos' || det.titulo == 'Glóbulos Blancos' || det.titulo == 'Recuento de Plaquetas' || det.titulo == 'Vitamina B12' )
         clh += 'number_format'
       if(clh == '')
         clh = null;
